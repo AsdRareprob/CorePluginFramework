@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">AppFramework</string>
+
+    <!--Iap String constants-->
+    <string name="premium_offers">Premium offers</string>
+    <string name="billing_info"> By tapping Continue, your payment will be charged to your Google Play account, and your subscription will automatically renew for the same package length at the same price until you cancel in settings in the Google play store. By tapping Continue button, you agree to our terms.</string>
+    <string name="remove_ads">Try Premium version and Remove Ad</string>
+    <string name="made_in_india">Made in India</string>
+    <string name="recuringanytime">Recurring billing, cancel anytime.</string>
+    <string name="recuringanytime_with_trial">3 Day Free Trial</string>
+
+    <!--Iap subscription string constants-->
+
+    <string name="themes_title">Themes</string>
+    <string name="themes_description">20+ premium themes to modify your app.
+    "\n"Personalize the look and feel of your app.
+    "\n"Reduce eye strain with the use of gradient or dark mode themes.</string>
+
+    <string name="trash_title">Trash</string>
+    <string name="trash_description">Easily delete unwanted files like photos or videos.
+    "\n"Keeps your storage space organized and clutter-free.
+    "\n"Prevents accidentally deleted files by providing a safety net.</string>
+
+    <string name="ad_free_title">Ad-free</string>
+    <string name="ad_free_description">Enjoy prime features without any disturbing ads.
+    "\n"Speeds up page loading time and improves overall performance.
+    "\n"Reduce data usage and potentially save your mobile data.</string>
+
+    <string name="crop_title">Crop</string>
+    <string name="crop_description">Adjust the size and aspect ratio of images or videos.
+    "\n"Improve composition and remove unwanted elements from a photo or video.
+    "\n"Saves storage space by reducing the file size of large images or videos.</string>
+
+    <string name="lyrics_title">Lyrics</string>
+    <string name="lyrics_description">Unlimited music playback with online lyrics
+    "\n"Easily follow along with the words to your favorite songs.
+    "\n"Boost your online and offline music experience.</string>
+
+    <string name="filter_duplicate_title">Filter duplicate</string>
+    <string name="filter_duplicate_description">Unlimited usage for a lifetime to secure your device from duplicate files
+    "\n"Helps you save time, and avoid confusion by identifying &amp; removing duplicate files
+    "\n"Reduces the amount of storage space needed by eliminating unwanted copies of files.</string>
+
+
+    <!--Fonts-->
+    <string name="text_1_path" translatable="false">fonts/OpenSans-Regular.ttf</string>
+    <string name="text_2_path" translatable="false">fonts/OpenSans-SemiBold.ttf</string>
+
+</resources>

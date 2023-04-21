@@ -1,0 +1,46 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.rareprob.core_pulgin" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="21"
+6-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml
+7        android:targetSdkVersion="31" />
+7-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml
+8
+9    <uses-permission android:name="android.permission.INTERNET" />
+9-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:5:5-67
+9-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:5:22-64
+10    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+10-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:6:5-79
+10-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:6:22-76
+11    <uses-permission android:name="android.permission.WAKE_LOCK" />
+11-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:7:5-68
+11-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:7:22-65
+12
+13    <!-- Required only if your app needs to access in app products (IAP) -->
+14    <uses-permission android:name="com.android.vending.BILLING" />
+14-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:10:5-67
+14-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:10:22-64
+15
+16    <!-- <application android:name=".core.base.BaseApplication"> -->
+17    <application>
+17-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:13:5-26:19
+18
+19        <!-- Core Plugin test components registration begins -->
+20        <activity
+20-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:16:9-21:15
+21            android:name="com.rareprob.core_pulgin.payment.in_app_purchase.presentation.IapBillingActivity"
+21-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:17:13-84
+22            android:label="IAP_Test"
+22-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:18:13-37
+23            android:screenOrientation="portrait"
+23-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:19:13-49
+24            android:theme="@style/Theme.AppFramework.Xml.Based" />
+24-->/Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:20:13-64
+25
+26        <!-- Core Plugin test components registration ends -->
+27
+28    </application>
+29
+30</manifest>
