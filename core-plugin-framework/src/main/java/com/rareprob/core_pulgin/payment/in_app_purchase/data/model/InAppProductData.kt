@@ -12,6 +12,8 @@ data class InAppProductData(
     var productName: String,
     var active: String,
     var isPurchased: Boolean,
-    var sortSequence: Int
+    var sortSequence: Int,
+    var startDate : Long,
+    var endDate : Long
 )
 

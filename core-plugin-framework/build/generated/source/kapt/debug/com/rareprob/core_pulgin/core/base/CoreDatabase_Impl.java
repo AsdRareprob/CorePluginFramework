@@ -35,9 +35,9 @@ public final class CoreDatabase_Impl extends CoreDatabase {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(SupportSQLiteDatabase _db) {
-        _db.execSQL("CREATE TABLE IF NOT EXISTS `InAppPurchaseEntity` (`appId` TEXT NOT NULL, `productId` TEXT NOT NULL, `productType` TEXT NOT NULL, `productName` TEXT NOT NULL, `active` TEXT NOT NULL, `isPurchased` INTEGER NOT NULL, `sortSequence` INTEGER NOT NULL, PRIMARY KEY(`appId`, `productId`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `InAppPurchaseEntity` (`appId` TEXT NOT NULL, `productId` TEXT NOT NULL, `productType` TEXT NOT NULL, `productName` TEXT NOT NULL, `active` TEXT NOT NULL, `isPurchased` INTEGER NOT NULL, `sortSequence` INTEGER NOT NULL, `startDate` INTEGER NOT NULL, `endDate` INTEGER NOT NULL, PRIMARY KEY(`appId`, `productId`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3dccf266e8d56bc5fadb857010741049')");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f2acad8e472a1a2447c3187a904f039')");
       }
 
       @Override
@@ -81,7 +81,7 @@ public final class CoreDatabase_Impl extends CoreDatabase {
 
       @Override
       protected RoomOpenHelper.ValidationResult onValidateSchema(SupportSQLiteDatabase _db) {
-        final HashMap<String, TableInfo.Column> _columnsInAppPurchaseEntity = new HashMap<String, TableInfo.Column>(7);
+        final HashMap<String, TableInfo.Column> _columnsInAppPurchaseEntity = new HashMap<String, TableInfo.Column>(9);
         _columnsInAppPurchaseEntity.put("appId", new TableInfo.Column("appId", "TEXT", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsInAppPurchaseEntity.put("productId", new TableInfo.Column("productId", "TEXT", true, 2, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsInAppPurchaseEntity.put("productType", new TableInfo.Column("productType", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -89,6 +89,8 @@ public final class CoreDatabase_Impl extends CoreDatabase {
         _columnsInAppPurchaseEntity.put("active", new TableInfo.Column("active", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsInAppPurchaseEntity.put("isPurchased", new TableInfo.Column("isPurchased", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsInAppPurchaseEntity.put("sortSequence", new TableInfo.Column("sortSequence", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInAppPurchaseEntity.put("startDate", new TableInfo.Column("startDate", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInAppPurchaseEntity.put("endDate", new TableInfo.Column("endDate", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysInAppPurchaseEntity = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesInAppPurchaseEntity = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoInAppPurchaseEntity = new TableInfo("InAppPurchaseEntity", _columnsInAppPurchaseEntity, _foreignKeysInAppPurchaseEntity, _indicesInAppPurchaseEntity);
@@ -100,7 +102,7 @@ public final class CoreDatabase_Impl extends CoreDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "3dccf266e8d56bc5fadb857010741049", "e4c3ba2a09f7137a5b5964866011d659");
+    }, "5f2acad8e472a1a2447c3187a904f039", "40d49e6f7c211a7335ccba469ade5b15");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)

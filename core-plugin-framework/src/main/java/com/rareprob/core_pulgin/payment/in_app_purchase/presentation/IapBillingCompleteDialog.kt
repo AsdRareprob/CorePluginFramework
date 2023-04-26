@@ -2,19 +2,15 @@ package com.rareprob.core_pulgin.payment.in_app_purchase.presentation
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import android.widget.TextView
-import android.window.SplashScreen
 import com.rareprob.core_pulgin.R
 import com.rareprob.core_pulgin.core.base.extention.FONT
 import com.rareprob.core_pulgin.core.base.extention.setOnTouchAnimationListener
 import com.rareprob.core_pulgin.core.base.extention.setTextFont
-import com.rareprob.core_pulgin.core.utils.CoreUtils
 
 
 class IapBillingCompleteDialog(val activity: Activity, val callbackListener: () -> Unit) :

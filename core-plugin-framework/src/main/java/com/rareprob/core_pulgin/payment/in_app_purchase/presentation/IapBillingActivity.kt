@@ -17,6 +17,7 @@ import com.rareprob.core_pulgin.core.base.CoreBaseActivity
 import com.rareprob.core_pulgin.core.base.extention.FONT
 import com.rareprob.core_pulgin.core.base.extention.setTextFont
 import com.rareprob.core_pulgin.core.base.extention.show
+import com.rareprob.core_pulgin.payment.FeatureInfo
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.InAppProductData
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.ProductListingData
 import dagger.hilt.android.AndroidEntryPoint

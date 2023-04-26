@@ -11,7 +11,10 @@ data class InAppPurchaseEntity(
     var productName: String = "",
     var active: String = "",
     var isPurchased: Boolean = false,
-    var sortSequence: Int
+    var sortSequence: Int,
+    var startDate : Long = 0L,
+    var endDate : Long = 0L
+
 ) {
     fun toInAppProductData(): InAppProductData {
         return InAppProductData(
@@ -21,7 +24,10 @@ data class InAppPurchaseEntity(
             productName = productName,
             active = active,
             isPurchased = isPurchased,
-            sortSequence = sortSequence
+            sortSequence = sortSequence,
+            startDate = startDate,
+            endDate = endDate
+
         )
     }
 }

@@ -9,10 +9,14 @@ import androidx.annotation.NonNull
 import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
 import com.rareprob.core_pulgin.core.base.CoreDatabase
+import com.rareprob.core_pulgin.core.utils.AppPreferences
+import com.rareprob.core_pulgin.core.utils.AppUtils
+import com.rareprob.core_pulgin.payment.in_app_purchase.IapBillingConstants
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.local.IapBillingDao
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.InAppProductData
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.local.entity.InAppPurchaseEntity
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.ProductListingData
+import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.PurchaseRestoreState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,6 +50,10 @@ class IapBillingClientWrapper(
     // Set to true when a purchase is acknowledged and false when not.
     private val _isNewPurchaseAcknowledged = MutableStateFlow(value = false)
     val isNewPurchaseAcknowledged = _isNewPurchaseAcknowledged.asStateFlow()
+
+    private val _isPurchasedRestored = MutableStateFlow(value = PurchaseRestoreState.LOADING)
+    val isPurchasedRestored = _isPurchasedRestored.asStateFlow()
+
 
 //    private var _purchasedProductItemList =
 //    MutableStateFlow<List<InAppProductData>>(listOf())
@@ -327,7 +335,6 @@ class IapBillingClientWrapper(
             updateProductPurchaseStatus(p1)
         }
 
-
         billingClient.queryPurchaseHistoryAsync(
             subscriptionTypeParams.build()
         ) { p0, p1 ->
@@ -354,21 +361,20 @@ class IapBillingClientWrapper(
                 inAppPurchaseDao.update(
                     inAppPurchaseEntity
                 )
+                val appSpecificKey =
+                    context.packageName + "-"+ IapBillingConstants.PREMIUM_USER_PREFS_KEY
+                AppPreferences.putBoolean(appSpecificKey, true)
             }
         }
     }
 
     private fun updateProductPurchaseStatus(p1: MutableList<PurchaseHistoryRecord>?) {
-        val inAppPurchaseDao = coreDatabase?.inAppPurchaseDao
         p1?.let {
-            if (it.isEmpty())
-                return
+            val inAppPurchaseDao = coreDatabase?.inAppPurchaseDao
             it.forEach { purchaseHistoryRecord ->
                 purchaseHistoryRecord.products.forEach {
                     CoroutineScope(Dispatchers.Unconfined).launch {
-
                         persistPurchasedProduct(it)
-
                         var purchasedItemsList =
                             inAppPurchaseDao.getInAppPurchases(context.packageName).map {
                                 it.toInAppProductData()
@@ -378,12 +384,15 @@ class IapBillingClientWrapper(
                             it.productId
                         }
                         _purchasedProductMap.value = productMap
-
                     }
                 }
             }
         }
-
+            if(AppUtils.isPremiumUser()) {
+                _isPurchasedRestored.value = PurchaseRestoreState.SUCCESS
+            }else{
+                _isPurchasedRestored.value = PurchaseRestoreState.FAIL
+            }
     }
 
 }

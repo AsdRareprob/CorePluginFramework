@@ -11,9 +11,11 @@ import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.rareprob.core_pulgin.core.base.CoreDatabase
+import com.rareprob.core_pulgin.core.utils.AppPreferences
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.MainState
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.ProductListingData
 import com.rareprob.core_pulgin.core.utils.Resource
+import com.rareprob.core_pulgin.payment.in_app_purchase.IapBillingConstants
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.InAppProductData
 import com.rareprob.core_pulgin.payment.in_app_purchase.domain.repository.IapBillingDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -149,6 +151,9 @@ class IapBillingViewModel @Inject constructor(
 
     private val _isPremiumUserFlow = MutableStateFlow(false)
     val isPremiumUserFlow =_isPremiumUserFlow.asStateFlow()
+
+    val isPurchasedRestored = billingClient.isPurchasedRestored
+
     fun isPremiumUser() {
         viewModelScope.launch {
             val inAppPurchaseDao = coreDatabase?.inAppPurchaseDao
@@ -411,6 +416,7 @@ class IapBillingViewModel @Inject constructor(
 
     fun persistRecentlyPurchasedProduct(purchasedProductId: String){
         viewModelScope.launch {
+            _isPremiumUserFlow.value = true
             billingClient.persistPurchasedProduct(purchasedProductId)
         }
     }

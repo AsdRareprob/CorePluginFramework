@@ -39,7 +39,7 @@ public final class IapBillingDao_Impl implements IapBillingDao {
     this.__insertionAdapterOfInAppPurchaseEntity = new EntityInsertionAdapter<InAppPurchaseEntity>(__db) {
       @Override
       public String createQuery() {
-        return "INSERT OR REPLACE INTO `InAppPurchaseEntity` (`appId`,`productId`,`productType`,`productName`,`active`,`isPurchased`,`sortSequence`) VALUES (?,?,?,?,?,?,?)";
+        return "INSERT OR REPLACE INTO `InAppPurchaseEntity` (`appId`,`productId`,`productType`,`productName`,`active`,`isPurchased`,`sortSequence`,`startDate`,`endDate`) VALUES (?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -73,6 +73,8 @@ public final class IapBillingDao_Impl implements IapBillingDao {
         _tmp = value.isPurchased() ? 1 : 0;
         stmt.bindLong(6, _tmp);
         stmt.bindLong(7, value.getSortSequence());
+        stmt.bindLong(8, value.getStartDate());
+        stmt.bindLong(9, value.getEndDate());
       }
     };
     this.__deletionAdapterOfInAppPurchaseEntity = new EntityDeletionOrUpdateAdapter<InAppPurchaseEntity>(__db) {
@@ -98,7 +100,7 @@ public final class IapBillingDao_Impl implements IapBillingDao {
     this.__updateAdapterOfInAppPurchaseEntity = new EntityDeletionOrUpdateAdapter<InAppPurchaseEntity>(__db) {
       @Override
       public String createQuery() {
-        return "UPDATE OR ABORT `InAppPurchaseEntity` SET `appId` = ?,`productId` = ?,`productType` = ?,`productName` = ?,`active` = ?,`isPurchased` = ?,`sortSequence` = ? WHERE `appId` = ? AND `productId` = ?";
+        return "UPDATE OR ABORT `InAppPurchaseEntity` SET `appId` = ?,`productId` = ?,`productType` = ?,`productName` = ?,`active` = ?,`isPurchased` = ?,`sortSequence` = ?,`startDate` = ?,`endDate` = ? WHERE `appId` = ? AND `productId` = ?";
       }
 
       @Override
@@ -132,15 +134,17 @@ public final class IapBillingDao_Impl implements IapBillingDao {
         _tmp = value.isPurchased() ? 1 : 0;
         stmt.bindLong(6, _tmp);
         stmt.bindLong(7, value.getSortSequence());
+        stmt.bindLong(8, value.getStartDate());
+        stmt.bindLong(9, value.getEndDate());
         if (value.getAppId() == null) {
-          stmt.bindNull(8);
+          stmt.bindNull(10);
         } else {
-          stmt.bindString(8, value.getAppId());
+          stmt.bindString(10, value.getAppId());
         }
         if (value.getProductId() == null) {
-          stmt.bindNull(9);
+          stmt.bindNull(11);
         } else {
-          stmt.bindString(9, value.getProductId());
+          stmt.bindString(11, value.getProductId());
         }
       }
     };
@@ -242,6 +246,8 @@ public final class IapBillingDao_Impl implements IapBillingDao {
           final int _cursorIndexOfActive = CursorUtil.getColumnIndexOrThrow(_cursor, "active");
           final int _cursorIndexOfIsPurchased = CursorUtil.getColumnIndexOrThrow(_cursor, "isPurchased");
           final int _cursorIndexOfSortSequence = CursorUtil.getColumnIndexOrThrow(_cursor, "sortSequence");
+          final int _cursorIndexOfStartDate = CursorUtil.getColumnIndexOrThrow(_cursor, "startDate");
+          final int _cursorIndexOfEndDate = CursorUtil.getColumnIndexOrThrow(_cursor, "endDate");
           final List<InAppPurchaseEntity> _result = new ArrayList<InAppPurchaseEntity>(_cursor.getCount());
           while(_cursor.moveToNext()) {
             final InAppPurchaseEntity _item;
@@ -281,7 +287,11 @@ public final class IapBillingDao_Impl implements IapBillingDao {
             _tmpIsPurchased = _tmp != 0;
             final int _tmpSortSequence;
             _tmpSortSequence = _cursor.getInt(_cursorIndexOfSortSequence);
-            _item = new InAppPurchaseEntity(_tmpAppId,_tmpProductId,_tmpProductType,_tmpProductName,_tmpActive,_tmpIsPurchased,_tmpSortSequence);
+            final long _tmpStartDate;
+            _tmpStartDate = _cursor.getLong(_cursorIndexOfStartDate);
+            final long _tmpEndDate;
+            _tmpEndDate = _cursor.getLong(_cursorIndexOfEndDate);
+            _item = new InAppPurchaseEntity(_tmpAppId,_tmpProductId,_tmpProductType,_tmpProductName,_tmpActive,_tmpIsPurchased,_tmpSortSequence,_tmpStartDate,_tmpEndDate);
             _result.add(_item);
           }
           return _result;
@@ -323,6 +333,8 @@ public final class IapBillingDao_Impl implements IapBillingDao {
           final int _cursorIndexOfActive = CursorUtil.getColumnIndexOrThrow(_cursor, "active");
           final int _cursorIndexOfIsPurchased = CursorUtil.getColumnIndexOrThrow(_cursor, "isPurchased");
           final int _cursorIndexOfSortSequence = CursorUtil.getColumnIndexOrThrow(_cursor, "sortSequence");
+          final int _cursorIndexOfStartDate = CursorUtil.getColumnIndexOrThrow(_cursor, "startDate");
+          final int _cursorIndexOfEndDate = CursorUtil.getColumnIndexOrThrow(_cursor, "endDate");
           final InAppPurchaseEntity _result;
           if(_cursor.moveToFirst()) {
             final String _tmpAppId;
@@ -361,7 +373,11 @@ public final class IapBillingDao_Impl implements IapBillingDao {
             _tmpIsPurchased = _tmp != 0;
             final int _tmpSortSequence;
             _tmpSortSequence = _cursor.getInt(_cursorIndexOfSortSequence);
-            _result = new InAppPurchaseEntity(_tmpAppId,_tmpProductId,_tmpProductType,_tmpProductName,_tmpActive,_tmpIsPurchased,_tmpSortSequence);
+            final long _tmpStartDate;
+            _tmpStartDate = _cursor.getLong(_cursorIndexOfStartDate);
+            final long _tmpEndDate;
+            _tmpEndDate = _cursor.getLong(_cursorIndexOfEndDate);
+            _result = new InAppPurchaseEntity(_tmpAppId,_tmpProductId,_tmpProductType,_tmpProductName,_tmpActive,_tmpIsPurchased,_tmpSortSequence,_tmpStartDate,_tmpEndDate);
           } else {
             _result = null;
           }
@@ -408,6 +424,8 @@ public final class IapBillingDao_Impl implements IapBillingDao {
           final int _cursorIndexOfActive = CursorUtil.getColumnIndexOrThrow(_cursor, "active");
           final int _cursorIndexOfIsPurchased = CursorUtil.getColumnIndexOrThrow(_cursor, "isPurchased");
           final int _cursorIndexOfSortSequence = CursorUtil.getColumnIndexOrThrow(_cursor, "sortSequence");
+          final int _cursorIndexOfStartDate = CursorUtil.getColumnIndexOrThrow(_cursor, "startDate");
+          final int _cursorIndexOfEndDate = CursorUtil.getColumnIndexOrThrow(_cursor, "endDate");
           final List<InAppPurchaseEntity> _result = new ArrayList<InAppPurchaseEntity>(_cursor.getCount());
           while(_cursor.moveToNext()) {
             final InAppPurchaseEntity _item;
@@ -447,7 +465,11 @@ public final class IapBillingDao_Impl implements IapBillingDao {
             _tmpIsPurchased = _tmp_1 != 0;
             final int _tmpSortSequence;
             _tmpSortSequence = _cursor.getInt(_cursorIndexOfSortSequence);
-            _item = new InAppPurchaseEntity(_tmpAppId,_tmpProductId,_tmpProductType,_tmpProductName,_tmpActive,_tmpIsPurchased,_tmpSortSequence);
+            final long _tmpStartDate;
+            _tmpStartDate = _cursor.getLong(_cursorIndexOfStartDate);
+            final long _tmpEndDate;
+            _tmpEndDate = _cursor.getLong(_cursorIndexOfEndDate);
+            _item = new InAppPurchaseEntity(_tmpAppId,_tmpProductId,_tmpProductType,_tmpProductName,_tmpActive,_tmpIsPurchased,_tmpSortSequence,_tmpStartDate,_tmpEndDate);
             _result.add(_item);
           }
           return _result;

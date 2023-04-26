@@ -1,8 +1,8 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-28:12
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-39:12
+INJECTED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-39:12
+INJECTED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-39:12
 	package
 		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:3:5-39
 		INJECTED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml
@@ -26,17 +26,27 @@ ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/cor
 	android:name
 		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:10:22-64
 application
-ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:13:5-26:19
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:13:5-37:19
 activity#com.rareprob.core_pulgin.payment.in_app_purchase.presentation.IapBillingActivity
-ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:16:9-21:15
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:18:9-23:15
 	android:screenOrientation
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:19:13-49
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:21:13-49
 	android:label
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:18:13-37
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:20:13-41
 	android:theme
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:20:13-64
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:22:13-64
 	android:name
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:17:13-84
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:19:13-84
+activity#com.rareprob.core_pulgin.payment.in_app_purchase.presentation.IapBillingPurchaseRestoreActivity
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:25:9-30:15
+	android:screenOrientation
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:28:13-49
+	android:label
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:27:13-40
+	android:theme
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:29:13-64
+	android:name
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:26:13-99
 uses-sdk
 INJECTED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/kuwarpalsingh/Desktop/Apps/filemanager/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml

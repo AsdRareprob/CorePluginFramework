@@ -46,4 +46,23 @@
     <string name="text_1_path" translatable="false">fonts/OpenSans-Regular.ttf</string>
     <string name="text_2_path" translatable="false">fonts/OpenSans-SemiBold.ttf</string>
 
+    <string name="premium_text">Premium features are awaiting !
+    \nUnlock the premium experience
+    </string>
+
+    <string name="restore_purchase">Restoring your purchase…</string>
+
+    <string name="restore_purchase_success">Successfully restored!
+    \nGlad to see you as a Premium user</string>
+
+    <string name="restore_purchase_error">Oops Sorry!
+    \nYou\'ve not upgraded to premium version yet</string>
+
+    <string name="continue_purchase">Continue</string>
+    <string name="go_premium">Go Premium</string>
+
+
+
+
+
 </resources>
