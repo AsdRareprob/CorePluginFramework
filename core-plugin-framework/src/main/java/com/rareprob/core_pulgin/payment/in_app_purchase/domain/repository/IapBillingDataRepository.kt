@@ -65,8 +65,6 @@ class IapBillingDataRepository(
                         sortSequence = productDataItem.sortSequence
                     )
                     inAppPurchaseDao.insert(inAppPurchaseEntity)
-                    // val list = inAppPurchaseDao.getInAppPurchases()
-                    //Log.d("fdfd", "dfd " + list.size)
                 }
 
                 emit(Resource.Success(dataList))

@@ -14,10 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.rareprob.core_pulgin.R
 import com.rareprob.core_pulgin.core.base.CoreBaseActivity
-import com.rareprob.core_pulgin.core.base.extention.FONT
-import com.rareprob.core_pulgin.core.base.extention.hide
-import com.rareprob.core_pulgin.core.base.extention.setTextFont
-import com.rareprob.core_pulgin.core.base.extention.show
+import com.rareprob.core_pulgin.core.base.NetworkUtils
+import com.rareprob.core_pulgin.core.base.extention.*
 import com.rareprob.core_pulgin.core.utils.AppUtils
 import com.rareprob.core_pulgin.payment.FeatureInfo
 import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.InAppProductData
@@ -86,26 +84,33 @@ class IapBillingPurchaseRestoreActivity : CoreBaseActivity() {
     }
 
     private fun setupDataList() {
-        viewModel.getInAppPacksFromRc(params.defaultLocalPackJson)
+        if (NetworkUtils.isDeviceOnline(this).not()) {
+            runOnUiThread(Runnable {
+                showToast(NetworkUtils.NO_NETWORK_MESSAGE)
+            })
+            return
+        } else {
+            viewModel.getInAppPacksFromRc(params.defaultLocalPackJson, true)
 
-        lifecycleScope.launch() {
-            withContext(Dispatchers.Main) {
-                viewModel.productsForSaleFlows.collect {
-                    productDataList = it
-                    //Get Already owned products
-                    viewModel.getPurchasedItemsList()
+            lifecycleScope.launch() {
+                withContext(Dispatchers.Main) {
+                    viewModel.productsForSaleFlows.collect {
+                        productDataList = it
+                        //Get Already owned products
+                        viewModel.getPurchasedItemsList()
+                    }
                 }
             }
-        }
 
-        lifecycleScope.launch() {
-            viewModel.isPurchasedRestored.collect {
-                when(it){
-                    PurchaseRestoreState.SUCCESS ->{
-                        onSuccessPurchaseRestore()
-                    }
-                    PurchaseRestoreState.FAIL ->{
-                        onFailurePurchaseRestore()
+            lifecycleScope.launch() {
+                viewModel.isPurchasedRestored.collect {
+                    when (it) {
+                        PurchaseRestoreState.SUCCESS -> {
+                           onSuccessPurchaseRestore()
+                        }
+                        PurchaseRestoreState.FAIL -> {
+                            onFailurePurchaseRestore()
+                        }
                     }
                 }
             }
@@ -124,6 +129,10 @@ class IapBillingPurchaseRestoreActivity : CoreBaseActivity() {
     }
 
     private fun onFailurePurchaseRestore() {
+        if (NetworkUtils.isDeviceOnline(this).not()) {
+            showToast(NetworkUtils.NO_NETWORK_MESSAGE)
+            return
+        }
         runOnUiThread(Runnable {
             btnDone.show()
             btnDone.text = resources.getString(R.string.go_premium)

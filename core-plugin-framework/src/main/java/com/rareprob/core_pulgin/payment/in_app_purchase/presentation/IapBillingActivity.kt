@@ -128,7 +128,7 @@ class IapBillingActivity : CoreBaseActivity(), OnClickListener,
 
 
     private fun setupDataList() {
-        viewModel.getInAppPacksFromRc(params.defaultLocalPackJson)
+        viewModel.getInAppPacksFromRc(params.defaultLocalPackJson,false)
 
         lifecycleScope.launch() {
             withContext(Dispatchers.Main) {
@@ -247,19 +247,18 @@ class IapBillingActivity : CoreBaseActivity(), OnClickListener,
                 }
                 FeatureInfo.LYRICS -> {
                     findViewById<LinearLayout>(R.id.llParentTrash).show()
-
                 }
                 FeatureInfo.CROP -> {
                     findViewById<LinearLayout>(R.id.llParentCrop).show()
-
                 }
                 FeatureInfo.FILTER_DUPLICATE -> {
                     findViewById<LinearLayout>(R.id.llParentFilterDuplicate).show()
-
                 }
                 FeatureInfo.THEME -> {
                     findViewById<LinearLayout>(R.id.llParentTheme).show()
-
+                }
+                FeatureInfo.UPCOMING -> {
+                    findViewById<LinearLayout>(R.id.llParentUpcoming).show()
                 }
             }
         }
@@ -281,7 +280,9 @@ class IapBillingActivity : CoreBaseActivity(), OnClickListener,
                     this,
                     R.drawable.ic_theme,
                     resources.getString(R.string.themes_title),
-                    resources.getString(R.string.themes_description)
+                    resources.getString(R.string.themes_description1),
+                    resources.getString(R.string.themes_description2),
+                    resources.getString(R.string.themes_description3)
                 )
             }
             findViewById<ImageView>(R.id.llNoAds).id -> {
@@ -289,7 +290,9 @@ class IapBillingActivity : CoreBaseActivity(), OnClickListener,
                     this,
                     R.drawable.ic_no_ads,
                     resources.getString(R.string.ad_free_title),
-                    resources.getString(R.string.ad_free_description)
+                    resources.getString(R.string.ad_free_description1),
+                    resources.getString(R.string.ad_free_description2),
+                    resources.getString(R.string.ad_free_description3)
                 )
             }
             findViewById<ImageView>(R.id.llTrash).id -> {
@@ -297,7 +300,9 @@ class IapBillingActivity : CoreBaseActivity(), OnClickListener,
                     this,
                     R.drawable.ic_trash,
                     resources.getString(R.string.trash_title),
-                    resources.getString(R.string.trash_description)
+                    resources.getString(R.string.trash_description1),
+                    resources.getString(R.string.trash_description2),
+                    resources.getString(R.string.trash_description3)
                 )
             }
             findViewById<ImageView>(R.id.llLyrics).id -> {
@@ -305,7 +310,9 @@ class IapBillingActivity : CoreBaseActivity(), OnClickListener,
                     this,
                     R.drawable.ic_music,
                     resources.getString(R.string.lyrics_title),
-                    resources.getString(R.string.lyrics_description)
+                    resources.getString(R.string.lyrics_description1),
+                    resources.getString(R.string.lyrics_description2),
+                    resources.getString(R.string.lyrics_description3)
                 )
             }
             findViewById<ImageView>(R.id.llCrop).id -> {
@@ -313,7 +320,9 @@ class IapBillingActivity : CoreBaseActivity(), OnClickListener,
                     this,
                     R.drawable.ic_crop,
                     resources.getString(R.string.crop_title),
-                    resources.getString(R.string.crop_description)
+                    resources.getString(R.string.crop_description1),
+                    resources.getString(R.string.crop_description2),
+                    resources.getString(R.string.crop_description3)
                 )
             }
             findViewById<ImageView>(R.id.llFilterDuplicate).id -> {
@@ -321,7 +330,20 @@ class IapBillingActivity : CoreBaseActivity(), OnClickListener,
                     this,
                     R.drawable.ic_filter_duplicate,
                     resources.getString(R.string.filter_duplicate_title),
-                    resources.getString(R.string.filter_duplicate_description)
+                    resources.getString(R.string.filter_duplicate_description1),
+                    resources.getString(R.string.filter_duplicate_description2),
+                    resources.getString(R.string.filter_duplicate_description3)
+                )
+            }
+
+            findViewById<ImageView>(R.id.ivUpcoming).id -> {
+                IapBillingInfoBottomSheet.show(
+                    this,
+                    R.drawable.ic_upcoming,
+                    resources.getString(R.string.upcoming_feature_title),
+                    resources.getString(R.string.upcoming_feature_description),
+                    ""
+                ,""
                 )
             }
         }

@@ -6,6 +6,7 @@ import android.widget.TextView
 
 interface FONT {
     companion object {
+        const val BOLD = "fonts/OpenSans-Bold.ttf"
         const val SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
         const val MEDIUM = "fonts/OpenSans-Regular.ttf"
 

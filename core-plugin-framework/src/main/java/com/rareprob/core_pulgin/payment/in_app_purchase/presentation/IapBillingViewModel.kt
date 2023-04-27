@@ -48,13 +48,17 @@ class IapBillingViewModel @Inject constructor(
     val eventFlow = _eventFlow.asSharedFlow()
 
     //Start the billing connection when the viewModel is initialized.
-    private fun startBillingConnection(rcProductItemList: List<ProductListingData> = emptyList()) {
+    private fun startBillingConnection(
+        isPurchaseRestoreCall: Boolean,
+        rcProductItemList: List<ProductListingData> = emptyList()
+    ) {
         if (rcProductItemList.isNullOrEmpty()) {
             //We can emit empty data list here //TODO KP
         } else {
             billingClient.startBillingConnection(
                 billingConnectionState = _billingConnectionState,
-                rcProductItemList = rcProductItemList
+                rcProductItemList = rcProductItemList,
+                isPurchaseRestoreCall = isPurchaseRestoreCall
             )
         }
     }
@@ -67,7 +71,10 @@ class IapBillingViewModel @Inject constructor(
         MutableStateFlow<List<ProductListingData>>(listOf())
     val rcProductItemList = _rcProductItemList.asStateFlow()
 
-    fun getInAppPacksFromRc(defaultLocalPackJson: String) {
+    fun getInAppPacksFromRc(
+        defaultLocalPackJson: String,
+        isPurchaseRestoreCall: Boolean
+    ) {
         viewModelScope.launch {
             repo.getInAppProducts(defaultLocalPackJson).onEach { result ->
                 when (result) {
@@ -77,7 +84,10 @@ class IapBillingViewModel @Inject constructor(
                             it.sortSequence
                         }
                         _rcProductItemList.value = productList
-                        startBillingConnection(_rcProductItemList.value)
+                        startBillingConnection(
+                            isPurchaseRestoreCall,
+                            _rcProductItemList.value
+                        )
                     }
                     is Resource.Error -> {
                         _eventFlow.emit(
@@ -150,7 +160,7 @@ class IapBillingViewModel @Inject constructor(
     val isNewPurchaseAcknowledged = billingClient.isNewPurchaseAcknowledged
 
     private val _isPremiumUserFlow = MutableStateFlow(false)
-    val isPremiumUserFlow =_isPremiumUserFlow.asStateFlow()
+    val isPremiumUserFlow = _isPremiumUserFlow.asStateFlow()
 
     val isPurchasedRestored = billingClient.isPurchasedRestored
 
@@ -158,8 +168,8 @@ class IapBillingViewModel @Inject constructor(
         viewModelScope.launch {
             val inAppPurchaseDao = coreDatabase?.inAppPurchaseDao
             if (inAppPurchaseDao != null) {
-                var purchasedItemsList  = inAppPurchaseDao.isPremiumUser(application.packageName)
-                _isPremiumUserFlow.value =  purchasedItemsList?.isNotEmpty()
+                var purchasedItemsList = inAppPurchaseDao.isPremiumUser(application.packageName)
+                _isPremiumUserFlow.value = purchasedItemsList?.isNotEmpty()
             }
         }
     }
@@ -414,12 +424,13 @@ class IapBillingViewModel @Inject constructor(
         billingClient.terminateBillingConnection()
     }
 
-    fun persistRecentlyPurchasedProduct(purchasedProductId: String){
+    fun persistRecentlyPurchasedProduct(purchasedProductId: String) {
         viewModelScope.launch {
             _isPremiumUserFlow.value = true
             billingClient.persistPurchasedProduct(purchasedProductId)
         }
     }
+
     /**
      * Enum representing the various screens a user can be redirected to.
      */

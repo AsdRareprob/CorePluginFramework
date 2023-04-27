@@ -2,7 +2,7 @@ package com.rareprob.core_pulgin.payment;
 
 import java.lang.System;
 
-@kotlin.Metadata(mv = {1, 6, 0}, k = 1, d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0010\u0010\n\u0002\b\n\b\u0086\u0001\u0018\u0000 \n2\b\u0012\u0004\u0012\u00020\u00000\u0001:\u0001\nB\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002j\u0002\b\u0003j\u0002\b\u0004j\u0002\b\u0005j\u0002\b\u0006j\u0002\b\u0007j\u0002\b\bj\u0002\b\t\u00a8\u0006\u000b"}, d2 = {"Lcom/rareprob/core_pulgin/payment/FeatureInfo;", "", "(Ljava/lang/String;I)V", "THEME", "NO_ADS", "TRASH", "LYRICS", "CROP", "FILTER_DUPLICATE", "NONE", "Companion", "core-plugin-framework_debug"})
+@kotlin.Metadata(mv = {1, 6, 0}, k = 1, d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0010\u0010\n\u0002\b\u000b\b\u0086\u0001\u0018\u0000 \u000b2\b\u0012\u0004\u0012\u00020\u00000\u0001:\u0001\u000bB\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002j\u0002\b\u0003j\u0002\b\u0004j\u0002\b\u0005j\u0002\b\u0006j\u0002\b\u0007j\u0002\b\bj\u0002\b\tj\u0002\b\n\u00a8\u0006\f"}, d2 = {"Lcom/rareprob/core_pulgin/payment/FeatureInfo;", "", "(Ljava/lang/String;I)V", "THEME", "NO_ADS", "TRASH", "LYRICS", "CROP", "FILTER_DUPLICATE", "UPCOMING", "NONE", "Companion", "core-plugin-framework_debug"})
 public enum FeatureInfo {
     /*public static final*/ THEME /* = new THEME() */,
     /*public static final*/ NO_ADS /* = new NO_ADS() */,
@@ -10,6 +10,7 @@ public enum FeatureInfo {
     /*public static final*/ LYRICS /* = new LYRICS() */,
     /*public static final*/ CROP /* = new CROP() */,
     /*public static final*/ FILTER_DUPLICATE /* = new FILTER_DUPLICATE() */,
+    /*public static final*/ UPCOMING /* = new UPCOMING() */,
     /*public static final*/ NONE /* = new NONE() */;
     @org.jetbrains.annotations.NotNull()
     public static final com.rareprob.core_pulgin.payment.FeatureInfo.Companion Companion = null;

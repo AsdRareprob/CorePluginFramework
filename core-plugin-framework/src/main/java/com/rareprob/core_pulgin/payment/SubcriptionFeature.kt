@@ -11,6 +11,7 @@ enum class FeatureInfo() {
     LYRICS,
     CROP,
     FILTER_DUPLICATE,
+    UPCOMING,
     NONE;
 
     companion object {
@@ -21,7 +22,7 @@ enum class FeatureInfo() {
                 RareprobAppsInfo.FILE_MANAGER -> {
 //                    appFeatures.add(THEME)
                     appFeatures.add(NO_ADS)
-//                    appFeatures.add(TRASH)
+                    appFeatures.add(UPCOMING)
                 }
             }
             return appFeatures

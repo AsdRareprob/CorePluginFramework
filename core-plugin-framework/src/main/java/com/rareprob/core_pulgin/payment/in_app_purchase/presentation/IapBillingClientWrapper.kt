@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 
 class IapBillingClientWrapper(
     private val context: Context,
-    private val coreDatabase: CoreDatabase
+    private val coreDatabase: CoreDatabase,
 ) : PurchasesUpdatedListener, ProductDetailsResponseListener {
 
     private val TAG = "BillingClient"
@@ -70,15 +70,14 @@ class IapBillingClientWrapper(
     // Establish a connection to Google Play.
     fun startBillingConnection(
         billingConnectionState: MutableLiveData<Boolean>,
-        rcProductItemList: List<ProductListingData>
+        rcProductItemList: List<ProductListingData>,
+        isPurchaseRestoreCall:Boolean
     ) {
         this.rcProductItemList = rcProductItemList
         // to get the product type list
         var inAppTypeSkuItemList: ArrayList<String> = ArrayList()
         var subscriptionTypeSkuItemList: ArrayList<String> = ArrayList()
         prepareProductIdsList(rcProductItemList, inAppTypeSkuItemList, subscriptionTypeSkuItemList)
-
-
 
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
@@ -88,6 +87,7 @@ class IapBillingClientWrapper(
                     queryProductDetails(BillingClient.ProductType.SUBS, subscriptionTypeSkuItemList)
                     queryProductDetails(BillingClient.ProductType.INAPP, inAppTypeSkuItemList)
                     billingConnectionState.postValue(true)
+                   if(isPurchaseRestoreCall)
                     restorePurchase()
                 } else {
                     Log.e(TAG, billingResult.debugMessage)
@@ -96,7 +96,7 @@ class IapBillingClientWrapper(
 
             override fun onBillingServiceDisconnected() {
                 Log.i(TAG, "Billing connection disconnected")
-                startBillingConnection(billingConnectionState, emptyList())
+                startBillingConnection(billingConnectionState, emptyList(),isPurchaseRestoreCall)
 
             }
         })
@@ -384,15 +384,22 @@ class IapBillingClientWrapper(
                             it.productId
                         }
                         _purchasedProductMap.value = productMap
+                        if(AppUtils.isPremiumUser()) {
+                            _isPurchasedRestored.value = PurchaseRestoreState.SUCCESS
+                        }else{
+                            _isPurchasedRestored.value = PurchaseRestoreState.FAIL
+                        }
                     }
                 }
             }
         }
-            if(AppUtils.isPremiumUser()) {
+        if(p1 == null || p1.isEmpty()) {
+            if (AppUtils.isPremiumUser()) {
                 _isPurchasedRestored.value = PurchaseRestoreState.SUCCESS
-            }else{
+            } else {
                 _isPurchasedRestored.value = PurchaseRestoreState.FAIL
             }
+        }
     }
 
 }
