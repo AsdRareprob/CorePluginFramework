@@ -13,7 +13,9 @@ data class InAppPurchaseEntity(
     var isPurchased: Boolean = false,
     var sortSequence: Int,
     var startDate : Long = 0L,
-    var endDate : Long = 0L
+    var endDate : Long = 0L,
+    var couponCode: String = "",
+    var couponProductId : String =""
 
 ) {
     fun toInAppProductData(): InAppProductData {

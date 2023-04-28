@@ -81,25 +81,25 @@
     <dimen name="dimen_8_dp">8dp</dimen>
     <dimen name="dimen_90_dp">90dp</dimen>
     <dimen name="dimen_9_dp">9dp</dimen>
-    <string name="ad_free_description">Enjoy prime features without any disturbing ads.
-    "\n"Speeds up page loading time and improves overall performance.
-    "\n"Reduce data usage and potentially save your mobile data.</string>
+    <string name="ad_free_description1">Enjoy prime features without any disturbing ads.</string>
+    <string name="ad_free_description2">Speeds up page loading time and improves overall performance.</string>
+    <string name="ad_free_description3">Reduce data usage and potentially save your mobile data.</string>
     <string name="ad_free_title">Ad-free</string>
     <string name="app_name">AppFramework</string>
     <string name="billing_info"> By tapping Continue, your payment will be charged to your Google Play account, and your subscription will automatically renew for the same package length at the same price until you cancel in settings in the Google play store. By tapping Continue button, you agree to our terms.</string>
     <string name="continue_purchase">Continue</string>
-    <string name="crop_description">Adjust the size and aspect ratio of images or videos.
-    "\n"Improve composition and remove unwanted elements from a photo or video.
-    "\n"Saves storage space by reducing the file size of large images or videos.</string>
+    <string name="crop_description1">Adjust the size and aspect ratio of images or videos.</string>
+    <string name="crop_description2">Improve composition and remove unwanted elements from a photo or video.</string>
+    <string name="crop_description3">Saves storage space by reducing the file size of large images or videos.</string>
     <string name="crop_title">Crop</string>
-    <string name="filter_duplicate_description">Unlimited usage for a lifetime to secure your device from duplicate files
-    "\n"Helps you save time, and avoid confusion by identifying &amp; removing duplicate files
-    "\n"Reduces the amount of storage space needed by eliminating unwanted copies of files.</string>
+    <string name="filter_duplicate_description1">Unlimited usage for a lifetime to secure your device from duplicate files</string>
+    <string name="filter_duplicate_description2">Helps you save time, and avoid confusion by identifying &amp; removing duplicate files</string>
+    <string name="filter_duplicate_description3">Reduces the amount of storage space needed by eliminating unwanted copies of files.</string>
     <string name="filter_duplicate_title">Filter duplicate</string>
     <string name="go_premium">Go Premium</string>
-    <string name="lyrics_description">Unlimited music playback with online lyrics
-    "\n"Easily follow along with the words to your favorite songs.
-    "\n"Boost your online and offline music experience.</string>
+    <string name="lyrics_description1">Unlimited music playback with online lyrics</string>
+    <string name="lyrics_description2">Easily follow along with the words to your favorite songs.</string>
+    <string name="lyrics_description3">Boost your online and offline music experience.</string>
     <string name="lyrics_title">Lyrics</string>
     <string name="made_in_india">Made in India</string>
     <string name="premium_offers">Premium offers</string>
@@ -116,14 +116,16 @@
     \nGlad to see you as a Premium user</string>
     <string name="text_1_path" translatable="false">fonts/OpenSans-Regular.ttf</string>
     <string name="text_2_path" translatable="false">fonts/OpenSans-SemiBold.ttf</string>
-    <string name="themes_description">20+ premium themes to modify your app.
-    "\n"Personalize the look and feel of your app.
-    "\n"Reduce eye strain with the use of gradient or dark mode themes.</string>
+    <string name="themes_description1">20+ premium themes to modify your app.</string>
+    <string name="themes_description2">Personalize the look and feel of your app.</string>
+    <string name="themes_description3">Reduce eye strain with the use of gradient or dark mode themes.</string>
     <string name="themes_title">Themes</string>
-    <string name="trash_description">Easily delete unwanted files like photos or videos.
-    "\n"Keeps your storage space organized and clutter-free.
-    "\n"Prevents accidentally deleted files by providing a safety net.</string>
+    <string name="trash_description1">Easily delete unwanted files like photos or videos.</string>
+    <string name="trash_description2">Keeps your storage space organized and clutter-free.</string>
+    <string name="trash_description3">Prevents accidentally deleted files by providing a safety net.</string>
     <string name="trash_title">Trash</string>
+    <string name="upcoming_feature_description">Premium version offers you the benefits to explore and enjoy early access to upcoming exclusive features.</string>
+    <string name="upcoming_feature_title">Upcoming Feature</string>
     <style name="CornerCut" parent="">
         <item name="cornerFamilyBottomLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>

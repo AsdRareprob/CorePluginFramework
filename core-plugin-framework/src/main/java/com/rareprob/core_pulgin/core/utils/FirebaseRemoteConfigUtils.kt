@@ -21,14 +21,16 @@ object FirebaseRemoteConfigUtils {
     ): List<ProductListingData>? {
         return try {
             //Assigning with default value
-            var json = defaultLocalPackJson
+            var json = ""
 
             //Get remote config json
-            if (NetworkUtils.isDeviceOnline(context)) {
-                FirebaseApp.initializeApp(context.applicationContext)
-                val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
-                json =
-                    mFirebaseRemoteConfig.getString(PREMIUM_PACK_DATA_KEY)
+            FirebaseApp.initializeApp(context.applicationContext)
+            val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+            json =
+                mFirebaseRemoteConfig.getString(PREMIUM_PACK_DATA_KEY)
+
+            if (TextUtils.isEmpty(json) && defaultLocalPackJson.isNullOrEmpty().not()) {
+                json = defaultLocalPackJson
             }
             if (TextUtils.isEmpty(json))
                 return emptyList()
