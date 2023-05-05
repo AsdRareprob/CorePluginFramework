@@ -1,6 +1,7 @@
 package com.rareprob.core_pulgin.core.base
 
 import android.app.Application
+import com.rareprob.core_pulgin.core.notification.FcmPushNotificationHandler
 import dagger.hilt.android.HiltAndroidApp
 
 //@HiltAndroidApp
@@ -24,6 +25,8 @@ open class BaseCoreApplication : Application() {
     private fun initFirebase(){
     //    FirebaseApp.initializeApp(this)
        // val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+
+        //FcmPushNotificationHandler(_instance.applicationContext).handleNotification()
     }
 
 

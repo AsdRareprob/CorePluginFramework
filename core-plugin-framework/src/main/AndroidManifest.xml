@@ -9,30 +9,35 @@
     <!-- Required only if your app needs to access in app products (IAP) -->
     <uses-permission android:name="com.android.vending.BILLING" />
 
-<!--    <application android:name=".core.base.BaseApplication">-->
-    <application
-        >
-        <!--Core Plugin test components registration begins-->
+    <!--    <application android:name=".core.base.BaseApplication">-->
+    <application>
+        <!--Core Plugin components registration begins-->
 
         <!--In app Billing components registration begins -->
         <activity
             android:name=".payment.in_app_purchase.presentation.IapBillingActivity"
             android:label="IAP_Purchase"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppFramework.Xml.Based"
-            />
+            android:theme="@style/Theme.AppFramework.Xml.Based" />
 
         <activity
             android:name=".payment.in_app_purchase.presentation.IapBillingPurchaseRestoreActivity"
             android:label="IAP_Restore"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppFramework.Xml.Based"
-            />
+            android:theme="@style/Theme.AppFramework.Xml.Based" />
 
-        <!--In app Billing components registration ends-->
-
-        <!--Core Plugin test components registration ends-->
-
+        <!-- Notification components registration begins -->
+        <service
+            android:name=".core.notification.FcmPushNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+<!--            <intent-filter>-->
+<!--                -->
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+<!--            </intent-filter>-->
+        </service>
 
     </application>
 
