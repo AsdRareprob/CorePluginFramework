@@ -12,8 +12,10 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.media.AudioAttributes
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -21,6 +23,7 @@ import com.rareprob.core_pulgin.R
 import com.rareprob.core_pulgin.core.base.NetworkUtils
 import com.rareprob.core_pulgin.core.notification.NotificationUtils.NAVIGATION_SOURCE
 import com.rareprob.core_pulgin.core.notification.data.model.NotificationData
+import com.rareprob.core_pulgin.core.utils.AppUtils
 import com.rareprob.core_pulgin.core.utils.ValidationUtils
 import com.rareprob.core_pulgin.payment.RareprobAppsInfo
 import java.util.*
@@ -43,18 +46,20 @@ class PushNotificationManager(
     private val notificationChannelName =
         packageName + "ASD_NOTIFICATION_CHANNEL_NAME"
     private val channelDescription =
-        "Notification for Rareprob apps"
+        "Rareprob apps Notification Plugin"
 
     /**
      * It send notification to tray and show it
      */
-    fun displayNotification(notification: Notification) {
-        val notificationId = Random().nextInt(10000)
-        var notificationManager = getNotificationManager()
-        notificationManager.notify(
-            notificationId,
-            notification
-        )
+    fun displayNotification(notification: Notification?) {
+        notification?.let {
+            val notificationId = Random().nextInt(10000)
+            var notificationManager = getNotificationManager()
+            notificationManager.notify(
+                notificationId,
+                notification
+            )
+        }
     }
 
     /**
@@ -139,11 +144,15 @@ class PushNotificationManager(
         notificationData: NotificationData,
         bannerImage: Bitmap? = null,
         largeIconBitmap: Bitmap? = null
-    ): Notification {
+    ): Notification? {
 //         if (TextUtils.isEmpty(notificationData.title)) return
 
         val notificationBuilder = getNotificationBuilder()
-        val pendingIntent: PendingIntent = getPendingIntent(context, notificationData)
+        val pendingIntent: PendingIntent = getPendingIntent(
+            context,
+            notificationData,
+            getLaunchScreenPendingAction(notificationData)
+        ) ?: return null
 
         val bigStyle = if (bannerImage != null) Notification.BigPictureStyle()
             .bigPicture(bannerImage)
@@ -168,10 +177,14 @@ class PushNotificationManager(
     fun buildNotification(
         notificationData: NotificationData,
         largeIconBitmap: Bitmap? = null
-    ): Notification {
+    ): Notification? {
         // if (TextUtils.isEmpty(title) || TextUtils.isEmpty(body)) return
         val notificationBuilder = getNotificationBuilder()
-        val pendingIntent: PendingIntent = getPendingIntent(context, notificationData)
+        val pendingIntent: PendingIntent? = getPendingIntent(
+            context,
+            notificationData,
+            getLaunchScreenPendingAction(notificationData)
+        ) ?: return null
         val bigStyle =
             Notification.BigTextStyle().bigText(notificationData.body)
 
@@ -193,18 +206,59 @@ class PushNotificationManager(
         notificationData: NotificationData,
         notificationBuilder: Notification.Builder
     ) {
-        val actionIntent: PendingIntent = getActionPendingIntent(context, notificationData)
-        val pauseActionIntent: PendingIntent = getActionPendingIntent(context, notificationData)
-        val playActionIntent: PendingIntent = getActionPendingIntent(context, notificationData)
-
-        notificationBuilder.apply {
-            addAction(
-                -1, "CTA",
-                actionIntent
+        if (notificationData.CTACaption1.isNullOrEmpty().not()
+            && notificationData.CTALaunchScreen1.isNullOrEmpty().not()
+        ) {
+            val actionIntent1: PendingIntent? = getActionPendingIntent(
+                context,
+                notificationData,
+                notificationData.CTALaunchScreen1
             )
-                .addAction(-1, "Pause", pauseActionIntent)
-                .addAction(-1, "Play", playActionIntent)
+            if (actionIntent1 != null) {
+                notificationBuilder.apply {
+                    addAction(
+                        -1, notificationData.CTACaption1,
+                        actionIntent1
+                    )
+                }
+            }
         }
+        if (notificationData.CTACaption2.isNullOrEmpty().not()
+            && notificationData.CTALaunchScreen2.isNullOrEmpty().not()
+        ) {
+            val actionIntent2: PendingIntent? = getActionPendingIntent(
+                context,
+                notificationData,
+                notificationData.CTALaunchScreen2
+            )
+            if (actionIntent2 != null) {
+                notificationBuilder.apply {
+                    addAction(
+                        -1, notificationData.CTACaption2,
+                        actionIntent2
+                    )
+                }
+            }
+        }
+        if (notificationData.CTACaption3.isNullOrEmpty().not()
+            && notificationData.CTALaunchScreen3.isNullOrEmpty().not()
+        ) {
+            val actionIntent3: PendingIntent? = getActionPendingIntent(
+                context,
+                notificationData,
+                notificationData.CTALaunchScreen3
+            )
+            if (actionIntent3 != null) {
+                notificationBuilder.apply {
+                    addAction(
+                        -1, notificationData.CTACaption3,
+                        actionIntent3
+                    )
+                }
+            }
+        }
+
+
     }
 
     private fun getNotificationBuilder(): Notification.Builder {
@@ -262,42 +316,88 @@ class PushNotificationManager(
 
     private fun getPendingIntent(
         context: Context,
-        notificationData: NotificationData
-    ): PendingIntent {
-        var launchScreenAction = notificationData.launchTargetScreenAction
-        if (launchScreenAction.isNullOrEmpty()) {
-            launchScreenAction =
-                NotificationUtils.getAppSpecificLaunchScreenActionIntent(context.packageName)
-//            val launchIntent =
-//                context.packageManager.getLaunchIntentForPackage(context.packageName)
-//            launchIntent?.let {
-//                launchScreenAction = it.action ?: ""
-//            }
+        notificationData: NotificationData,
+        launchScreenAction: String
+    ): PendingIntent? {
+
+        var notificationIntent: Intent? =
+            getNotificationTriggerIntent(context, notificationData, launchScreenAction)
+        notificationIntent?.let {
+            return PendingIntent.getActivity(
+                context,
+                0,
+                notificationIntent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
         }
+        return null
+    }
 
-        var bundle = Bundle()
-        bundle.putBoolean(NAVIGATION_SOURCE, true)
-        bundle.putParcelable(NotificationUtils.NOTIFICATION_DATA, notificationData)
-
-        var notificationIntent = Intent(launchScreenAction).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }.putExtras(bundle)
-
-        return PendingIntent.getActivity(
-            context,
-            0,
-            notificationIntent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
+    private fun getNotificationTriggerIntent(
+        context: Context,
+        notificationData: NotificationData,
+        launchScreenAction: String
+    ): Intent? {
+        return when (notificationData.landing_type) {
+            NotificationUtils.LANDING_TYPE_UPDATE -> {
+                getIntentForUpdateAppVersion(context, notificationData)
+            }
+            else -> {
+                var bundle = Bundle()
+                bundle.putBoolean(NAVIGATION_SOURCE, true)
+                bundle.putParcelable(NotificationUtils.NOTIFICATION_DATA, notificationData)
+                var notificationIntent = Intent(launchScreenAction).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                notificationIntent.putExtras(bundle)
+                notificationIntent
+            }
+        }
     }
 
     private fun getActionPendingIntent(
         context: Context,
-        notificationData: NotificationData
-    ): PendingIntent {
+        notificationData: NotificationData,
+        launchScreenAction: String
+    ): PendingIntent? {
         return getPendingIntent(
             context,
-            notificationData
+            notificationData,
+            launchScreenAction
         )
+    }
+
+    private fun getLaunchScreenPendingAction(notificationData: NotificationData): String {
+        var launchScreenAction = notificationData.launchTargetScreenAction
+        if (launchScreenAction.isNullOrEmpty()) {
+            launchScreenAction =
+                NotificationUtils.getAppSpecificLaunchScreenActionIntent(context.packageName)
+        }
+        return launchScreenAction
+    }
+
+    private fun getIntentForUpdateAppVersion(
+        context: Context,
+        notification: NotificationData
+    ): Intent? {
+        if (notification != null && context != null) {
+            try {
+                val appVersion: Long = AppUtils.getAppVersionCode(context)
+                val updatedVersion: Long = Integer.valueOf(notification.app_version).toLong()
+                if (updatedVersion <= appVersion) {
+                    return null
+                }
+            } catch (e: Exception) {
+                Log.d(
+                    "Error",
+                    "Version code could not be parsed for playstore notification"
+                )
+                return null
+            }
+            var appIUpdateUrl = NotificationUtils.getAppUpdateUrl(context.packageName)
+
+            return Intent(Intent.ACTION_VIEW, Uri.parse(appIUpdateUrl))
+        }
+        return null
     }
 }

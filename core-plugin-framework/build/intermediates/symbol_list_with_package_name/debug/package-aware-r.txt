@@ -3195,7 +3195,6 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_iap_billing
 layout activity_iap_billing_restore_purchase
-layout activity_notification_test
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog

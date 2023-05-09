@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.rareprob.core_pulgin.core.notification.data.model.NotificationData
+import com.rareprob.core_pulgin.core.notification.data.remote.PushNotificationDto
 
 /**
  * @author Kp .
@@ -16,16 +17,15 @@ class FcmPushNotificationHandler(
     private val context: Context
 ) : NotificationHandler() {
 
-    override fun handleNotification(message: RemoteMessage) {
+    override fun handleNotification(notificationData: NotificationData) {
         var notificationManager = PushNotificationManager(context)
-        val map: Map<String, String> = message.data
-        val gson = Gson()
-        var notificationData = gson.fromJson(map["data"], NotificationData::class.java)
-
         loadBannerImage(notificationManager, notificationData)
     }
 
 
+    /**
+     * This is notification test function with hardcoded values
+     */
     fun handleNotification() {
         var notificationManager = PushNotificationManager(context)
         var notificationData = NotificationData(
@@ -46,10 +46,11 @@ class FcmPushNotificationHandler(
         notificationManager.loadBannerImage(
             imageUrl = notificationData.big_image,
             onLoadSuccess = { bannerImageBitmap ->
-                var bannerImage = bannerImageBitmap ?: notificationManager.getFallbackBannerImage()
+//                var bannerImage = bannerImageBitmap ?: notificationManager.getFallbackBannerImage()
+               var bannerImageFetchStatus = bannerImageBitmap != null
                 loadLargeIcon(
-                    bannerImage = bannerImage,
-                    bannerImageFetchStatus = true,
+                    bannerImage = bannerImageBitmap,
+                    bannerImageFetchStatus = bannerImageFetchStatus,
                     notificationManager = notificationManager,
                     notificationData = notificationData
                 )
@@ -101,5 +102,10 @@ class FcmPushNotificationHandler(
             }
         )
     }
+
+
+
+
+
 
 }

@@ -3194,7 +3194,6 @@ int layout abc_select_dialog_material 0x0
 int layout abc_tooltip 0x0
 int layout activity_iap_billing 0x0
 int layout activity_iap_billing_restore_purchase 0x0
-int layout activity_notification_test 0x0
 int layout custom_dialog 0x0
 int layout design_bottom_navigation_item 0x0
 int layout design_bottom_sheet_dialog 0x0

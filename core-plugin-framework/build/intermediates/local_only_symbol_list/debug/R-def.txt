@@ -182,7 +182,6 @@ id viewDot2
 id viewDot3
 layout activity_iap_billing
 layout activity_iap_billing_restore_purchase
-layout activity_notification_test
 layout view_iap_billing_bottom_item
 layout view_iap_billing_go_premium_card
 layout view_iap_billing_info_bottom_sheet
