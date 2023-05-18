@@ -12,6 +12,7 @@ object NotificationUtils {
 
     object AppsMainScreenIntentFilterAction {
         var FILE_MANAGER = "ACTION_FILE_MANAGER_MAIN_SCREEN_NOTIFICATION_CTA"
+        var TWEEDLE = "ACTION_TWEEDLE_MAIN_SCREEN_NOTIFICATION_CTA"
     }
 
 
@@ -20,6 +21,10 @@ object NotificationUtils {
             RareprobAppsInfo.FILE_MANAGER -> {
                 AppsMainScreenIntentFilterAction.FILE_MANAGER
             }
+            RareprobAppsInfo.TWEEDLE -> {
+                AppsMainScreenIntentFilterAction.TWEEDLE
+            }
+
             else -> {
                 AppsMainScreenIntentFilterAction.FILE_MANAGER
             }
