@@ -2,7 +2,7 @@ package com.rareprob.core_pulgin.payment
 
 object RareprobAppsInfo {
     var FILE_MANAGER = "filemanager.files.fileexplorer.android.folder"
-    var TWEEDLE = "mp3converter.videotomp3.ringtonemaker"
+    var TWEEDLE = "app.ringtone.cutter.mp3.audio.cutter"
 }
 
 enum class FeatureInfo() {
