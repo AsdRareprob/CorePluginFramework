@@ -21,6 +21,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
@@ -36,13 +37,14 @@ import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
 import com.rareprob.core_pulgin.plugins.reward.presentation.RewardViewModel
 import com.rareprob.core_pulgin.plugins.reward.presentation.ViewPagerAdapter
 import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.*
 
 //import dagger.hilt.android.AndroidEntryPoint
 //import es.dmoral.toasty.Toasty
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class RewardActivity : RewardBaseActivity(), Runnable {
 
     private val coinAnimHandler = Handler(Looper.getMainLooper())
@@ -58,9 +60,9 @@ class RewardActivity : RewardBaseActivity(), Runnable {
 
     private val mBinding by lazy { ActivityRefferalBinding.inflate(layoutInflater) }
     private var mViewPagerAdapter: ViewPagerAdapter? = null
-//    private val viewModel: ReferralViewModel by viewModels()
+    private val viewModel: RewardViewModel by viewModels()
 
-    private lateinit var viewModel: RewardViewModel
+//    private lateinit var viewModel: RewardViewModel
 //
 
     @Parcelize
@@ -127,7 +129,7 @@ class RewardActivity : RewardBaseActivity(), Runnable {
     }
 
     private fun initDi() {
-        viewModel = ViewModelProvider(this).get(RewardViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(RewardViewModel::class.java)
     }
 
     private fun initUi() {

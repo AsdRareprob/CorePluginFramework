@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 //import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +26,7 @@ class CoinExchangeFragment : RewardBaseFragment(),
 
     // private val viewModel by viewModels<ReferralViewModel>()
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: RewardViewModel
+    private val viewModel by viewModels<RewardViewModel>()
     private lateinit var loadingProgressbar: ProgressBar
 
 
@@ -44,7 +45,7 @@ class CoinExchangeFragment : RewardBaseFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(RewardViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(RewardViewModel::class.java)
         return inflater.inflate(R.layout.fragment_reward_coin_exchange, container, false)
     }
 

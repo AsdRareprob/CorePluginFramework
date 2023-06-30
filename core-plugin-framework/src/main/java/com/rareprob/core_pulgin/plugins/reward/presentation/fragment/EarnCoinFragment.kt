@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
@@ -28,19 +30,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils.RewardViewType.EarnCoinViewType
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.withContext
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class EarnCoinFragment : RewardBaseFragment() {
     private val mBinding by lazy { EarnCoinFragmentBinding.inflate(layoutInflater) }
     private lateinit var mEarnCoinAdapter: EarnCoinAdapter
 
-    private lateinit var viewModel: RewardViewModel
 
+    private val viewModel by viewModels<RewardViewModel>()
+//    private val viewModel: RewardViewModel by viewModels()
 
     private lateinit var activityCallback: (RewardItem, View) -> Unit
 
-    // private val viewModel by viewModels<ReferralViewModel>()
+//     private val viewModel by viewModels<ReferralViewModel>()
 
     companion object {
         fun newInstance(args: Bundle?): EarnCoinFragment {
@@ -67,7 +71,7 @@ class EarnCoinFragment : RewardBaseFragment() {
             EarnCoinAdapter(activity, ArrayList(), ::onClickEarnCoin, ::onClickClaimCoin).apply {
                 mBinding.recyclerview.adapter = this
             }
-        viewModel = ViewModelProvider(this).get(RewardViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(RewardViewModel::class.java)
         getReferralItems("REFERRAL TEST")//TODO KP : replace with key
         return mBinding.root
     }

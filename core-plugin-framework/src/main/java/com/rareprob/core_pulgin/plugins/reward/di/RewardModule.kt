@@ -1,36 +1,51 @@
 package com.rareprob.core_pulgin.plugins.reward.di
 
-//import com.google.firebase.FirebaseApp
-//import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-//import dagger.Module
-//import dagger.Provides
-//import dagger.hilt.InstallIn
-//import dagger.hilt.components.SingletonComponent
-//import retrofit2.Retrofit
-//import retrofit2.converter.gson.GsonConverterFactory
-//import javax.inject.Singleton
+import android.app.Application
+import com.google.firebase.FirebaseApp
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.rareprob.core_pulgin.plugins.reward.data.repository.RewardRepositoryImpl
+import com.rareprob.core_pulgin.plugins.reward.domain.repository.RewardRepository
+import com.rareprob.core_pulgin.plugins.reward.domain.use_case.RewardUseCase
+import com.rareprob.core_pulgin.plugins.reward.domain.use_case.ThemeUseCase
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-//@Module
-//@InstallIn(SingletonComponent::class)
+@Module
+@InstallIn(SingletonComponent::class)
 object RewardModule {
 
-//    @Provides
-//    @Singleton
-//    fun provideGetWordInfoUseCase(repository: ReferralRepository): ReferralUseCase {
-//        return ReferralUseCase(repository)
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun provideWordInfoRepository(
-//    ): ReferralRepository {
-//        return ReferralRepositoryImpl()
-//    }
+    @Provides
+    @Singleton
+    fun provideRewardUseCase(
+        repository: RewardRepository,
+        remoteConfigInstance: FirebaseRemoteConfig
+    ): RewardUseCase {
+        return RewardUseCase(
+            remoteConfigInstance = remoteConfigInstance,
+            repository = repository
+        )
+    }
 
-//    @Provides
-//    @Singleton
-//    fun provideFirebaseRemoteConfigInstance(application: Application): FirebaseRemoteConfig {
-//        FirebaseApp.initializeApp(application)
-//        return FirebaseRemoteConfig.getInstance()
-//    }
+    @Provides
+    @Singleton
+    fun provideThemeUseCase(repository: RewardRepository): ThemeUseCase {
+        return ThemeUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRewardRepository(
+    ): RewardRepository {
+        return RewardRepositoryImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseRemoteConfigInstance(application: Application): FirebaseRemoteConfig {
+        FirebaseApp.initializeApp(application)
+        return FirebaseRemoteConfig.getInstance()
+    }
 }

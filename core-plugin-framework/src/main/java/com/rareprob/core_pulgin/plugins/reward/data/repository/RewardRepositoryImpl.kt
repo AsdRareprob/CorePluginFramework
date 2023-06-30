@@ -42,7 +42,7 @@ class RewardRepositoryImpl() : RewardRepository {
                   "actionButtonCaption": "Go",
                   "ctaBgColor": "#08C792",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 50,
+                  "reward": 500,
                    "sort_order": 2,
                    "duration_or_file_count" : 0,
                    "launchTargetScreenAction":  "",
@@ -56,81 +56,11 @@ class RewardRepositoryImpl() : RewardRepository {
                   "actionButtonCaption": "Go",
                   "ctaBgColor": "#08C792",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 50,
+                  "reward": 500,
                    "sort_order": 1,
                   "duration_or_file_count" : 0,
                    "launchTargetScreenAction":  "",
                      "task_type" : "PLAY_ONLINE_GAMES"
-                },
-                {
-                  "id": 3,
-                  "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "taskIconBgColor": "#6C4CCB",
-                  "title": "Use Private Hider for your files",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 50,
-                   "sort_order": 3,
-                   "duration_or_file_count" : 0,
-                   "launchTargetScreenAction":  "",
-                     "task_type" : "FILE_HIDER"
-                },
-                {
-                  "id": 4,
-                  "taskIcon": "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
-                  "taskIconBgColor": "#FFA8A8",
-                  "title": "Download Insta reels with Video downloader",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 50,
-                   "sort_order": 4,
-                   "duration_or_file_count" : 1,
-                   "launchTargetScreenAction":  "",
-                     "task_type" : "DOWNLOADER"
-                },
-                {
-                  "id": 5,
-                  "taskIcon": "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
-                  "taskIconBgColor": "#19a7db",
-                  "title": " Use Filter duplicate",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 50,
-                   "sort_order": 5,
-                   "duration_or_file_count" : 1,
-                   "launchTargetScreenAction":  "",
-                     "task_type" : "FILTER_DUPLICATE"
-                },
-                {
-                  "id": 6,
-                  "taskIcon": "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
-                  "taskIconBgColor": "#19a7db",
-                  "title": "Apply the online lyrics feature on 3 music files",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 50,
-                   "sort_order": 5,
-                   "duration_or_file_count" : 1,
-                   "launchTargetScreenAction":  "",
-                     "task_type" : "PLAY_MUSIC"
-                },
-                {
-                  "id": 7,
-                  "taskIcon": "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
-                  "taskIconBgColor": "#19a7db",
-                  "title": "Crop your photos with any required ratio",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 50,
-                   "sort_order": 5,
-                   "duration_or_file_count" : 2,
-                   "launchTargetScreenAction":  "",
-                     "task_type" : "LISTEN_MUSIC"
                 }
               ]
             }
@@ -157,47 +87,47 @@ class RewardRepositoryImpl() : RewardRepository {
                 },
                 {
                   "tag": 1,
-                   "rewardCoins": 600
+                   "rewardCoins": 500
                 },
                 {
                 "tag": 2,
-                  "rewardCoins": 700
+                  "rewardCoins": 500
                 },
                 {
                   "tag": 3,
-                  "rewardCoins": 800
+                  "rewardCoins": 500
                 },
                 {
                   "tag": 4,
-                  "rewardCoins": 900
+                  "rewardCoins": 500
                 },
                 {
                   "tag": 5,
-                  "rewardCoins": 1000
+                  "rewardCoins": 500
                 },
                 {
                   "tag": 6,
-                  "rewardCoins": 1100
+                  "rewardCoins": 500
                 },
                 {
                   "tag": 7,
-                  "rewardCoins": 1100
+                  "rewardCoins": 500
                 },
                 {
                   "tag": 7,
-                  "rewardCoins": 1200
+                  "rewardCoins": 500
                 },
                 {
                   "tag": 9,
-                  "rewardCoins": 1300
+                  "rewardCoins": 500
                 },
                 {
                   "tag": 10,
-                  "rewardCoins": 1400
+                  "rewardCoins": 500
                 },
                  {
                   "tag": 11,
-                  "rewardCoins": 1500
+                  "rewardCoins": 500
                 }
                 ,
                  {
@@ -207,12 +137,12 @@ class RewardRepositoryImpl() : RewardRepository {
                 ,
                  {
                   "tag": 13,
-                  "rewardCoins": 500
+                  "rewardCoins": 1500
                 }
                 ,
                  {
                   "tag": 14,
-                  "rewardCoins": 500
+                  "rewardCoins": 2500
                 }
               ]
             }

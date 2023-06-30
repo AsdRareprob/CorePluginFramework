@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.rareprob.core_pulgin.core.utils.Resource
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
@@ -17,16 +18,18 @@ import com.rareprob.core_pulgin.plugins.reward.domain.use_case.RewardUseCase
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.ThemeUseCase
 import com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState
 import com.rareprob.core_pulgin.plugins.reward.presentation.state.ThemeDataState
+import dagger.hilt.android.lifecycle.HiltViewModel
 //import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
 //import javax.inject.Inject
 
-//@HiltViewModel
-//class ReferralViewModel @Inject constructor(
-class RewardViewModel(
-    // private val remoteConfigInstance: FirebaseRemoteConfig
+@HiltViewModel
+class RewardViewModel @Inject constructor(
+     private val rewardUseCase: RewardUseCase,
+     private val themeUseCase: ThemeUseCase
 ) : ViewModel() {
 
 //    private val coroutineExceptionHandler = CoroutineExceptionHandler { context, exception ->
@@ -64,7 +67,7 @@ class RewardViewModel(
 
     fun getRewardItems(rcKey: String,context: Context?) {
         viewModelScope.launch(Dispatchers.IO) {
-            RewardUseCase(RewardRepositoryImpl()).getData(rcKey,context).collect { result ->
+            rewardUseCase.getData(rcKey,context).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _eventFlow.emit(
@@ -105,7 +108,7 @@ class RewardViewModel(
     val themeState = _themeState.asStateFlow()
     fun getThemeData(rcKey: String,context: Context?) {
         viewModelScope.launch(Dispatchers.IO) {
-            ThemeUseCase(RewardRepositoryImpl()).getData(rcKey,context).collect { result ->
+            themeUseCase.getData(rcKey,context).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _themeState.value =

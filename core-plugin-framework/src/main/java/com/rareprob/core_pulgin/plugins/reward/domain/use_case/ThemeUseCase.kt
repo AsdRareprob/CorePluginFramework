@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 class ThemeUseCase(
     private val repository: RewardRepository
-//    private val repository: ReferralRepositoryImpl = ReferralRepositoryImpl()
 ) {
 
      fun getData(rckey: String,context: Context?): Flow<Resource<Map<Long, ThemeData>>> {
