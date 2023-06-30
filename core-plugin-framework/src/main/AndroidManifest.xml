@@ -16,14 +16,14 @@
 
         <!--In app Billing components registration begins -->
         <activity
-            android:name=".payment.in_app_purchase.presentation.IapBillingActivity"
+            android:name=".plugins.payment.in_app_purchase.presentation.IapBillingActivity"
             android:label="IAP_Purchase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppFramework.Xml.Based"
             />
 
         <activity
-            android:name=".payment.in_app_purchase.presentation.IapBillingPurchaseRestoreActivity"
+            android:name=".plugins.payment.in_app_purchase.presentation.IapBillingPurchaseRestoreActivity"
             android:label="IAP_Restore"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppFramework.Xml.Based"

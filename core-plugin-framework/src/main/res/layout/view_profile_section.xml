@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16_dp">
+
+        <ImageView
+            android:id="@+id/ivBackIcon"
+            android:layout_width="@dimen/dimen_36_dp"
+            android:layout_height="@dimen/dimen_36_dp"
+            android:layout_marginTop="@dimen/dimen_16_dp"
+            android:layout_marginRight="@dimen/dimen_16_dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="@dimen/dimen_4_dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/myCardView"
+            android:layout_width="@dimen/dimen_46_dp"
+            android:layout_height="@dimen/dimen_46_dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_46_dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivBackIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivBackIcon">
+
+            <ImageView
+                android:id="@+id/ivUserProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="@dimen/dimen_12_dp"
+                android:src="@drawable/ic_user_profile_default" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:id="@+id/llProfileInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16_dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@+id/myCardView"
+            app:layout_constraintTop_toBottomOf="@+id/myCardView">
+
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#7B94D5"
+                android:textSize="@dimen/dimen_20_dp"
+                android:textStyle="bold"
+
+                />
+
+
+            <TextView
+                android:id="@+id/tvRewardCountMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2_dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#7B94D5"
+                android:textSize="@dimen/dimen_16_dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_gradient_coin_count"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/dimen_12_dp"
+            android:paddingVertical="@dimen/dimen_2_dp"
+
+            app:layout_constraintBottom_toBottomOf="@+id/llProfileInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toTopOf="@+id/llProfileInfo">
+
+            <ImageView
+                android:id="@+id/ivCoinIcon"
+                android:layout_width="@dimen/dimen_28_dp"
+                android:layout_height="@dimen/dimen_28_dp"
+                android:layout_marginLeft="@dimen/dimen_8_dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/coin" />
+
+            <TextView
+                android:id="@+id/tvCoinCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="@dimen/dimen_6_dp"
+                android:layout_marginRight="@dimen/dimen_2_dp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_18_dp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/ivPlusIcon"
+                android:layout_width="@dimen/dimen_28_dp"
+                android:layout_height="@dimen/dimen_28_dp"
+                android:layout_marginRight="@dimen/dimen_6_dp"
+                android:padding="@dimen/dimen_2_dp"
+                android:visibility="gone"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_plus_iocn" />
+
+        </LinearLayout>
+
+        <!--    <View-->
+        <!--        android:id="@+id/spaceView"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="@dimen/dimen_24_dp"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/btnLayout" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
+
+
+
+
+

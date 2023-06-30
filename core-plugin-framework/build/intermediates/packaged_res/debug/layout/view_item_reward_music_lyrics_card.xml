@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    app:cardUseCompatPadding="true"
+    android:elevation="0dp"
+    app:cardElevation="0dp"
+    android:layout_height="wrap_content">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_196_dp"
+    android:background="@drawable/shape_gradient_music_lyrics_card_bg"
+    android:padding="@dimen/dimen_24_dp"
+
+    >
+
+    <TextView
+        android:id="@+id/tvDetailInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:textColor="#4D4D4D"
+        android:text="unlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 daysunlock Lyrics Option for 5 days"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/verticalGuideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/palltone_theme"
+        android:textColor="@color/white"
+        android:textSize="54dp"
+        app:layout_constraintStart_toEndOf="@+id/verticalGuideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/unlock_all_premium_options_for_5_days"
+        android:textColor="@color/white"
+        android:textSize="34dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/verticalGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_gradient_btn_premium_card"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/dimen_6_dp"
+        android:paddingHorizontal="@dimen/dimen_24_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/verticalGuideline"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/ivCoinIcon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/premium_crown" />
+
+        <TextView
+            android:id="@+id/tvCoinCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_gravity="right"
+            android:layout_centerVertical="true"
+            android:text="600"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:textSize="36dp"
+            tools:text="600" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

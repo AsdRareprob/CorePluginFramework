@@ -3,7 +3,7 @@ package com.rareprob.core_pulgin.core.utils
 import android.content.Context
 import android.content.Intent
 import com.rareprob.core_pulgin.core.base.BaseCoreApplication
-import com.rareprob.core_pulgin.payment.in_app_purchase.IapBillingConstants
+import com.rareprob.core_pulgin.plugins.payment.in_app_purchase.IapBillingConstants
 import java.io.IOException
 import java.nio.charset.Charset
 

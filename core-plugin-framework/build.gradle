@@ -30,15 +30,20 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.6.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
 
     //Gson : replace it with moshi later on
     api 'com.google.code.gson:gson:2.8.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //Google Play Billing Library
     def billing_version = "5.1.0"
@@ -67,6 +72,10 @@ dependencies {
     //implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
 
     api 'com.google.firebase:firebase-config:21.1.2'
+    //Firebase
+    api platform('com.google.firebase:firebase-bom:31.2.2')
+    api "com.google.firebase:firebase-database-ktx"
+    api 'com.google.firebase:firebase-core:21.1.1'
 
     // Room
     api "androidx.room:room-runtime:2.3.0"
@@ -78,6 +87,10 @@ dependencies {
     api 'com.airbnb.android:lottie:6.0.0'
 
 
+}
+
+kapt {
+    correctErrorTypes true
 }
 
 //For making lib as dependency

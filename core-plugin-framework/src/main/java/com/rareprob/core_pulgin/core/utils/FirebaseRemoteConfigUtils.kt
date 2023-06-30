@@ -8,7 +8,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.rareprob.core_pulgin.core.base.NetworkUtils
-import com.rareprob.core_pulgin.payment.in_app_purchase.data.model.ProductListingData
+import com.rareprob.core_pulgin.plugins.payment.in_app_purchase.data.model.ProductListingData
 import org.json.JSONObject
 import java.lang.reflect.Type
 

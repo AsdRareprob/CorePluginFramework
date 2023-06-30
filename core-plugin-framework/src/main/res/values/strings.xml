@@ -63,7 +63,23 @@
     <string name="continue_purchase">Continue</string>
     <string name="go_premium">Go Premium</string>
 
+    <!--Reward Module Texts-->
+    <string name="unlock_all_premium_options_for_5_days">unlock all premium options \nfor 5 days</string>
+    <string name="palltone_theme">Palltone Theme</string>
+    <string name="premium">Premium</string>
+    <string name="music_theme">Music Theme</string>
+    <string name="unlock_all_premium_music_theme">unlock all premium music\nthemes for 5 days</string>
 
+    <string name="video_player_music_theme_component">com.rocks.customthemelib.themepreferences.changetheme.PlayerThemeActivity</string>
+    <string name="video_player_premium_theme_component">com.rocks.music.newtheme.NewThemeActivity</string>
+    <string name="confirm_to_unlock">Confirm to unlock</string>
+    <string name="unlock_theme_confirmation">Are you sure want to unlock this theme?</string>
+    <string name="unlock_theme_exchange_fail">Sorry, you don’t have enough coins</string>
+
+    <string name="confirm">Confirm</string>
+    <string name="cancel_reward">Cancel</string>
+    <string name="unlock_failed">Unlock failed</string>
+    <string name="unlock_for_free">Unlock for free</string>
 
 
 
