@@ -1,8 +1,8 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-39:12
-INJECTED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-39:12
-INJECTED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-39:12
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-42:12
+INJECTED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-42:12
+INJECTED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:2:1-42:12
 	package
 		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:3:5-39
 		INJECTED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml
@@ -26,27 +26,37 @@ ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/cor
 	android:name
 		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:10:22-64
 application
-ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:13:5-37:19
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:13:5-40:19
 activity#com.rareprob.core_pulgin.plugins.payment.in_app_purchase.presentation.IapBillingActivity
-ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:18:9-23:15
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:16:9-21:15
 	android:screenOrientation
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:21:13-49
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:19:13-49
 	android:label
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:20:13-41
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:18:13-41
 	android:theme
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:22:13-64
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:20:13-64
 	android:name
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:19:13-92
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:17:13-92
 activity#com.rareprob.core_pulgin.plugins.payment.in_app_purchase.presentation.IapBillingPurchaseRestoreActivity
-ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:25:9-30:15
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:23:9-28:15
 	android:screenOrientation
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:28:13-49
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:26:13-49
 	android:label
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:27:13-40
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:25:13-40
 	android:theme
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:29:13-64
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:27:13-64
 	android:name
-		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:26:13-107
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:24:13-107
+activity#com.rareprob.core_pulgin.plugins.reward.presentation.activity.RewardActivity
+ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:32:9-37:15
+	android:screenOrientation
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:35:13-49
+	android:label
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:34:13-42
+	android:theme
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:36:13-64
+	android:name
+		ADDED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:33:13-80
 uses-sdk
 INJECTED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml

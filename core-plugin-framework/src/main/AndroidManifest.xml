@@ -12,8 +12,6 @@
 <!--    <application android:name=".core.base.BaseApplication">-->
     <application
         >
-        <!--Core Plugin test components registration begins-->
-
         <!--In app Billing components registration begins -->
         <activity
             android:name=".plugins.payment.in_app_purchase.presentation.IapBillingActivity"
@@ -28,10 +26,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppFramework.Xml.Based"
             />
-
         <!--In app Billing components registration ends-->
 
-        <!--Core Plugin test components registration ends-->
+        <!--Reward feature components registration begins -->
+        <activity
+            android:name=".plugins.reward.presentation.activity.RewardActivity"
+            android:label="Reward Screen"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppFramework.Xml.Based"
+            />
 
 
     </application>

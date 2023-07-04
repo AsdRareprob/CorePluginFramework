@@ -16,9 +16,6 @@
     <!-- <application android:name=".core.base.BaseApplication"> -->
     <application>
 
-        <!-- Core Plugin test components registration begins -->
-
-
         <!-- In app Billing components registration begins -->
         <activity
             android:name="com.rareprob.core_pulgin.plugins.payment.in_app_purchase.presentation.IapBillingActivity"
@@ -30,12 +27,15 @@
             android:label="IAP_Restore"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppFramework.Xml.Based" />
-
         <!-- In app Billing components registration ends -->
 
 
-        <!-- Core Plugin test components registration ends -->
-
+        <!-- Reward feature components registration begins -->
+        <activity
+            android:name="com.rareprob.core_pulgin.plugins.reward.presentation.activity.RewardActivity"
+            android:label="Reward Screen"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppFramework.Xml.Based" />
     </application>
 
 </manifest>

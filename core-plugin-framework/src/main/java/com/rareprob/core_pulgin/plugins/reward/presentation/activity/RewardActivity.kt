@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
@@ -18,6 +19,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -66,7 +68,7 @@ class RewardActivity : RewardBaseActivity(), Runnable {
         val imagePath: String = ""
     ) : Parcelable
 
-    //  private val params: Params by lazy { requireNotNull(intent.getParcelableExtra(PARAMS)) }
+      private val params: Params by lazy { requireNotNull(intent.getParcelableExtra(PARAMS)) }
 
     /**
      * Always start this activity as a sub activity
@@ -109,18 +111,18 @@ class RewardActivity : RewardBaseActivity(), Runnable {
 
     //TODO KP remove below code in production
     private fun setProfileInfoData() {
-//        var username = params.userName
-//        if (username.isEmpty()) {
-//            username = "User"
-//        }
-//
-//        mBinding.clProfileSection.tvUserName.text = username
-//        var imagePath = params.imagePath
-//        if (!TextUtils.isEmpty(imagePath)) {
-//            Glide.with(this@RewardActivity)
-//                .load(imagePath)
-//                .into(mBinding.clProfileSection.ivUserProfile)
-//        }
+        var username = params.userName
+        if (username.isEmpty()) {
+            username = "User"
+        }
+
+        mBinding.clProfileSection.tvUserName.text = username
+        var imagePath = params.imagePath
+        if (!TextUtils.isEmpty(imagePath)) {
+            Glide.with(this@RewardActivity)
+                .load(imagePath)
+                .into(mBinding.clProfileSection.ivUserProfile)
+        }
     }
 
     private fun initDi() {
