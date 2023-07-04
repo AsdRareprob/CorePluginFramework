@@ -2,7 +2,6 @@ package com.rareprob.core_pulgin.plugins.reward.data
 
 import android.content.Context
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
-import com.rareprob.core_pulgin.plugins.reward.data.local.RewardRoomDatabase
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
 import com.rareprob.core_pulgin.plugins.reward.data.remote.dto.RewardItemDto
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ReferralData
@@ -11,7 +10,7 @@ import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
 import org.json.JSONArray
 import org.json.JSONObject
 
-object RewardParser {
+class RewardParser(private val rewardDao: RewardDao) {
 
     fun parseReferralJson(json: String = "", context: Context?): List<ReferralData> {
 //        if (TextUtils.isEmpty(json))
@@ -74,9 +73,6 @@ object RewardParser {
         context: Context?
     ): List<RewardItem> {
         context?.let {
-            var rewardDao: RewardDao =
-                RewardRoomDatabase.getDatabase(context).rewardDao()
-
             //If we have some task claim reward
             var completedTaskList = rewardDao.getCompletedRewardTask()
             if (completedTaskList.isEmpty().not()) {
@@ -87,40 +83,11 @@ object RewardParser {
         return emptyList()
     }
 
-
-    /**
-     * This function ensures in db we have tasks for today's only
-     * In case of past day task. clear table -> Insert New Tasks
-     */
-//    private fun persistTasksToDb(
-//        rewardDataList: List<RewardItemDto>,
-//        context: Context?,
-//    ): List<RewardItem> {
-//        context?.let {
-//            var rewardDao: RewardDao =
-//                RewardRoomDatabase.getDatabase(context).rewardDao()
-//
-//            //TODO KP Enable this line in Production Code
-//            // deleteExistingTasksIfExpired(rewardDao)
-//            rewardDao.insertAll(rewardDataList.map {
-//                it.toEntity()
-//            })
-//            var rewardDataUpdated = rewardDao.getRewards() ?: emptyList()
-//
-//            return rewardDataUpdated.map {
-//                it.toRewardItem()
-//            }
-//        }
-//        return emptyList()
-//    }
-
     private fun persistTasksToDb(
         rewardDataList: List<RewardItemDto>,
         context: Context?,
     ) {
         context?.let {
-            var rewardDao: RewardDao =
-                RewardRoomDatabase.getDatabase(context).rewardDao()
             deleteExistingTasksIfExpired(rewardDao)
             rewardDao.insertAll(rewardDataList.map {
                 it.toEntity()

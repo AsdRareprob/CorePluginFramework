@@ -1,13 +1,5 @@
 package com.rareprob.core_pulgin.plugins.reward.presentation.activity
 
-//import androidx.activity.viewModels
-//import androidx.lifecycle.lifecycleScope
-//import com.google.android.gms.tasks.OnCompleteListener
-//import com.google.android.gms.tasks.OnFailureListener
-//import com.google.android.gms.tasks.OnSuccessListener
-//import com.google.android.gms.tasks.Task
-//import com.google.firebase.auth.AuthResult
-//import com.google.firebase.auth.FirebaseAuth
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -21,6 +13,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -29,9 +22,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.rareprob.core_pulgin.R
+import com.rareprob.core_pulgin.core.base.NetworkUtils
 import com.rareprob.core_pulgin.databinding.ActivityRefferalBinding
 import com.rareprob.core_pulgin.plugins.reward.animation.Coin
 import com.rareprob.core_pulgin.plugins.reward.animation.CoinCollectingAnimUtils
+import com.rareprob.core_pulgin.plugins.reward.data.local.RewardPreferenceManager
 import com.rareprob.core_pulgin.plugins.reward.domain.model.FirebaseRewardData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
 import com.rareprob.core_pulgin.plugins.reward.presentation.RewardViewModel
@@ -40,9 +36,8 @@ import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-//import dagger.hilt.android.AndroidEntryPoint
-//import es.dmoral.toasty.Toasty
 
 @AndroidEntryPoint
 class RewardActivity : RewardBaseActivity(), Runnable {
@@ -71,7 +66,7 @@ class RewardActivity : RewardBaseActivity(), Runnable {
         val imagePath: String = ""
     ) : Parcelable
 
-  //  private val params: Params by lazy { requireNotNull(intent.getParcelableExtra(PARAMS)) }
+    //  private val params: Params by lazy { requireNotNull(intent.getParcelableExtra(PARAMS)) }
 
     /**
      * Always start this activity as a sub activity
@@ -112,7 +107,7 @@ class RewardActivity : RewardBaseActivity(), Runnable {
         setProfileInfoData()
     }
 
-   //TODO KP remove below code in production
+    //TODO KP remove below code in production
     private fun setProfileInfoData() {
 //        var username = params.userName
 //        if (username.isEmpty()) {
@@ -197,6 +192,7 @@ class RewardActivity : RewardBaseActivity(), Runnable {
      * In case of user clear app data or reinstall app
      */
     private fun syncUserRewards() {
+        val rewardPreferenceManager = RewardPreferenceManager()
         CoroutineScope(Dispatchers.IO).launch {
             var databaseReference =
                 FirebaseDatabase.getInstance()
@@ -209,12 +205,12 @@ class RewardActivity : RewardBaseActivity(), Runnable {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val firebaseRewardData = dataSnapshot.getValue(FirebaseRewardData::class.java)
                     var fbCoins = firebaseRewardData?.earnedCoins?.toLong() ?: 0
-                    var localCoins = RewardUtils.getSavedCoins(this@RewardActivity)
+                    var localCoins = rewardPreferenceManager.getSavedCoins(this@RewardActivity)
                     if (fbCoins > localCoins) {
                         var updatedTotalCoins = fbCoins
-                        RewardUtils.saveCoins(this@RewardActivity, updatedTotalCoins)
+                        rewardPreferenceManager.saveCoins(this@RewardActivity, updatedTotalCoins)
                     }
-                    totalCoins = RewardUtils.getSavedCoins(this@RewardActivity)
+                    totalCoins = rewardPreferenceManager.getSavedCoins(this@RewardActivity)
                     mBinding.clProfileSection.tvCoinCount.text = totalCoins.toString()
                     if (totalCoins > 0)
                         mBinding.clProfileSection.tvRewardCountMsg.text =
@@ -317,7 +313,7 @@ class RewardActivity : RewardBaseActivity(), Runnable {
                     }
                 }
                 //Update coins in locals
-                RewardUtils.saveCoins(this@RewardActivity, loopUntil)
+                RewardPreferenceManager().saveCoins(this@RewardActivity, loopUntil)
                 if (totalCoins > 0)
                     mBinding.clProfileSection.tvRewardCountMsg.text = "You have $loopUntil coins"
                 //claimRewardCoins -> Post coins to firebase server
@@ -336,11 +332,10 @@ class RewardActivity : RewardBaseActivity(), Runnable {
      * We get this callback when Reward Item is clicked from recycler View of EarnCoinFragment
      */
     private fun onClickClaimRewardCallback(rewardItem: RewardItem, view: View) {
-        //TODO Kp
-//        if(isDeviceOnline().not){
-//            Toast.makeText(this@RewardActivity,"Please check your internet conection", Toast.LENGTH_SHORT).show()
-//            return
-//        }
+        if(NetworkUtils.isDeviceOnline(this).not()){
+            Toast.makeText(this@RewardActivity,getString(R.string.no_network_message), Toast.LENGTH_SHORT).show()
+            return
+        }
 
         view.getLocationOnScreen(coinInvokeViewLocation)
         coinAnimInvokeView = view

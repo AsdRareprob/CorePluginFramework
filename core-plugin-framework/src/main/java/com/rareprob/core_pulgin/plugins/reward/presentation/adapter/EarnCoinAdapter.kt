@@ -10,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.rareprob.core_pulgin.R
+import com.rareprob.core_pulgin.core.base.NetworkUtils
 import com.rareprob.core_pulgin.core.base.data.AppData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
 import  com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils.RewardViewType.EarnCoinViewType
@@ -63,7 +65,7 @@ class EarnCoinAdapter(
 
         when (holder) {
             is RewardItemVH -> {
-                //holder.bindItems(dataItem)
+                holder.bindItems(dataItem)
             }
             is TaskVH -> {
                 holder.bindItems(dataItem)
@@ -119,18 +121,24 @@ class EarnCoinAdapter(
                 }
 
                 tvClaimBtn.setOnClickListener {
-                    //TODO KP apply internet check here
-                  //  if(isDeviceOnline().not){
-//            Toast.makeText(this@RewardActivity,"Please check your internet conection", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-                    //To Block click .We have applied this check if (rewardItem.isRewardClaimed.not())
-                    if (rewardItem.isRewardClaimed.not()) {
-                        onClickClaimCoin(rewardItem, it)
+                    context?.let { context ->
+                        if (NetworkUtils.isDeviceOnline(context).not()) {
+                            Toast.makeText(
+                                context,
+                                "Please check your internet conection",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            //To Block click .We have applied this check if (rewardItem.isRewardClaimed.not())
+                            if (rewardItem.isRewardClaimed.not()) {
+                                onClickClaimCoin(rewardItem, it)
+                            }
+                        }
                     }
                 }
             }
         }
+
         private fun setClaimStatusView(rewardItem: RewardItem) {
             if (rewardItem.taskCompletionStatus) {
                 if (rewardItem.isRewardClaimed) {
@@ -156,7 +164,7 @@ class EarnCoinAdapter(
                         override fun onResourceReady(
                             resource: Bitmap, transition: Transition<in Bitmap?>?
                         ) {
-                          taskIcon.icon?.setImageBitmap(resource)
+                            taskIcon.icon?.setImageBitmap(resource)
                         }
 
                         override fun onLoadCleared(placeholder: Drawable?) {

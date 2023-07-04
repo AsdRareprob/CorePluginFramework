@@ -44,6 +44,7 @@ dependencies {
     //Gson : replace it with moshi later on
     api 'com.google.code.gson:gson:2.8.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     //Google Play Billing Library
     def billing_version = "5.1.0"

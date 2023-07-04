@@ -81,6 +81,9 @@
     <string name="unlock_failed">Unlock failed</string>
     <string name="unlock_for_free">Unlock for free</string>
 
+    <string name="no_network_message">Please check your internet connection</string>
+
+
 
 
 </resources>

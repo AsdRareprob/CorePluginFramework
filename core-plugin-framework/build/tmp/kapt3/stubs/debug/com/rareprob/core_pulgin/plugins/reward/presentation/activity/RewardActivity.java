@@ -13,15 +13,19 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rareprob.core_pulgin.R;
+import com.rareprob.core_pulgin.core.base.NetworkUtils;
 import com.rareprob.core_pulgin.databinding.ActivityRefferalBinding;
 import com.rareprob.core_pulgin.plugins.reward.animation.Coin;
 import com.rareprob.core_pulgin.plugins.reward.animation.CoinCollectingAnimUtils;
+import com.rareprob.core_pulgin.plugins.reward.data.local.RewardPreferenceManager;
 import com.rareprob.core_pulgin.plugins.reward.domain.model.FirebaseRewardData;
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem;
 import com.rareprob.core_pulgin.plugins.reward.presentation.RewardViewModel;
@@ -30,6 +34,7 @@ import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils;
 import dagger.hilt.android.AndroidEntryPoint;
 import kotlinx.android.parcel.Parcelize;
 import kotlinx.coroutines.*;
+import javax.inject.Inject;
 
 @kotlin.Metadata(mv = {1, 6, 0}, k = 1, d1 = {"\u0000t\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0000\n\u0002\u0010\u0015\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\t\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0010\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u000e\b\u0007\u0018\u0000 <2\u00020\u00012\u00060\u0002j\u0002`\u0003:\u0002<=B\u0005\u00a2\u0006\u0002\u0010\u0004J\b\u0010)\u001a\u00020*H\u0002J\b\u0010+\u001a\u00020*H\u0002J\u0018\u0010,\u001a\u00020*2\u0006\u0010\u0018\u001a\u00020\u00192\u0006\u0010-\u001a\u00020\bH\u0002J\u0012\u0010.\u001a\u00020*2\b\u0010/\u001a\u0004\u0018\u000100H\u0014J\b\u00101\u001a\u00020*H\u0014J\b\u00102\u001a\u00020*H\u0014J\b\u00103\u001a\u00020*H\u0016J\b\u00104\u001a\u00020*H\u0002J\b\u00105\u001a\u00020*H\u0002J\u000e\u00106\u001a\u00020*2\u0006\u00107\u001a\u00020\nJ\b\u00108\u001a\u00020*H\u0002J\b\u00109\u001a\u00020*H\u0002J\b\u0010:\u001a\u00020*H\u0002J\b\u0010;\u001a\u00020*H\u0002R\u000e\u0010\u0005\u001a\u00020\u0006X\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0010\u0010\u0007\u001a\u0004\u0018\u00010\bX\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u000e\u0010\t\u001a\u00020\nX\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u000b\u001a\u00020\fX\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u000e\u0010\r\u001a\u00020\nX\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u000e\u001a\u00020\u000fX\u0082.\u00a2\u0006\u0002\n\u0000R\u001b\u0010\u0010\u001a\u00020\u00118BX\u0082\u0084\u0002\u00a2\u0006\f\n\u0004\b\u0014\u0010\u0015\u001a\u0004\b\u0012\u0010\u0013R\u0010\u0010\u0016\u001a\u0004\u0018\u00010\u0017X\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u001a\u0010\u0018\u001a\u00020\u0019X\u0086.\u00a2\u0006\u000e\n\u0000\u001a\u0004\b\u001a\u0010\u001b\"\u0004\b\u001c\u0010\u001dR\u000e\u0010\u001e\u001a\u00020\u001fX\u0082.\u00a2\u0006\u0002\n\u0000R\u000e\u0010 \u001a\u00020!X\u0082\u000e\u00a2\u0006\u0002\n\u0000R\u000e\u0010\"\u001a\u00020#X\u0082.\u00a2\u0006\u0002\n\u0000R\u001b\u0010$\u001a\u00020%8BX\u0082\u0084\u0002\u00a2\u0006\f\n\u0004\b(\u0010\u0015\u001a\u0004\b&\u0010\'\u00a8\u0006>"}, d2 = {"Lcom/rareprob/core_pulgin/plugins/reward/presentation/activity/RewardActivity;", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/activity/RewardBaseActivity;", "Ljava/lang/Runnable;", "Lkotlinx/coroutines/Runnable;", "()V", "coinAnimHandler", "Landroid/os/Handler;", "coinAnimInvokeView", "Landroid/view/View;", "coinCount", "", "coinInvokeViewLocation", "", "coinMaxCount", "frmlCoinContainer", "Landroid/widget/FrameLayout;", "mBinding", "Lcom/rareprob/core_pulgin/databinding/ActivityRefferalBinding;", "getMBinding", "()Lcom/rareprob/core_pulgin/databinding/ActivityRefferalBinding;", "mBinding$delegate", "Lkotlin/Lazy;", "mViewPagerAdapter", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/ViewPagerAdapter;", "rewardItem", "Lcom/rareprob/core_pulgin/plugins/reward/domain/model/RewardItem;", "getRewardItem", "()Lcom/rareprob/core_pulgin/plugins/reward/domain/model/RewardItem;", "setRewardItem", "(Lcom/rareprob/core_pulgin/plugins/reward/domain/model/RewardItem;)V", "targetView", "Landroid/widget/LinearLayout;", "totalCoins", "", "tvCoinCount", "Landroid/widget/TextView;", "viewModel", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/RewardViewModel;", "getViewModel", "()Lcom/rareprob/core_pulgin/plugins/reward/presentation/RewardViewModel;", "viewModel$delegate", "initDi", "", "initUi", "onClickClaimRewardCallback", "view", "onCreate", "savedInstanceState", "Landroid/os/Bundle;", "onPause", "onResume", "run", "setListener", "setProfileInfoData", "setTab", "position", "setupCoinAnim", "setupTabs", "syncUserRewards", "updateCoinCount", "Companion", "Params", "core-plugin-framework_debug"})
 @dagger.hilt.android.AndroidEntryPoint()

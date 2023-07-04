@@ -2,12 +2,9 @@ package com.rareprob.core_pulgin.plugins.reward.utils
 
 import android.content.Context
 import android.provider.Settings
-import android.widget.TextView
-import com.rareprob.core_pulgin.core.utils.AppPreferencesUtils
-import com.rareprob.core_pulgin.plugins.reward.data.repository.RewardRepositoryImpl
 
 
-object RewardUtils {
+object RewardUtils  {
 
     object RewardViewType {
         object CoinExchangeViewType {
@@ -77,52 +74,4 @@ object RewardUtils {
 
     fun getAndroidId(context: Context): String =
         Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-
-//    /**
-//     * TODO KP Dummy code top save coins
-//     */
-//    @JvmStatic
-//    fun persistCoins() {
-//
-//
-//    }
-
-    /**
-     * Persist total earned coins by a user
-     */
-    fun saveCoins(context: Context, updatedTotalCoins: Long) =
-        AppPreferencesUtils.putLong(
-            RewardConstant.TOTAL_EARNED_COINS_PREFS_KEY,
-            updatedTotalCoins,
-            context
-        )
-
-    /**
-     * Get total earned coins by a user
-     */
-    fun getSavedCoins(context: Context): Long =
-        AppPreferencesUtils.getLong(
-            RewardConstant.TOTAL_EARNED_COINS_PREFS_KEY,
-            context
-        )
-
-    fun saveWatchVideoTaskProgressData(
-        context: Context,
-        watchStartTime: Long = System.currentTimeMillis()
-    ) {
-        val endTime = System.currentTimeMillis()
-        val watchedDuration: Long = endTime - watchStartTime
-        RewardRepositoryImpl().saveDataToBd(
-            context,
-            RewardTaskType.WATCH_VIDEO,
-            watchedDuration
-        )
-    }
-
-    fun setEarnedCoinsToView(context: Context, rewardTextView: TextView) {
-        var totalEarnedCoins = getSavedCoins(context)
-        if (totalEarnedCoins > 0)
-            rewardTextView.text = totalEarnedCoins.toString()
-    }
-
 }

@@ -1,8 +1,11 @@
 package com.rareprob.core_pulgin.plugins.reward.di
 
 import android.app.Application
+import androidx.room.Room
 import com.google.firebase.FirebaseApp
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.rareprob.core_pulgin.core.base.CoreDatabase
+import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDatabase
 import com.rareprob.core_pulgin.plugins.reward.data.repository.RewardRepositoryImpl
 import com.rareprob.core_pulgin.plugins.reward.domain.repository.RewardRepository
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.RewardUseCase
@@ -17,14 +20,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RewardModule {
 
+
     @Provides
     @Singleton
     fun provideRewardUseCase(
-        repository: RewardRepository,
-        remoteConfigInstance: FirebaseRemoteConfig
+        repository: RewardRepository
     ): RewardUseCase {
         return RewardUseCase(
-            remoteConfigInstance = remoteConfigInstance,
             repository = repository
         )
     }
@@ -38,8 +40,13 @@ object RewardModule {
     @Provides
     @Singleton
     fun provideRewardRepository(
+        db: RewardDatabase,
+        remoteConfigInstance: FirebaseRemoteConfig,
     ): RewardRepository {
-        return RewardRepositoryImpl()
+        return RewardRepositoryImpl(
+            remoteConfigInstance = remoteConfigInstance,
+            rewardDao = db.rewardDao
+        )
     }
 
     @Provides
@@ -48,4 +55,20 @@ object RewardModule {
         FirebaseApp.initializeApp(application)
         return FirebaseRemoteConfig.getInstance()
     }
+
+    @Provides
+    @Singleton
+    fun provideRewardDatabase(app: Application): RewardDatabase {
+        return Room.databaseBuilder(
+            app, RewardDatabase::class.java, RewardDatabase.DB_NAME
+        )//.addTypeConverter(Converters(GsonParser(Gson())))
+            .build()
+    }
+
+//    @Provides
+//    @Singleton
+//    fun provideRewardUtils(repository: RewardRepository): ThemeUseCase {
+//        return ThemeUseCase(repository)
+//    }
+
 }

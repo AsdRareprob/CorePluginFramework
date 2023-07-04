@@ -2713,6 +2713,7 @@ drawable premium_unselected_bg
 drawable radio_selected
 drawable radio_unselected
 drawable rectangle_bg
+drawable rectangle_bg_earn_reward
 drawable rectangle_border_white_stroke_corner
 drawable selector_iap_listing_item
 drawable shape_circle_black
@@ -3003,6 +3004,7 @@ id list_item
 id ll1
 id ll2
 id ll3
+id llClickToAction
 id llCrop
 id llExchangeMusicThemeReward
 id llExchangePremiumReward
@@ -3018,6 +3020,7 @@ id llParentTheme
 id llParentTrash
 id llParentUpcoming
 id llProfileInfo
+id llTextInfo
 id llTheme
 id llTopHeader
 id llTrash
@@ -3130,6 +3133,7 @@ id radioButton
 id rcvCoinExchange
 id rectangles
 id recyclerview
+id relativeLayout
 id restart
 id reverse
 id reverseSawtooth
@@ -3696,6 +3700,7 @@ string mtrl_picker_toggle_to_year_selection
 string mtrl_timepicker_confirm
 string music_theme
 string navigation_menu
+string no_network_message
 string not_selected
 string off
 string on

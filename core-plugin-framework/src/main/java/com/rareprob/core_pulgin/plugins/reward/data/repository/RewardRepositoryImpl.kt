@@ -4,12 +4,13 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.rareprob.core_pulgin.core.utils.Resource
 import com.rareprob.core_pulgin.core.utils.AppPreferencesUtils
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
-import com.rareprob.core_pulgin.plugins.reward.data.local.RewardRoomDatabase
 import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils
 import com.rareprob.core_pulgin.plugins.reward.data.RewardParser
+import com.rareprob.core_pulgin.plugins.reward.data.local.RewardPreferenceManager
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ReferralData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
@@ -19,12 +20,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.concurrent.TimeUnit
 
-class RewardRepositoryImpl() : RewardRepository {
+class RewardRepositoryImpl(
+    private val remoteConfigInstance: FirebaseRemoteConfig,
+    private val rewardDao: RewardDao,
+) : RewardRepository {
 
     /**
      * Fetch data from Rc // TODO KP remove this hardcoded json in Prod build
      */
-    override fun getReferralItems(
+    override fun getRewardItems(
         rckey: String,
         context: Context?
     ): Flow<Resource<List<ReferralData>>> = flow {
@@ -38,7 +42,7 @@ class RewardRepositoryImpl() : RewardRepository {
                   "id": 1,
                   "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
                   "taskIconBgColor": "#FFA8A8",
-                  "title": "Watch the online video for 15 minutes",
+                  "title": "Watch the online video for 15 minutes Testing",
                   "actionButtonCaption": "Go",
                   "ctaBgColor": "#08C792",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
@@ -66,7 +70,7 @@ class RewardRepositoryImpl() : RewardRepository {
             }
         """.trimIndent()
 
-        var referralDataList = RewardParser.parseReferralJson(json = defaultLocalJson, context)
+        var referralDataList = RewardParser(rewardDao).parseReferralJson(json = defaultLocalJson, context)
 
         emit(Resource.Success(referralDataList))
     }
@@ -148,17 +152,16 @@ class RewardRepositoryImpl() : RewardRepository {
             }
         """.trimIndent()
 
-        var themeDataMap = RewardParser.parseThemesJson(defaultLocalJson)
+        var themeDataMap = RewardParser(rewardDao).parseThemesJson(defaultLocalJson)
         emit(Resource.Success(themeDataMap))
     }
 
-    fun saveDataToBd(
+    override fun saveTaskProgressData(
         context: Context,
         taskType: String,
-        watchedDurationOrFileOperatedCount: Long = 0
+        watchedDurationOrFileOperatedCount: Long
     ) {
         GlobalScope.launch(Dispatchers.IO) {
-            var rewardDao: RewardDao = RewardRoomDatabase.getDatabase(context).rewardDao()
             var rewardData = rewardDao.getReward(taskType)
             rewardData.let {
                 rewardData.watchedDurationOrFilesOperatedCount += watchedDurationOrFileOperatedCount
@@ -229,7 +232,7 @@ class RewardRepositoryImpl() : RewardRepository {
      * Post earned coins to Firebase real time database only once
      * (when taskCompletionStatus is true and rewardData.syncState is false)
      */
-    fun claimRewardCoins(context: Context, rewardData: RewardEntity) {
+    override fun claimRewardCoins(context: Context, rewardData: RewardEntity) {
         if (isSyncAllowed(rewardData)) {
             var databaseReference =
                 FirebaseDatabase.getInstance()
@@ -257,16 +260,17 @@ class RewardRepositoryImpl() : RewardRepository {
         }
     }
 
-    fun onRedeemRewardCoins(
+    override fun onRedeemRewardCoins(
         context: Context,
         redeemedCoin: Long,
     ) {
         if (redeemedCoin <= 0)
             return
 
-        var totalCoins = RewardUtils.getSavedCoins(context)
+        val rewardPreferenceManager = RewardPreferenceManager()
+        var totalCoins = rewardPreferenceManager.getSavedCoins(context)
         var updatedTotalCoins = totalCoins - redeemedCoin
-        RewardUtils.saveCoins(context, updatedTotalCoins)
+        rewardPreferenceManager.saveCoins(context, updatedTotalCoins)
 
         val androidId: String = RewardUtils.getAndroidId(context)
         var databaseReference =
@@ -286,9 +290,11 @@ class RewardRepositoryImpl() : RewardRepository {
         if (redeemedCoin <= 0)
             return
 
-        var totalCoins = RewardUtils.getSavedCoins(context)
+        val rewardPreferenceManager = RewardPreferenceManager()
+
+        var totalCoins = rewardPreferenceManager.getSavedCoins(context)
         var updatedTotalCoins = totalCoins + redeemedCoin
-        RewardUtils.saveCoins(context, updatedTotalCoins)
+        rewardPreferenceManager.saveCoins(context, updatedTotalCoins)
 
         val androidId: String = RewardUtils.getAndroidId(context)
         var databaseReference =
@@ -319,7 +325,6 @@ class RewardRepositoryImpl() : RewardRepository {
      */
     private fun onSuccessPostData(context: Context, rewardData: RewardEntity) {
         CoroutineScope(Dispatchers.IO).launch {
-            var rewardDao: RewardDao = RewardRoomDatabase.getDatabase(context).rewardDao()
             var rewardData = rewardDao.getReward(rewardData.rewardType)
             if (rewardData != null) {
                 rewardData.isRewardClaimed = true
@@ -327,9 +332,10 @@ class RewardRepositoryImpl() : RewardRepository {
                 var rewardDataUpdated = rewardDao.getRewards()
                 Log.d("rewardDataUpdated", "$rewardDataUpdated")
 
-                var totalCoins = RewardUtils.getSavedCoins(context)
+                val rewardPreferenceManager = RewardPreferenceManager()
+                var totalCoins = rewardPreferenceManager.getSavedCoins(context)
                 var updatedTotalCoins = totalCoins + rewardData.earnedCoins
-                RewardUtils.saveCoins(context, updatedTotalCoins)
+                rewardPreferenceManager.saveCoins(context, updatedTotalCoins)
             }
         }
     }
@@ -339,11 +345,8 @@ class RewardRepositoryImpl() : RewardRepository {
      * (When User earns coins we attempt to sync coins to firebase server)
      */
     private fun isSyncAllowed(rewardData: RewardEntity): Boolean {
-//    if (rewardData.taskCompletionStatus.not() || rewardData.syncState)
-//    if (rewardData.taskCompletionStatus && rewardData.syncState.not())
         if (rewardData.taskCompletionStatus)
             return true
-        //if() //TODO KP Apply internet check here
         return false
 
     }

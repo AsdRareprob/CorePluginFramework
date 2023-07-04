@@ -33,7 +33,6 @@ class RewardExchangeFailDialog(val activity: Activity, val unlockForFreeCallback
 //        findViewById<TextView>(R.id.tvSubTitle).setTextFont(FONT.MEDIUM)
 //        var btnContinue = findViewById<TextView>(R.id.btn_continue)
 //        btnContinue.setTextFont(FONT.SEMI_BOLD)
-
         var tvCancel = findViewById<TextView>(R.id.tvCancel)
         tvCancel.setOnClickListener {
             if (activity != null && activity.isFinishing.not()) {

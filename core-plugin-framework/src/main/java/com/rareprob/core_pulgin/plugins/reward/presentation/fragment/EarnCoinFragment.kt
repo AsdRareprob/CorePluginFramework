@@ -12,11 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
-import com.rareprob.core_pulgin.plugins.reward.data.local.RewardRoomDatabase
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
 import com.rareprob.core_pulgin.core.base.data.AppData
 import com.rareprob.core_pulgin.databinding.EarnCoinFragmentBinding
@@ -32,9 +29,11 @@ import kotlinx.coroutines.launch
 import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils.RewardViewType.EarnCoinViewType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EarnCoinFragment : RewardBaseFragment() {
+
     private val mBinding by lazy { EarnCoinFragmentBinding.inflate(layoutInflater) }
     private lateinit var mEarnCoinAdapter: EarnCoinAdapter
 
@@ -115,7 +114,7 @@ class EarnCoinFragment : RewardBaseFragment() {
     private fun setupDataList(referralItems: List<ReferralData> = emptyList()) {
         hideProgressbar(mBinding.loadingProgressbar)
 
-        //TODO KP : Right now we have items at o position only:change logic later on
+        //Right now we have items at o position only:change logic later on
         var referralData = referralItems[0]
 
         var rewardNameData = AppData(EarnCoinViewType.TASK_LABEL)
@@ -234,7 +233,7 @@ class EarnCoinFragment : RewardBaseFragment() {
         var appContext = activity?.applicationContext
         appContext?.let {
             lifecycleScope.launch(Dispatchers.IO) {
-                var completedTaskMap = getCompletedTasks(appContext)
+                var completedTaskMap = viewModel.getCompletedTasks()
                 if (completedTaskMap.isNotEmpty())
                     updateDataList(completedTaskMap, this)
             }
@@ -265,16 +264,5 @@ class EarnCoinFragment : RewardBaseFragment() {
 
     }
 
-    private fun getCompletedTasks(appContext: Context): Map<String, RewardEntity> {
-        var rewardDao: RewardDao =
-            RewardRoomDatabase.getDatabase(appContext).rewardDao()
-        var rewardDataList = rewardDao.getCompletedRewardTask()
-
-        var completedTaskMap = emptyMap<String, RewardEntity>()
-        completedTaskMap = rewardDataList.associateBy {
-            it.rewardType
-        }
-        return completedTaskMap
-    }
 
 }

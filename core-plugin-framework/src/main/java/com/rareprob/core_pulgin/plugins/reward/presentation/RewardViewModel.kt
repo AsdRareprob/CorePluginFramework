@@ -5,14 +5,12 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.rareprob.core_pulgin.core.utils.Resource
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
-import com.rareprob.core_pulgin.plugins.reward.data.local.RewardRoomDatabase
+import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDatabase
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ReferralData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
-import com.rareprob.core_pulgin.plugins.reward.data.repository.RewardRepositoryImpl
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.RewardUseCase
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.ThemeUseCase
@@ -29,7 +27,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RewardViewModel @Inject constructor(
      private val rewardUseCase: RewardUseCase,
-     private val themeUseCase: ThemeUseCase
+     private val themeUseCase: ThemeUseCase,
+     private val db: RewardDatabase
 ) : ViewModel() {
 
 //    private val coroutineExceptionHandler = CoroutineExceptionHandler { context, exception ->
@@ -133,7 +132,7 @@ class RewardViewModel @Inject constructor(
     }
     fun claimRewardCoins(context: Context, rewardData: RewardEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-            RewardRepositoryImpl().claimRewardCoins(context, rewardData)
+            rewardUseCase.claimRewardCoins(context, rewardData)
         }
     }
 
@@ -145,7 +144,7 @@ class RewardViewModel @Inject constructor(
      */
     fun onRedeemRewardCoins(context: Context, redeemedCoin: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            RewardRepositoryImpl().onRedeemRewardCoins(context,redeemedCoin)
+            rewardUseCase.onRedeemRewardCoins(context,redeemedCoin)
         }
     }
 
@@ -178,8 +177,7 @@ class RewardViewModel @Inject constructor(
     ) {
         context?.let {
             viewModelScope.launch(Dispatchers.IO) {
-                var rewardDao: RewardDao =
-                    RewardRoomDatabase.getDatabase(context?.applicationContext).rewardDao()
+                var rewardDao: RewardDao = db.rewardDao
                 rewardDao.insertAll(rewardDataList.map {
                     it.toEntity()
                 })
@@ -193,6 +191,17 @@ class RewardViewModel @Inject constructor(
         }
     }
 
+    fun getCompletedTasks(): Map<String, RewardEntity> {
+        var rewardDao: RewardDao =
+            db.rewardDao
+        var rewardDataList = rewardDao.getCompletedRewardTask()
+
+        var completedTaskMap = emptyMap<String, RewardEntity>()
+        completedTaskMap = rewardDataList.associateBy {
+            it.rewardType
+        }
+        return completedTaskMap
+    }
 
     sealed class UIEvent {
         data class ShowSnackbar(val message: String) : UIEvent()
