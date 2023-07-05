@@ -65,7 +65,7 @@ public final class RewardEntity {
     
     /**
      * Date on which tasks were assigned to user
-     * (i.e The Date on which the user was displayed referral tasks list)
+     * (i.e The Date on which the user was displayed reward items tasks list)
      */
     private long taskAssignedDate;
     
@@ -401,7 +401,7 @@ public final class RewardEntity {
     
     /**
      * Date on which tasks were assigned to user
-     * (i.e The Date on which the user was displayed referral tasks list)
+     * (i.e The Date on which the user was displayed reward items tasks list)
      */
     public final long component17() {
         return 0L;
@@ -409,7 +409,7 @@ public final class RewardEntity {
     
     /**
      * Date on which tasks were assigned to user
-     * (i.e The Date on which the user was displayed referral tasks list)
+     * (i.e The Date on which the user was displayed reward items tasks list)
      */
     public final long getTaskAssignedDate() {
         return 0L;
@@ -417,7 +417,7 @@ public final class RewardEntity {
     
     /**
      * Date on which tasks were assigned to user
-     * (i.e The Date on which the user was displayed referral tasks list)
+     * (i.e The Date on which the user was displayed reward items tasks list)
      */
     public final void setTaskAssignedDate(long p0) {
     }

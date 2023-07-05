@@ -1,15 +1,12 @@
 package com.rareprob.core_pulgin.plugins.reward.presentation;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import androidx.lifecycle.ViewModel;
 import com.rareprob.core_pulgin.core.utils.Resource;
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao;
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity;
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDatabase;
-import com.rareprob.core_pulgin.plugins.reward.domain.model.ReferralData;
-import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem;
+import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardData;
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData;
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.RewardUseCase;
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.ThemeUseCase;
@@ -21,14 +18,14 @@ import kotlinx.coroutines.flow.*;
 import javax.inject.Inject;
 
 @dagger.hilt.android.lifecycle.HiltViewModel()
-@kotlin.Metadata(mv = {1, 6, 0}, k = 1, d1 = {"\u0000\u009c\u0001\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010$\n\u0002\u0010\u000e\n\u0002\b\u0005\n\u0002\u0010\t\n\u0002\b\u0002\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\b\u0007\u0018\u00002\u00020\u0001:\u00019B\u001f\b\u0007\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0005\u0012\u0006\u0010\u0006\u001a\u00020\u0007\u00a2\u0006\u0002\u0010\bJ\u0016\u0010\u001b\u001a\u00020\u001c2\u0006\u0010\u001d\u001a\u00020\u001e2\u0006\u0010\u001f\u001a\u00020 J\u0012\u0010!\u001a\u000e\u0012\u0004\u0012\u00020#\u0012\u0004\u0012\u00020 0\"J\u0018\u0010$\u001a\u00020\u001c2\u0006\u0010%\u001a\u00020#2\b\u0010\u001d\u001a\u0004\u0018\u00010\u001eJ\u0018\u0010&\u001a\u00020\u001c2\u0006\u0010%\u001a\u00020#2\b\u0010\u001d\u001a\u0004\u0018\u00010\u001eJ\u0016\u0010\'\u001a\u00020\u001c2\u0006\u0010\u001d\u001a\u00020\u001e2\u0006\u0010(\u001a\u00020)J,\u0010*\u001a\u00020\u001c2\f\u0010+\u001a\b\u0012\u0004\u0012\u00020-0,2\b\u0010\u001d\u001a\u0004\u0018\u00010.2\f\u0010/\u001a\b\u0012\u0004\u0012\u00020\u001c00J$\u00101\u001a\u00020\u000e2\u0012\u00102\u001a\u000e\u0012\n\u0012\b\u0012\u0004\u0012\u0002040,032\u0006\u00105\u001a\u000206H\u0002J*\u00107\u001a\u00020\u00102\u0018\u00102\u001a\u0014\u0012\u0010\u0012\u000e\u0012\u0004\u0012\u00020)\u0012\u0004\u0012\u0002080\"032\u0006\u00105\u001a\u000206H\u0002R\u0014\u0010\t\u001a\b\u0012\u0004\u0012\u00020\u000b0\nX\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0014\u0010\f\u001a\b\u0012\u0004\u0012\u00020\u000e0\rX\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0014\u0010\u000f\u001a\b\u0012\u0004\u0012\u00020\u00100\rX\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0006\u001a\u00020\u0007X\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0017\u0010\u0011\u001a\b\u0012\u0004\u0012\u00020\u000b0\u0012\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0013\u0010\u0014R\u0017\u0010\u0015\u001a\b\u0012\u0004\u0012\u00020\u000e0\u0016\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0017\u0010\u0018R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0017\u0010\u0019\u001a\b\u0012\u0004\u0012\u00020\u00100\u0016\u00a2\u0006\b\n\u0000\u001a\u0004\b\u001a\u0010\u0018R\u000e\u0010\u0004\u001a\u00020\u0005X\u0082\u0004\u00a2\u0006\u0002\n\u0000\u00a8\u0006:"}, d2 = {"Lcom/rareprob/core_pulgin/plugins/reward/presentation/RewardViewModel;", "Landroidx/lifecycle/ViewModel;", "rewardUseCase", "Lcom/rareprob/core_pulgin/plugins/reward/domain/use_case/RewardUseCase;", "themeUseCase", "Lcom/rareprob/core_pulgin/plugins/reward/domain/use_case/ThemeUseCase;", "db", "Lcom/rareprob/core_pulgin/plugins/reward/data/local/RewardDatabase;", "(Lcom/rareprob/core_pulgin/plugins/reward/domain/use_case/RewardUseCase;Lcom/rareprob/core_pulgin/plugins/reward/domain/use_case/ThemeUseCase;Lcom/rareprob/core_pulgin/plugins/reward/data/local/RewardDatabase;)V", "_eventFlow", "Lkotlinx/coroutines/flow/MutableSharedFlow;", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/RewardViewModel$UIEvent;", "_referralState", "Lkotlinx/coroutines/flow/MutableStateFlow;", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/state/RewardState;", "_themeState", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/state/ThemeDataState;", "eventFlow", "Lkotlinx/coroutines/flow/SharedFlow;", "getEventFlow", "()Lkotlinx/coroutines/flow/SharedFlow;", "referralState", "Lkotlinx/coroutines/flow/StateFlow;", "getReferralState", "()Lkotlinx/coroutines/flow/StateFlow;", "themeState", "getThemeState", "claimRewardCoins", "", "context", "Landroid/content/Context;", "rewardData", "Lcom/rareprob/core_pulgin/plugins/reward/data/local/entity/RewardEntity;", "getCompletedTasks", "", "", "getRewardItems", "rcKey", "getThemeData", "onRedeemRewardCoins", "redeemedCoin", "", "persistRewardsToDb", "rewardDataList", "", "Lcom/rareprob/core_pulgin/plugins/reward/domain/model/RewardItem;", "Landroid/app/Activity;", "onValidateListCallback", "Lkotlin/Function0;", "prepareReferralState", "result", "Lcom/rareprob/core_pulgin/core/utils/Resource;", "Lcom/rareprob/core_pulgin/plugins/reward/domain/model/ReferralData;", "isLoading", "", "prepareThemeState", "Lcom/rareprob/core_pulgin/plugins/reward/domain/model/ThemeData;", "UIEvent", "core-plugin-framework_debug"})
+@kotlin.Metadata(mv = {1, 6, 0}, k = 1, d1 = {"\u0000\u008a\u0001\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010$\n\u0002\u0010\u000e\n\u0002\b\u0005\n\u0002\u0010\t\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\b\u0007\u0018\u00002\u00020\u0001:\u00013B\u001f\b\u0007\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0005\u0012\u0006\u0010\u0006\u001a\u00020\u0007\u00a2\u0006\u0002\u0010\bJ\u0016\u0010\u001b\u001a\u00020\u001c2\u0006\u0010\u001d\u001a\u00020\u001e2\u0006\u0010\u001f\u001a\u00020 J\u0012\u0010!\u001a\u000e\u0012\u0004\u0012\u00020#\u0012\u0004\u0012\u00020 0\"J\u0010\u0010$\u001a\u00020\u001c2\b\u0010\u001d\u001a\u0004\u0018\u00010\u001eJ\u0018\u0010%\u001a\u00020\u001c2\u0006\u0010&\u001a\u00020#2\b\u0010\u001d\u001a\u0004\u0018\u00010\u001eJ\u0016\u0010\'\u001a\u00020\u001c2\u0006\u0010\u001d\u001a\u00020\u001e2\u0006\u0010(\u001a\u00020)J$\u0010*\u001a\u00020\u000e2\u0012\u0010+\u001a\u000e\u0012\n\u0012\b\u0012\u0004\u0012\u00020.0-0,2\u0006\u0010/\u001a\u000200H\u0002J*\u00101\u001a\u00020\u00102\u0018\u0010+\u001a\u0014\u0012\u0010\u0012\u000e\u0012\u0004\u0012\u00020)\u0012\u0004\u0012\u0002020\"0,2\u0006\u0010/\u001a\u000200H\u0002R\u0014\u0010\t\u001a\b\u0012\u0004\u0012\u00020\u000b0\nX\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0014\u0010\f\u001a\b\u0012\u0004\u0012\u00020\u000e0\rX\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0014\u0010\u000f\u001a\b\u0012\u0004\u0012\u00020\u00100\rX\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u000e\u0010\u0006\u001a\u00020\u0007X\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0017\u0010\u0011\u001a\b\u0012\u0004\u0012\u00020\u000b0\u0012\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0013\u0010\u0014R\u0017\u0010\u0015\u001a\b\u0012\u0004\u0012\u00020\u000e0\u0016\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0017\u0010\u0018R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000R\u0017\u0010\u0019\u001a\b\u0012\u0004\u0012\u00020\u00100\u0016\u00a2\u0006\b\n\u0000\u001a\u0004\b\u001a\u0010\u0018R\u000e\u0010\u0004\u001a\u00020\u0005X\u0082\u0004\u00a2\u0006\u0002\n\u0000\u00a8\u00064"}, d2 = {"Lcom/rareprob/core_pulgin/plugins/reward/presentation/RewardViewModel;", "Landroidx/lifecycle/ViewModel;", "rewardUseCase", "Lcom/rareprob/core_pulgin/plugins/reward/domain/use_case/RewardUseCase;", "themeUseCase", "Lcom/rareprob/core_pulgin/plugins/reward/domain/use_case/ThemeUseCase;", "db", "Lcom/rareprob/core_pulgin/plugins/reward/data/local/RewardDatabase;", "(Lcom/rareprob/core_pulgin/plugins/reward/domain/use_case/RewardUseCase;Lcom/rareprob/core_pulgin/plugins/reward/domain/use_case/ThemeUseCase;Lcom/rareprob/core_pulgin/plugins/reward/data/local/RewardDatabase;)V", "_eventFlow", "Lkotlinx/coroutines/flow/MutableSharedFlow;", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/RewardViewModel$UIEvent;", "_rewardState", "Lkotlinx/coroutines/flow/MutableStateFlow;", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/state/RewardState;", "_themeState", "Lcom/rareprob/core_pulgin/plugins/reward/presentation/state/ThemeDataState;", "eventFlow", "Lkotlinx/coroutines/flow/SharedFlow;", "getEventFlow", "()Lkotlinx/coroutines/flow/SharedFlow;", "rewardState", "Lkotlinx/coroutines/flow/StateFlow;", "getRewardState", "()Lkotlinx/coroutines/flow/StateFlow;", "themeState", "getThemeState", "claimRewardCoins", "", "context", "Landroid/content/Context;", "rewardData", "Lcom/rareprob/core_pulgin/plugins/reward/data/local/entity/RewardEntity;", "getCompletedTasks", "", "", "getRewardItems", "getThemeData", "rcKey", "onRedeemRewardCoins", "redeemedCoin", "", "prepareRewardState", "result", "Lcom/rareprob/core_pulgin/core/utils/Resource;", "", "Lcom/rareprob/core_pulgin/plugins/reward/domain/model/RewardData;", "isLoading", "", "prepareThemeState", "Lcom/rareprob/core_pulgin/plugins/reward/domain/model/ThemeData;", "UIEvent", "core-plugin-framework_debug"})
 public final class RewardViewModel extends androidx.lifecycle.ViewModel {
     private final com.rareprob.core_pulgin.plugins.reward.domain.use_case.RewardUseCase rewardUseCase = null;
     private final com.rareprob.core_pulgin.plugins.reward.domain.use_case.ThemeUseCase themeUseCase = null;
     private final com.rareprob.core_pulgin.plugins.reward.data.local.RewardDatabase db = null;
-    private final kotlinx.coroutines.flow.MutableStateFlow<com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState> _referralState = null;
+    private final kotlinx.coroutines.flow.MutableStateFlow<com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState> _rewardState = null;
     @org.jetbrains.annotations.NotNull()
-    private final kotlinx.coroutines.flow.StateFlow<com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState> referralState = null;
+    private final kotlinx.coroutines.flow.StateFlow<com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState> rewardState = null;
     private final kotlinx.coroutines.flow.MutableSharedFlow<com.rareprob.core_pulgin.plugins.reward.presentation.RewardViewModel.UIEvent> _eventFlow = null;
     @org.jetbrains.annotations.NotNull()
     private final kotlinx.coroutines.flow.SharedFlow<com.rareprob.core_pulgin.plugins.reward.presentation.RewardViewModel.UIEvent> eventFlow = null;
@@ -45,7 +42,7 @@ public final class RewardViewModel extends androidx.lifecycle.ViewModel {
     }
     
     @org.jetbrains.annotations.NotNull()
-    public final kotlinx.coroutines.flow.StateFlow<com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState> getReferralState() {
+    public final kotlinx.coroutines.flow.StateFlow<com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState> getRewardState() {
         return null;
     }
     
@@ -54,8 +51,7 @@ public final class RewardViewModel extends androidx.lifecycle.ViewModel {
         return null;
     }
     
-    public final void getRewardItems(@org.jetbrains.annotations.NotNull()
-    java.lang.String rcKey, @org.jetbrains.annotations.Nullable()
+    public final void getRewardItems(@org.jetbrains.annotations.Nullable()
     android.content.Context context) {
     }
     
@@ -84,18 +80,12 @@ public final class RewardViewModel extends androidx.lifecycle.ViewModel {
     android.content.Context context, long redeemedCoin) {
     }
     
-    private final com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState prepareReferralState(com.rareprob.core_pulgin.core.utils.Resource<java.util.List<com.rareprob.core_pulgin.plugins.reward.domain.model.ReferralData>> result, boolean isLoading) {
+    private final com.rareprob.core_pulgin.plugins.reward.presentation.state.RewardState prepareRewardState(com.rareprob.core_pulgin.core.utils.Resource<java.util.List<com.rareprob.core_pulgin.plugins.reward.domain.model.RewardData>> result, boolean isLoading) {
         return null;
     }
     
     private final com.rareprob.core_pulgin.plugins.reward.presentation.state.ThemeDataState prepareThemeState(com.rareprob.core_pulgin.core.utils.Resource<java.util.Map<java.lang.Long, com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData>> result, boolean isLoading) {
         return null;
-    }
-    
-    public final void persistRewardsToDb(@org.jetbrains.annotations.NotNull()
-    java.util.List<com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem> rewardDataList, @org.jetbrains.annotations.Nullable()
-    android.app.Activity context, @org.jetbrains.annotations.NotNull()
-    kotlin.jvm.functions.Function0<kotlin.Unit> onValidateListCallback) {
     }
     
     @org.jetbrains.annotations.NotNull()

@@ -59,9 +59,6 @@ class RewardActivity : RewardBaseActivity(), Runnable {
     private var mViewPagerAdapter: ViewPagerAdapter? = null
     private val viewModel: RewardViewModel by viewModels()
 
-//    private lateinit var viewModel: RewardViewModel
-//
-
     @Parcelize
     data class Params(
         val userName: String = "",
@@ -97,7 +94,6 @@ class RewardActivity : RewardBaseActivity(), Runnable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUi()
-        initDi()
         syncUserRewards()
         setupTabs()
         setListener()
@@ -123,10 +119,6 @@ class RewardActivity : RewardBaseActivity(), Runnable {
                 .load(imagePath)
                 .into(mBinding.clProfileSection.ivUserProfile)
         }
-    }
-
-    private fun initDi() {
-        //viewModel = ViewModelProvider(this).get(RewardViewModel::class.java)
     }
 
     private fun initUi() {
@@ -157,13 +149,6 @@ class RewardActivity : RewardBaseActivity(), Runnable {
     private fun setListener() {
         mBinding.exchange.setOnClickListener {
             mBinding.viewPager.currentItem = 1
-            /* val user = FirebaseAuth.getInstance().currentUser
-             if(user == null){
-                 createAnonymousAccountWithReferrerInfo()
-             }else {
-                 Log.d("@VIBHOR", " deepLink      $user")
-                 Toast.makeText(applicationContext,user.uid,Toast.LENGTH_SHORT).show()
-             }*/
             setTab(1)
         }
 
@@ -348,18 +333,5 @@ class RewardActivity : RewardBaseActivity(), Runnable {
         coinAnimHandler.removeCallbacks(this)
         coinAnimHandler.post(this)
         Log.d("callbackListener", "callbackListener")
-
-
     }
-
-//    fun isDeviceOnline(context: Context?): Boolean {
-//        if (context != null) {
-//            val connMgr =
-//                context.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
-//            val networkInfo = connMgr.activeNetworkInfo
-//            return networkInfo != null && networkInfo.isConnected
-//        }
-//        return true
-//    }
-
 }

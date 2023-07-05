@@ -14,6 +14,8 @@ import java.lang.reflect.Type
 
 object FirebaseRemoteConfigUtils {
     private const val PREMIUM_PACK_DATA_KEY = "premium_pack_data_test"
+    private const val REWARD_ITEMS_DATA_KEY = "reward_items_data_key"
+    private const val REWARD_THEME_DATA_KEY = "reward_theme_data_key"
 
     fun getInAppProducts(
         defaultLocalPackJson: String,
@@ -45,4 +47,48 @@ object FirebaseRemoteConfigUtils {
             emptyList()
         }
     }
+
+
+    fun getRcRewardItemsJson(
+        remoteConfigInstance: FirebaseRemoteConfig
+    ): String {
+        return try {
+            var json = ""
+            //Get remote config json
+            val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+            var rcJson =
+                mFirebaseRemoteConfig.getString(REWARD_ITEMS_DATA_KEY)
+
+            if (TextUtils.isEmpty(rcJson).not()) {
+                json = rcJson
+            }
+            return json
+        } catch (e: Exception) {
+            return ""
+        }
+    }
+
+    /**
+     * This function returns theme data json for reward module
+     */
+    fun getRcThemesDataJson(
+        remoteConfigInstance: FirebaseRemoteConfig
+    ): String {
+        return try {
+            var json = ""
+            //Get remote config json
+            val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+            var rcJson =
+                mFirebaseRemoteConfig.getString(REWARD_THEME_DATA_KEY)
+
+            if (TextUtils.isEmpty(rcJson).not()) {
+                json = rcJson
+            }
+            return json
+        } catch (e: Exception) {
+            return ""
+        }
+    }
+
+
 }

@@ -5,10 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.ViewGroup
 import android.view.Window
-import android.widget.TextView
 import com.rareprob.core_pulgin.R
 
 
@@ -25,15 +22,6 @@ class CoinCollectDialog(val activity: Activity, val callbackListener: () -> Unit
 
     private fun setupUi() {
         setContentView(R.layout.view_collect_coins_dialog)
-//        findViewById<TextView>(R.id.tvTitle).setTextFont(FONT.SEMI_BOLD)
-//        findViewById<TextView>(R.id.tvSubTitle).setTextFont(FONT.MEDIUM)
-//        var btnContinue = findViewById<TextView>(R.id.btn_continue)
-//        btnContinue.setTextFont(FONT.SEMI_BOLD)
-//        btnContinue.setOnTouchAnimationListener {
-//            dismiss()
-//            //CoreUtils.openTargetActivity(activity, "ACTION_FILE_MANAGER_MAIN_SCREEN")
-//            callbackListener()
-//        }
     }
 
 }

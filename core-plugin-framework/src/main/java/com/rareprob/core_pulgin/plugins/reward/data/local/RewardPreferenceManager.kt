@@ -9,28 +9,32 @@ import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils
 
 
 class RewardPreferenceManager {
+
+    /**
+     * We give 500 coins to user by default
+     */
+    private val DEAFULT_REWARD_COINS = 100L
+
     /**
      * Get total earned coins by a user
      */
-    fun getSavedCoins(context: Context): Long =
-        AppPreferencesUtils.getLong(
+    fun getSavedCoins(context: Context): Long {
+
+        var earnedCoins = AppPreferencesUtils.getLong(
             RewardUtils.RewardConstant.TOTAL_EARNED_COINS_PREFS_KEY,
             context
         )
+        if(earnedCoins <= 0 )
+            earnedCoins = DEAFULT_REWARD_COINS
+
+        return earnedCoins
+    }
 
     fun setEarnedCoinsToView(context: Context, rewardTextView: TextView) {
         var totalEarnedCoins = getSavedCoins(context)
         if (totalEarnedCoins > 0)
             rewardTextView.text = totalEarnedCoins.toString()
     }
-
-    fun saveWatchVideoTaskProgressData(
-        context: Context,
-        watchStartTime: Long = System.currentTimeMillis()
-    ) {
-
-    }
-
 
     /**
      * Persist total earned coins by a user

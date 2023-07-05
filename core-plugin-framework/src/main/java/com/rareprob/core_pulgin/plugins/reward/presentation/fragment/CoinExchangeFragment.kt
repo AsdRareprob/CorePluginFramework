@@ -24,7 +24,6 @@ import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils.RewardViewType.
 class CoinExchangeFragment : RewardBaseFragment(),
     CoinExchangeAdapter.ItemCallbackListener {
 
-    // private val viewModel by viewModels<ReferralViewModel>()
     private lateinit var recyclerView: RecyclerView
     private val viewModel by viewModels<RewardViewModel>()
     private lateinit var loadingProgressbar: ProgressBar
@@ -61,12 +60,6 @@ class CoinExchangeFragment : RewardBaseFragment(),
         val dataList = ArrayList<AppData>()
         var premiumCardData = AppData(CoinExchangeViewType.PREMIUM)
         dataList.add((premiumCardData))
-
-//        var themeCardData = AppData(CoinExchangeViewType.PALLTONE_THEME)
-//        dataList.add((themeCardData))
-//
-//        var musicLyricsCardData = AppData(CoinExchangeViewType.MUSIC_LYRICS)
-//        dataList.add((musicLyricsCardData))
 
         var musicThemeCardData = AppData(CoinExchangeViewType.MUSIC_THEME)
         dataList.add((musicThemeCardData))

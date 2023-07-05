@@ -1,10 +1,11 @@
 package com.rareprob.core_pulgin.plugins.reward.data
 
 import android.content.Context
+import android.text.TextUtils
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
 import com.rareprob.core_pulgin.plugins.reward.data.remote.dto.RewardItemDto
-import com.rareprob.core_pulgin.plugins.reward.domain.model.ReferralData
+import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
 import org.json.JSONArray
@@ -12,18 +13,18 @@ import org.json.JSONObject
 
 class RewardParser(private val rewardDao: RewardDao) {
 
-    fun parseReferralJson(json: String = "", context: Context?): List<ReferralData> {
-//        if (TextUtils.isEmpty(json))
-//            return emptyList()
+    fun parseRewardItemsJson(json: String = "", context: Context?): List<RewardData> {
+        if (TextUtils.isEmpty(json))
+            return emptyList()
 
         val jsonObject = JSONObject(json)
         var rewardName = jsonObject.optString("rewardName")
         val rewardDataList = parseRewardDataList(jsonObject.optJSONArray("data"), context)
-        var referralData = ReferralData(rewardName, rewardDataList)
+        var rewardData = RewardData(rewardName, rewardDataList)
 
         //TODO Right now we have one item in development json
-        var referralDataList = ArrayList<ReferralData>()
-        referralDataList.add(referralData)
+        var referralDataList = ArrayList<RewardData>()
+        referralDataList.add(rewardData)
         return referralDataList
     }
 

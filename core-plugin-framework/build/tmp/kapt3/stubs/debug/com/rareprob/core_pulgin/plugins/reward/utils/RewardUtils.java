@@ -2,13 +2,16 @@ package com.rareprob.core_pulgin.plugins.reward.utils;
 
 import android.content.Context;
 import android.provider.Settings;
+import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.CoinCollectDialog;
+import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.RewardExchangeDialog;
+import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.RewardExchangeFailDialog;
 
 @kotlin.Metadata(mv = {1, 6, 0}, k = 1, d1 = {"\u0000\u001c\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0006\n\u0002\u0018\u0002\n\u0002\b\t\b\u00c6\u0002\u0018\u00002\u00020\u0001:\u0006\u000e\u000f\u0010\u0011\u0012\u0013B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002J\u000e\u0010\t\u001a\u00020\u00042\u0006\u0010\n\u001a\u00020\u000bJ\u000e\u0010\f\u001a\u00020\u00042\u0006\u0010\r\u001a\u00020\u0004R\u001a\u0010\u0003\u001a\u00020\u0004X\u0086\u000e\u00a2\u0006\u000e\n\u0000\u001a\u0004\b\u0005\u0010\u0006\"\u0004\b\u0007\u0010\b\u00a8\u0006\u0014"}, d2 = {"Lcom/rareprob/core_pulgin/plugins/reward/utils/RewardUtils;", "", "()V", "NAVIGATION_SOURCE", "", "getNAVIGATION_SOURCE", "()Ljava/lang/String;", "setNAVIGATION_SOURCE", "(Ljava/lang/String;)V", "getAndroidId", "context", "Landroid/content/Context;", "getAppSpecificLaunchScreenActionIntent", "applicationId", "AppsScreenIntentFilterAction", "BundleKey", "RareprobAppsInfo", "RewardConstant", "RewardTaskType", "RewardViewType", "core-plugin-framework_debug"})
 public final class RewardUtils {
     @org.jetbrains.annotations.NotNull()
     public static final com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils INSTANCE = null;
     @org.jetbrains.annotations.NotNull()
-    private static java.lang.String NAVIGATION_SOURCE = "NAVIGATION_FROM_REFERRAL";
+    private static java.lang.String NAVIGATION_SOURCE = "NAVIGATION_FROM_REWARD";
     
     private RewardUtils() {
         super();
@@ -144,7 +147,7 @@ public final class RewardUtils {
             @org.jetbrains.annotations.NotNull()
             public static final com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils.AppsScreenIntentFilterAction.VideoPlayerActionIntent INSTANCE = null;
             @org.jetbrains.annotations.NotNull()
-            private static java.lang.String WATCH_VIDEO = "ACTION_VIDEO_PLAYER_SCREEN_REFERRAL_CTA";
+            private static java.lang.String WATCH_VIDEO = "ACTION_VIDEO_PLAYER_SCREEN_REWARD_CTA";
             
             private VideoPlayerActionIntent() {
                 super();

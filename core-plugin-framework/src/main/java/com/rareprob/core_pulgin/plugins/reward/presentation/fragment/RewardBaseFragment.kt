@@ -14,5 +14,4 @@ abstract class RewardBaseFragment () : Fragment() {
         progressBar.visibility = View.GONE
 
     }
-
 }

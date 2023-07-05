@@ -58,7 +58,7 @@ data class RewardEntity(
 
     /**
      * Date on which tasks were assigned to user
-     * (i.e The Date on which the user was displayed referral tasks list)
+     * (i.e The Date on which the user was displayed reward items tasks list)
      */
     var taskAssignedDate: Long = 0L,
 

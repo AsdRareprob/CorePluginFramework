@@ -1,16 +1,13 @@
 package com.rareprob.core_pulgin.plugins.reward.presentation
 
-import android.app.Activity
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rareprob.core_pulgin.core.utils.Resource
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDatabase
-import com.rareprob.core_pulgin.plugins.reward.domain.model.ReferralData
-import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
+import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.RewardUseCase
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.ThemeUseCase
@@ -22,7 +19,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-//import javax.inject.Inject
 
 @HiltViewModel
 class RewardViewModel @Inject constructor(
@@ -31,42 +27,15 @@ class RewardViewModel @Inject constructor(
      private val db: RewardDatabase
 ) : ViewModel() {
 
-//    private val coroutineExceptionHandler = CoroutineExceptionHandler { context, exception ->
-//        println("Exception thrown somewhere within parent or child: $exception.")
-//    }
-//
-//    /**
-//     * This is the job for all coroutines started by this ViewModel.
-//     * Cancelling this job will cancel all coroutines started by this ViewModel.
-//     */
-//    private val supervisorJob = SupervisorJob()
-//
-//    /**
-//     * This is the main scope for all coroutines launched by MainViewModel.
-//     * Since we pass viewModelJob, you can cancel all coroutines
-//     * launched by uiScope by calling viewModelJob.cancel()
-//     */
-//    val coroutineScope = CoroutineScope(Dispatchers.Default + supervisorJob + coroutineExceptionHandler)
-//
-//    /**
-//     * Cancel all coroutines when the ViewModel is cleared
-//     */
-//    override fun onCleared() {
-//        super.onCleared()
-//        supervisorJob.cancel()
-//    }
-
-
-    private val _referralState = MutableStateFlow(RewardState())
-    val referralState = _referralState.asStateFlow()
-
+    private val _rewardState = MutableStateFlow(RewardState())
+    val rewardState = _rewardState.asStateFlow()
 
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    fun getRewardItems(rcKey: String,context: Context?) {
+    fun getRewardItems(context: Context?) {
         viewModelScope.launch(Dispatchers.IO) {
-            rewardUseCase.getData(rcKey,context).collect { result ->
+            rewardUseCase.getData(context).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _eventFlow.emit(
@@ -74,12 +43,12 @@ class RewardViewModel @Inject constructor(
                                 result.message ?: "Hide Loading"
                             )
                         )
-                        _referralState.value =
-                            prepareReferralState(result = result, isLoading = false)
+                        _rewardState.value =
+                            prepareRewardState(result = result, isLoading = false)
                     }
                     is Resource.Error -> {
-                        _referralState.value =
-                            prepareReferralState(result = result, isLoading = false)
+                        _rewardState.value =
+                            prepareRewardState(result = result, isLoading = false)
                         _eventFlow.emit(
                             UIEvent.ShowSnackbar(
                                 result.message ?: "Unknown error"
@@ -87,8 +56,8 @@ class RewardViewModel @Inject constructor(
                         )
                     }
                     is Resource.Loading -> {
-                        _referralState.value =
-                            prepareReferralState(result = result, isLoading = true)
+                        _rewardState.value =
+                            prepareRewardState(result = result, isLoading = true)
 
                         _eventFlow.emit(
                             UIEvent.ShowLoader(
@@ -148,8 +117,8 @@ class RewardViewModel @Inject constructor(
         }
     }
 
-    private fun prepareReferralState(
-        result: Resource<List<ReferralData>>,
+    private fun prepareRewardState(
+        result: Resource<List<RewardData>>,
         isLoading: Boolean
     ): RewardState {
         return RewardState(
@@ -168,27 +137,6 @@ class RewardViewModel @Inject constructor(
             isLoading = isLoading
 
         )
-    }
-
-    fun persistRewardsToDb(
-        rewardDataList: List<RewardItem>,
-        context: Activity?,
-        onValidateListCallback: () -> Unit
-    ) {
-        context?.let {
-            viewModelScope.launch(Dispatchers.IO) {
-                var rewardDao: RewardDao = db.rewardDao
-                rewardDao.insertAll(rewardDataList.map {
-                    it.toEntity()
-                })
-                var rewardDataUpdated = rewardDao.getRewards()
-                Log.d("rewardDataUpdated", "$rewardDataUpdated")
-
-                withContext(Dispatchers.Main) {
-                    onValidateListCallback()
-                }
-            }
-        }
     }
 
     fun getCompletedTasks(): Map<String, RewardEntity> {

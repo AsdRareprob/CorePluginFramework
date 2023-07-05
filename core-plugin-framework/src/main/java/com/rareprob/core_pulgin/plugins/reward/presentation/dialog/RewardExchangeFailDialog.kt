@@ -48,13 +48,6 @@ class RewardExchangeFailDialog(val activity: Activity, val unlockForFreeCallback
                 RewardActivity.launch(activity)
             }
         }
-
-        //TODO KP
-//        btnContinue.setOnTouchAnimationListener {
-//            dismiss()
-//            //CoreUtils.openTargetActivity(activity, "ACTION_FILE_MANAGER_MAIN_SCREEN")
-//            callbackListener()
-//        }
     }
 
 }

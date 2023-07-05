@@ -1,18 +1,20 @@
 package com.rareprob.core_pulgin.plugins.reward.data.repository
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.rareprob.core_pulgin.core.utils.Resource
 import com.rareprob.core_pulgin.core.utils.AppPreferencesUtils
+import com.rareprob.core_pulgin.core.utils.FirebaseRemoteConfigUtils
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
 import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils
 import com.rareprob.core_pulgin.plugins.reward.data.RewardParser
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardPreferenceManager
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
-import com.rareprob.core_pulgin.plugins.reward.domain.model.ReferralData
+import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
 import com.rareprob.core_pulgin.plugins.reward.domain.repository.RewardRepository
 import kotlinx.coroutines.*
@@ -25,16 +27,20 @@ class RewardRepositoryImpl(
     private val rewardDao: RewardDao,
 ) : RewardRepository {
 
+
     /**
      * Fetch data from Rc // TODO KP remove this hardcoded json in Prod build
      */
     override fun getRewardItems(
-        rckey: String,
         context: Context?
-    ): Flow<Resource<List<ReferralData>>> = flow {
+    ): Flow<Resource<List<RewardData>>> = flow {
         emit(Resource.Loading())
 
-        var defaultLocalJson = """
+        var rcJson = FirebaseRemoteConfigUtils.getRcRewardItemsJson(remoteConfigInstance)
+
+        if(TextUtils.isEmpty(rcJson)) {
+
+            var defaultLocalJson = """
             {
               "rewardName": "Daily Task",
               "data": [
@@ -70,9 +76,12 @@ class RewardRepositoryImpl(
             }
         """.trimIndent()
 
-        var referralDataList = RewardParser(rewardDao).parseReferralJson(json = defaultLocalJson, context)
+            rcJson = defaultLocalJson
 
-        emit(Resource.Success(referralDataList))
+        }
+        var rewardDataList = RewardParser(rewardDao).parseRewardItemsJson(json = rcJson, context)
+
+        emit(Resource.Success(rewardDataList))
     }
 
 
@@ -82,7 +91,9 @@ class RewardRepositoryImpl(
     ): Flow<Resource<Map<Long, ThemeData>>> = flow {
         emit(Resource.Loading())
 
-        var defaultLocalJson = """
+        var rcJson = FirebaseRemoteConfigUtils.getRcThemesDataJson(remoteConfigInstance)
+        if(TextUtils.isEmpty(rcJson)) {
+            var defaultLocalJson = """
             {
               "data": [
                 {
@@ -152,7 +163,9 @@ class RewardRepositoryImpl(
             }
         """.trimIndent()
 
-        var themeDataMap = RewardParser(rewardDao).parseThemesJson(defaultLocalJson)
+            rcJson = defaultLocalJson
+        }
+        var themeDataMap = RewardParser(rewardDao).parseThemesJson(rcJson)
         emit(Resource.Success(themeDataMap))
     }
 

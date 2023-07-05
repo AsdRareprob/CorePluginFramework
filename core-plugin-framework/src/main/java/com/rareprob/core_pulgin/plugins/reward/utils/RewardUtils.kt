@@ -2,6 +2,9 @@ package com.rareprob.core_pulgin.plugins.reward.utils
 
 import android.content.Context
 import android.provider.Settings
+import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.CoinCollectDialog
+import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.RewardExchangeDialog
+import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.RewardExchangeFailDialog
 
 
 object RewardUtils  {
@@ -49,11 +52,11 @@ object RewardUtils  {
     }
 
 
-    var NAVIGATION_SOURCE = "NAVIGATION_FROM_REFERRAL"
+    var NAVIGATION_SOURCE = "NAVIGATION_FROM_REWARD"
 
     object AppsScreenIntentFilterAction {
         object VideoPlayerActionIntent {
-            var WATCH_VIDEO = "ACTION_VIDEO_PLAYER_SCREEN_REFERRAL_CTA"
+            var WATCH_VIDEO = "ACTION_VIDEO_PLAYER_SCREEN_REWARD_CTA"
         }
     }
 
