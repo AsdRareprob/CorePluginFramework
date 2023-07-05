@@ -42,9 +42,13 @@ object RewardUtils  {
         //        const val WATCH_ONLINE_VIDEO = 1
 //        const val WATCH_OFF_LINE_VIDEO = 2
         const val WATCH_VIDEO = "WATCH_VIDEO"
+        const val VIDEO_DOWNLOADER = "VIDEO_DOWNLOADER"
+        const val IMAGE_FILE_HIDER = "IMAGE_FILE_HIDER"
+        const val VIDEO_FILE_HIDER = "VIDEO_FILE_HIDER"
+
         const val PLAY_ONLINE_GAMES = "PLAY_ONLINE_GAMES"
-        const val FILE_HIDER = "FILE_HIDER"
-        const val DOWNLOADER = "DOWNLOADER"
+
+
         const val FILTER_DUPLICATE = "FILTER_DUPLICATE"
         const val LISTEN_MUSIC = "LISTEN_MUSIC"
         const val APPLY_ONLINE_LYRICS = "APPLY_ONLINE_LYRICS"

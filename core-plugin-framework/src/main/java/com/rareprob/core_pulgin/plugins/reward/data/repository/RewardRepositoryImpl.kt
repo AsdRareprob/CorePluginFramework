@@ -48,12 +48,12 @@ class RewardRepositoryImpl(
                   "id": 1,
                   "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
                   "taskIconBgColor": "#FFA8A8",
-                  "title": "Watch the online video for 15 minutes Testing",
+                  "title": "Watch the online video for 15 minutes",
                   "actionButtonCaption": "Go",
                   "ctaBgColor": "#08C792",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 500,
-                   "sort_order": 2,
+                  "reward": 100,
+                   "sort_order": 1,
                    "duration_or_file_count" : 1,
                    "launchTargetScreenAction":  "",
                    "task_type" : "WATCH_VIDEO"
@@ -62,22 +62,49 @@ class RewardRepositoryImpl(
                   "id": 2,
                   "taskIcon": "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
                   "taskIconBgColor": "#FFA8A8",
-                  "title": "Don't watch ",
+                  "title": "Hide an image ",
                   "actionButtonCaption": "Go",
                   "ctaBgColor": "#08C792",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 500,
-                   "sort_order": 1,
+                  "reward": 100,
+                   "sort_order": 2,
                   "duration_or_file_count" : 1,
                    "launchTargetScreenAction":  "",
-                    "task_type" : "PLAY_ONLINE_GAMES"
+                    "task_type" : "IMAGE_FILE_HIDER"
+                },
+                  {
+                  "id": 3,
+                  "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
+                  "taskIconBgColor": "#FFA8A8",
+                  "title": "Hide your private video",
+                  "actionButtonCaption": "Go",
+                  "ctaBgColor": "#08C792",
+                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
+                  "reward": 100,
+                   "sort_order": 3,
+                   "duration_or_file_count" : 1,
+                   "launchTargetScreenAction":  "",
+                   "task_type" : "VIDEO_FILE_HIDER"
+                },
+                    {
+                  "id": 4,
+                  "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
+                  "taskIconBgColor": "#FFA8A8",
+                  "title": "Download a file from a built-in downloader",
+                  "actionButtonCaption": "Go",
+                  "ctaBgColor": "#08C792",
+                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
+                  "reward": 100,
+                   "sort_order": 4,
+                   "duration_or_file_count" : 1,
+                   "launchTargetScreenAction":  "",
+                   "task_type" : "VIDEO_DOWNLOADER"
                 }
               ]
             }
         """.trimIndent()
 
             rcJson = defaultLocalJson
-
         }
         var rewardDataList = RewardParser(rewardDao).parseRewardItemsJson(json = rcJson, context)
 
