@@ -1,8 +1,10 @@
 package com.rareprob.core_pulgin.plugins.reward.domain.model
 
+import androidx.annotation.Keep
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
+@Keep
 data class FirebaseRewardData(
     var uid: String = "",
     var  earnedCoins: String = ""

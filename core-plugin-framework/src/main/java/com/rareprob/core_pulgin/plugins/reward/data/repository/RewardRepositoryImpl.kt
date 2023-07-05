@@ -54,7 +54,7 @@ class RewardRepositoryImpl(
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
                   "reward": 500,
                    "sort_order": 2,
-                   "duration_or_file_count" : 0,
+                   "duration_or_file_count" : 1,
                    "launchTargetScreenAction":  "",
                    "task_type" : "WATCH_VIDEO"
                 },
@@ -62,15 +62,15 @@ class RewardRepositoryImpl(
                   "id": 2,
                   "taskIcon": "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
                   "taskIconBgColor": "#FFA8A8",
-                  "title": "Play online games for 15 minutes ",
+                  "title": "Don't watch ",
                   "actionButtonCaption": "Go",
                   "ctaBgColor": "#08C792",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
                   "reward": 500,
                    "sort_order": 1,
-                  "duration_or_file_count" : 0,
+                  "duration_or_file_count" : 1,
                    "launchTargetScreenAction":  "",
-                     "task_type" : "PLAY_ONLINE_GAMES"
+                    "task_type" : "PLAY_ONLINE_GAMES"
                 }
               ]
             }
