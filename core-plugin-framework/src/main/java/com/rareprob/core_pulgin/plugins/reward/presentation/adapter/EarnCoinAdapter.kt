@@ -98,7 +98,7 @@ class EarnCoinAdapter(
                 tvActionBtn.text = rewardItem.actionButtonCaption
 
                 var ctaBgColor = rewardItem.ctaBgColor.ifEmpty {
-                    "#08C792"
+                    "#FD5B7C"
                 }
                 tvActionBtn.background.setColorFilter(
                     Color.parseColor(ctaBgColor), PorterDuff.Mode.SRC_ATOP
@@ -171,22 +171,22 @@ class EarnCoinAdapter(
                         }
                     })
 
-                Glide.with(context).asBitmap().load(rewardItem.rewardIcon).thumbnail(0.1f)
-                    .into(object : CustomTarget<Bitmap?>() {
-                        override fun onLoadFailed(errorDrawable: Drawable?) {
-                            super.onLoadFailed(errorDrawable)
-                            taskIcon.setImageResource(R.drawable.ic_star)
-                        }
-
-                        override fun onResourceReady(
-                            resource: Bitmap, transition: Transition<in Bitmap?>?
-                        ) {
-                            ivRewardIcon?.setImageBitmap(resource)
-                        }
-
-                        override fun onLoadCleared(placeholder: Drawable?) {
-                        }
-                    })
+//                Glide.with(context).asBitmap().load(rewardItem.rewardIcon).thumbnail(0.1f)
+//                    .into(object : CustomTarget<Bitmap?>() {
+//                        override fun onLoadFailed(errorDrawable: Drawable?) {
+//                            super.onLoadFailed(errorDrawable)
+//                            taskIcon.setImageResource(R.drawable.ic_star)
+//                        }
+//
+//                        override fun onResourceReady(
+//                            resource: Bitmap, transition: Transition<in Bitmap?>?
+//                        ) {
+//                            ivRewardIcon?.setImageBitmap(resource)
+//                        }
+//
+//                        override fun onLoadCleared(placeholder: Drawable?) {
+//                        }
+//                    })
             }
         }
     }

@@ -17,6 +17,8 @@ import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
 import com.rareprob.core_pulgin.plugins.reward.domain.repository.RewardRepository
+import com.rareprob.core_pulgin.plugins.reward.presentation.activity.RewardBaseActivity
+import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.CoinCollectDialog
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -50,21 +52,21 @@ class RewardRepositoryImpl(
                   "taskIconBgColor": "#FFA8A8",
                   "title": "Watch the online video for 15 minutes",
                   "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
+                  "ctaBgColor": "#FD5B7C",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
                   "reward": 100,
                    "sort_order": 1,
-                   "duration_or_file_count" : 1,
+                   "duration_or_file_count" : 0,
                    "launchTargetScreenAction":  "",
                    "task_type" : "WATCH_VIDEO"
                 },
                 {
                   "id": 2,
                   "taskIcon": "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
-                  "taskIconBgColor": "#FFA8A8",
+                  "taskIconBgColor": "#BEE884",
                   "title": "Hide an image ",
                   "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
+                  "ctaBgColor": "#FD5B7C",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
                   "reward": 100,
                    "sort_order": 2,
@@ -75,10 +77,10 @@ class RewardRepositoryImpl(
                   {
                   "id": 3,
                   "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "taskIconBgColor": "#FFA8A8",
+                  "taskIconBgColor": "#BEE884",
                   "title": "Hide your private video",
                   "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
+                  "ctaBgColor": "#FD5B7C",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
                   "reward": 100,
                    "sort_order": 3,
@@ -89,10 +91,10 @@ class RewardRepositoryImpl(
                     {
                   "id": 4,
                   "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "taskIconBgColor": "#FFA8A8",
+                  "taskIconBgColor": "#97EDF8",
                   "title": "Download a file from a built-in downloader",
                   "actionButtonCaption": "Go",
-                  "ctaBgColor": "#08C792",
+                  "ctaBgColor": "#FD5B7C",
                   "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
                   "reward": 100,
                    "sort_order": 4,
@@ -217,7 +219,10 @@ class RewardRepositoryImpl(
                      */
                     rewardData.taskCompletionTime = System.currentTimeMillis()
 
+                    var displayMsg = "You have earned \n  ${rewardData.rewardCoins} coins"
+                    AppPreferencesUtils.putString("Video_REWARD_Task_COMPLETION_STATUS",displayMsg,context)
                     withContext(Dispatchers.Main) {
+//                        showCoinCollectDialog(displayMsg,context) //TODO KP
                         Toast.makeText(
                             context,
                             "You got ${rewardData.earnedCoins} coins",
@@ -233,6 +238,19 @@ class RewardRepositoryImpl(
 
         }
     }
+
+//    private lateinit var coinCollectDialog: CoinCollectDialog
+//
+//    fun showCoinCollectDialog(displayMsg:String, context: Context) {
+//        if (!this::coinCollectDialog.isInitialized) {
+//            coinCollectDialog = CoinCollectDialog(context, ::onSetResult,displayMsg)
+//        }
+//        coinCollectDialog.show()
+//    }
+
+//    private fun onSetResult() {
+//    }
+
 
     private fun getTaskCompletionStatus(
         rewardData: RewardEntity,

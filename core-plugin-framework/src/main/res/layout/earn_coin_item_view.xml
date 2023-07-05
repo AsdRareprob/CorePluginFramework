@@ -28,9 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_12_dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintEnd_toStartOf="@+id/llClickToAction"
         app:layout_constraintStart_toEndOf="@+id/icon"
+        android:paddingVertical="@dimen/dimen_6_dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bg_earn_reward"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/dimen_16_dp"
+            android:paddingHorizontal="@dimen/dimen_22_dp"
             android:paddingVertical="@dimen/dimen_4_dp"
             android:text=""
             android:textColor="@color/white"
@@ -101,7 +101,7 @@
             android:id="@+id/tvClaimBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_bg_earn_reward"
+            android:background="@drawable/rectangle_bg_claim_reward"
             android:gravity="center"
             android:paddingHorizontal="@dimen/dimen_12_dp"
             android:paddingVertical="@dimen/dimen_4_dp"

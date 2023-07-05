@@ -108,8 +108,6 @@ class RewardParser(private val rewardDao: RewardDao) {
                 }
             }
         }
-//        var rewardDataUpdated = rewardDao.getRewards() ?: emptyList()
-//        Log.d("rewardDataUpdated", "" + rewardDataUpdated)
     }
 
     /**

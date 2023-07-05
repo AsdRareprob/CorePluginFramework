@@ -16,26 +16,20 @@ import javax.inject.Inject
 open class RewardBaseActivity() : AppCompatActivity() {
     @Inject
     lateinit var repository: RewardRepository
-    private lateinit var coinCollectDialog: CoinCollectDialog
 
-    fun showCoinCollectDialog() {
-        if (!this::coinCollectDialog.isInitialized) {
-            coinCollectDialog = CoinCollectDialog(this, ::onSetResult)
-        }
-        coinCollectDialog.show()
-    }
 
-    private fun onSetResult() {
-    }
+
+
+
 
     protected fun persistWatchVideoTaskProgressData(
-        context: Context,
+
         watchStartTime: Long = System.currentTimeMillis()
     ) {
         val endTime = System.currentTimeMillis()
         val watchedDuration: Long = endTime - watchStartTime
         repository.saveTaskProgressData(
-            context,
+            this,
             RewardUtils.RewardTaskType.WATCH_VIDEO,
             watchedDuration
         )

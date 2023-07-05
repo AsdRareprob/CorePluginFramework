@@ -1,5 +1,6 @@
 package com.rareprob.core_pulgin.plugins.reward.utils
 
+import android.app.Activity
 import android.content.Context
 import android.provider.Settings
 import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.CoinCollectDialog
@@ -8,6 +9,18 @@ import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.RewardExchang
 
 
 object RewardUtils  {
+
+    private lateinit var coinCollectDialog: CoinCollectDialog
+
+    fun showCoinCollectDialog(displayMsg:String, context: Activity) {
+        if (!this::coinCollectDialog.isInitialized) {
+            coinCollectDialog = CoinCollectDialog(context, ::onSetResult,displayMsg)
+        }
+        coinCollectDialog.show()
+    }
+
+    private fun onSetResult() {
+    }
 
     object RewardViewType {
         object CoinExchangeViewType {
