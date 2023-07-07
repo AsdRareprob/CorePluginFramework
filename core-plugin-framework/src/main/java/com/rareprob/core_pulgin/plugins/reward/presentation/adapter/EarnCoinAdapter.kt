@@ -18,6 +18,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.rareprob.core_pulgin.R
 import com.rareprob.core_pulgin.core.base.NetworkUtils
 import com.rareprob.core_pulgin.core.base.data.AppData
+import com.rareprob.core_pulgin.core.base.extention.setOnTouchAnimationListener
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
 import  com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils.RewardViewType.EarnCoinViewType
 import kotlinx.android.synthetic.main.earn_coin_item_view.view.*
@@ -116,11 +117,11 @@ class EarnCoinAdapter(
 
                 setClaimStatusView(dataItem)
 
-                tvActionBtn.setOnClickListener {
-                    onClickEarnCoin(rewardItem, it)
+                tvActionBtn.setOnTouchAnimationListener {
+                    onClickEarnCoin(rewardItem, tvActionBtn)
                 }
 
-                tvClaimBtn.setOnClickListener {
+                tvClaimBtn.setOnTouchAnimationListener {
                     context?.let { context ->
                         if (NetworkUtils.isDeviceOnline(context).not()) {
                             Toast.makeText(
@@ -131,7 +132,7 @@ class EarnCoinAdapter(
                         } else {
                             //To Block click .We have applied this check if (rewardItem.isRewardClaimed.not())
                             if (rewardItem.isRewardClaimed.not()) {
-                                onClickClaimCoin(rewardItem, it)
+                                onClickClaimCoin(rewardItem, tvClaimBtn)
                             }
                         }
                     }

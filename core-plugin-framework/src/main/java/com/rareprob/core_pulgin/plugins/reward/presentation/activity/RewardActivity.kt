@@ -335,6 +335,7 @@ class RewardActivity : RewardBaseActivity(), Runnable {
         coinAnimInvokeView = view
         this.rewardItem = rewardItem
 
+        totalCoins = RewardPreferenceManager().getSavedCoins(this@RewardActivity)
         coinMaxCount = 15//Random.nextInt(1, 50)
         coinCount = 0
         coinAnimHandler.removeCallbacks(this)
