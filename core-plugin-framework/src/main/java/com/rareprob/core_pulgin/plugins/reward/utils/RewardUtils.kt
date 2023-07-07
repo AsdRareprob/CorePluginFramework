@@ -2,19 +2,29 @@ package com.rareprob.core_pulgin.plugins.reward.utils
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.os.Environment
 import android.provider.Settings
+import com.rareprob.core_pulgin.core.utils.AppPreferencesUtils
+import com.rareprob.core_pulgin.core.utils.AppUtils
+import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
 import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.CoinCollectDialog
 import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.RewardExchangeDialog
 import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.RewardExchangeFailDialog
 
 
-object RewardUtils  {
+object RewardUtils {
+
+    object RewardBroadCastAction {
+        var ACTION_DOWNLOAD_COMPLETE =
+            "marabillas.loremar.lmvideodownloader.action.ACTION_DOWNLOAD_COMPLETE"
+    }
 
     private lateinit var coinCollectDialog: CoinCollectDialog
 
-    fun showCoinCollectDialog(displayMsg:String, context: Activity) {
+    fun showCoinCollectDialog(displayMsg: String, context: Activity) {
         if (!this::coinCollectDialog.isInitialized) {
-            coinCollectDialog = CoinCollectDialog(context, ::onSetResult,displayMsg)
+            coinCollectDialog = CoinCollectDialog(context, ::onSetResult, displayMsg)
         }
         coinCollectDialog.show()
     }
@@ -71,25 +81,111 @@ object RewardUtils  {
 
     var NAVIGATION_SOURCE = "NAVIGATION_FROM_REWARD"
 
-    object AppsScreenIntentFilterAction {
-        object VideoPlayerActionIntent {
-            var WATCH_VIDEO = "ACTION_VIDEO_PLAYER_SCREEN_REWARD_CTA"
-        }
-    }
+//    object AppsScreenIntentFilterAction {
+//        object VideoPlayerActionIntent {
+//            var WATCH_VIDEO = "ACTION_VIDEO_PLAYER_SCREEN_REWARD_CTA"
+//        }
+//    }
 
     object RareprobAppsInfo {
         var VIDEO_PLAYER = "com.rocks.music.videoplayer"
     }
 
-    fun getAppSpecificLaunchScreenActionIntent(applicationId: String): String {
+    object VidePlayerAppLaunchComponents {
+
+        val WATCH_VIDEO = "com.rocks.music.videoplayer.VideoActivity"
+        val IMAGE_FILE_HIDER = "com.rocks.music.videoplayer.PrivateVideoActivity"
+        val VIDEO_FILE_HIDER = "com.rocks.music.videoplayer.PrivateVideoActivity"
+        val FILE_DOWNLOADER = "marabillas.loremar.lmvideodownloader.RocksDownloaderMainScreen"
+    }
+
+
+    fun getAppSpecificLaunchScreenActionIntent(
+        context: Context,
+        applicationId: String,
+        rewardItem: RewardItem
+    ): Intent? {
         return when (applicationId) {
             RareprobAppsInfo.VIDEO_PLAYER -> {
-                AppsScreenIntentFilterAction.VideoPlayerActionIntent.WATCH_VIDEO
+                return getVideoPlayLaunchComponents(context, rewardItem)
             }
             else -> {
-                AppsScreenIntentFilterAction.VideoPlayerActionIntent.WATCH_VIDEO
+                null
             }
         }
+    }
+
+
+    private fun getVideoPlayLaunchComponents(context: Context, rewardItem: RewardItem): Intent? {
+        return when (rewardItem.taskType) {
+            RewardTaskType.WATCH_VIDEO -> {
+                AppPreferencesUtils.putString(NAVIGATION_SOURCE, rewardItem.taskType, context)
+                val intent =
+                    Intent(context, Class.forName(VidePlayerAppLaunchComponents.WATCH_VIDEO))
+                intent.putExtra(NAVIGATION_SOURCE, rewardItem.taskType)
+                intent.putExtra(RewardUtils.BundleKey.REWARD_COINS, rewardItem.rewardCoins)
+                intent.putExtra("Path", Environment.getExternalStorageDirectory().absolutePath)
+                intent.putExtra("IsFetchAllVideos", true)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            RewardTaskType.VIDEO_DOWNLOADER -> {
+                AppPreferencesUtils.putString(NAVIGATION_SOURCE, rewardItem.taskType, context)
+                val intent =
+                    Intent(context, Class.forName(VidePlayerAppLaunchComponents.FILE_DOWNLOADER))
+                intent.putExtra(NAVIGATION_SOURCE, rewardItem.taskType)
+                intent.putExtra(RewardUtils.BundleKey.REWARD_COINS, rewardItem.rewardCoins)
+                intent.putExtra("Path", Environment.getExternalStorageDirectory().absolutePath)
+                intent.putExtra("IsFetchAllVideos", true)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+            }
+            RewardTaskType.IMAGE_FILE_HIDER -> {
+                val intent =
+                    Intent(context, Class.forName(VidePlayerAppLaunchComponents.IMAGE_FILE_HIDER))
+                intent.putExtra(NAVIGATION_SOURCE, rewardItem.taskType)
+                intent.putExtra(RewardUtils.BundleKey.REWARD_COINS, rewardItem.rewardCoins)
+                intent.putExtra("Path", Environment.getExternalStorageDirectory().absolutePath)
+                intent.putExtra("IsFetchAllVideos", true)
+                intent.putExtra("MEDIA_TYPE", 1)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            RewardTaskType.VIDEO_FILE_HIDER -> {
+                val intent =
+                    Intent(context, Class.forName(VidePlayerAppLaunchComponents.VIDEO_FILE_HIDER))
+                intent.putExtra(NAVIGATION_SOURCE, rewardItem.taskType)
+                intent.putExtra(RewardUtils.BundleKey.REWARD_COINS, rewardItem.rewardCoins)
+                intent.putExtra("Path", Environment.getExternalStorageDirectory().absolutePath)
+                intent.putExtra("IsFetchAllVideos", true)
+                intent.putExtra("MEDIA_TYPE", 0)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            else -> {
+                null
+            }
+        }
+    }
+
+    fun getRewardDefaultJson(context: Context?): String {
+        if (context != null) {
+            return when (context.applicationContext.packageName) {
+                RareprobAppsInfo.VIDEO_PLAYER -> {
+                    return getDefaultJson(context, "DefaultRewardVideoPlayerJsonData")
+                }
+                else -> {
+                    ""
+                }
+            }
+        }
+        return ""
+    }
+
+
+    fun getDefaultJson(context: Context?, defaultFile: String): String {
+        if (context == null)
+            return ""
+        return AppUtils.loadJSONFromAsset(
+            context, defaultFile
+        )
     }
 
     fun getAndroidId(context: Context): String =

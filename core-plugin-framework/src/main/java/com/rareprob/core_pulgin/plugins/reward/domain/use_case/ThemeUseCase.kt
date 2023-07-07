@@ -10,10 +10,10 @@ class ThemeUseCase(
     private val repository: RewardRepository
 ) {
 
-     fun getData(rckey: String,context: Context?): Flow<Resource<Map<Long, ThemeData>>> {
+     fun getData(context: Context?): Flow<Resource<Map<Long, ThemeData>>> {
 //        if(rckey.isBlank()) {
 //            return flow {  }
 //        }
-        return repository.getThemesData(rckey,context)
+        return repository.getThemesData(context)
     }
 }

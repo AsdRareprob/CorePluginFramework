@@ -51,7 +51,7 @@ class IapBillingViewModel @Inject constructor(
         rcProductItemList: List<ProductListingData> = emptyList()
     ) {
         if (rcProductItemList.isNullOrEmpty()) {
-            //We can emit empty data list here //TODO KP
+            //We can emit empty data list here
         } else {
             billingClient.startBillingConnection(
                 billingConnectionState = _billingConnectionState,

@@ -1,8 +1,10 @@
 package com.rareprob.core_pulgin.plugins.reward.presentation.activity
 
 import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
@@ -18,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
@@ -27,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rareprob.core_pulgin.R
 import com.rareprob.core_pulgin.core.base.NetworkUtils
+import com.rareprob.core_pulgin.core.base.extention.showToast
 import com.rareprob.core_pulgin.databinding.ActivityRefferalBinding
 import com.rareprob.core_pulgin.plugins.reward.animation.Coin
 import com.rareprob.core_pulgin.plugins.reward.animation.CoinCollectingAnimUtils
@@ -337,4 +341,5 @@ class RewardActivity : RewardBaseActivity(), Runnable {
         coinAnimHandler.post(this)
         Log.d("callbackListener", "callbackListener")
     }
+
 }

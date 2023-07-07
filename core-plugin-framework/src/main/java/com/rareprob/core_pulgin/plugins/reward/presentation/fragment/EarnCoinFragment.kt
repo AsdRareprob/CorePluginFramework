@@ -164,29 +164,34 @@ class EarnCoinFragment : RewardBaseFragment() {
         }, 1500)
     }
 
+    /**
+     * Called when we click any task item to earn coin
+     * OnClicking of item user will be navigated to a particular screen
+     */
     private fun onClickEarnCoin(rewardItem: RewardItem, view: View) {
         if (activity == null) {
             return
         }
-        var actionIntent = RewardUtils.getAppSpecificLaunchScreenActionIntent(
-            activity?.packageName
-                ?: ""
-        )
-        if (actionIntent.isNullOrEmpty()) {
+        var actionIntent = context?.let {
+            RewardUtils.getAppSpecificLaunchScreenActionIntent(
+                it,
+                activity?.packageName
+                    ?: "",
+                rewardItem
+            )
+        }
+        if (actionIntent == null) {
             showErrorMsg()
             return
         }
         try {
             val intent = Intent(actionIntent)
-            intent.putExtra(RewardUtils.BundleKey.REWARD_COINS, rewardItem.rewardCoins)
-            intent.putExtra("Path", Environment.getExternalStorageDirectory().absolutePath)
-            intent.putExtra("IsFetchAllVideos", true)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             activity?.startActivity(intent)
         } catch (exception: Exception) {
             showErrorMsg()
         }
     }
+
 
     private fun showErrorMsg() {
         Toast.makeText(

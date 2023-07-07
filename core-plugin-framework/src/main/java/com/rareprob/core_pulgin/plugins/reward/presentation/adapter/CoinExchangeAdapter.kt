@@ -89,7 +89,7 @@ class CoinExchangeAdapter(
             intent.putExtra("NAVIGATION_SOURCE", "REWARD_LIB")
             intent.putExtra("THEME_TYPE", "PREMIUM")
             context.startActivity(intent)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             context.startActivity(intent)
             //finish()
         } catch (_: Exception) {

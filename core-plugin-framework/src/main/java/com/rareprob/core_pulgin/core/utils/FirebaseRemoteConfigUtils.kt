@@ -50,14 +50,17 @@ object FirebaseRemoteConfigUtils {
 
 
     fun getRcRewardItemsJson(
+        context: Context?,
         remoteConfigInstance: FirebaseRemoteConfig
     ): String {
+        if(context == null || NetworkUtils.isDeviceOnline(context = context).not()){
+            return ""
+        }
+
         return try {
             var json = ""
-            //Get remote config json
-            val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
             var rcJson =
-                mFirebaseRemoteConfig.getString(REWARD_ITEMS_DATA_KEY)
+                remoteConfigInstance.getString(REWARD_ITEMS_DATA_KEY)
 
             if (TextUtils.isEmpty(rcJson).not()) {
                 json = rcJson
@@ -72,14 +75,17 @@ object FirebaseRemoteConfigUtils {
      * This function returns theme data json for reward module
      */
     fun getRcThemesDataJson(
+        context: Context?,
         remoteConfigInstance: FirebaseRemoteConfig
     ): String {
+        if(context == null || NetworkUtils.isDeviceOnline(context = context).not()){
+            return ""
+        }
+
         return try {
             var json = ""
-            //Get remote config json
-            val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
             var rcJson =
-                mFirebaseRemoteConfig.getString(REWARD_THEME_DATA_KEY)
+                remoteConfigInstance.getString(REWARD_THEME_DATA_KEY)
 
             if (TextUtils.isEmpty(rcJson).not()) {
                 json = rcJson

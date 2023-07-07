@@ -6,19 +6,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.rareprob.core_pulgin.R
 import com.rareprob.core_pulgin.core.base.CoreBaseActivity
 import com.rareprob.core_pulgin.core.base.NetworkUtils
 import com.rareprob.core_pulgin.core.base.extention.*
 import com.rareprob.core_pulgin.core.utils.AppUtils
-import com.rareprob.core_pulgin.plugins.payment.FeatureInfo
-import com.rareprob.core_pulgin.plugins.payment.in_app_purchase.data.model.InAppProductData
 import com.rareprob.core_pulgin.plugins.payment.in_app_purchase.data.model.ProductListingData
 import com.rareprob.core_pulgin.plugins.payment.in_app_purchase.data.model.PurchaseRestoreState
 import dagger.hilt.android.AndroidEntryPoint
@@ -146,7 +142,7 @@ class IapBillingPurchaseRestoreActivity : CoreBaseActivity() {
 
     private fun launchIapBillingActivity() {
         var defaultLocalPackJson = AppUtils.loadJSONFromAsset(
-            this, "DefaultPackJsonData"
+            this, "DefaultRewardVideoPlayerJsonData"
         )
         IapBillingActivity.launchForResult(
             FileManagerMainActivity@ this,

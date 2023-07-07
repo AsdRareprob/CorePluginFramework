@@ -1,0 +1,57 @@
+{
+  "rewardName": "Daily Task",
+  "data": [
+    {
+      "id": 1,
+      "taskIcon": "https://content.delivery-asset.com/img/default/Notification/aa1063d4-0c60-4ff0-970c-a05ccafbfce1.png",
+      "taskIconBgColor": "#FFA8A8",
+      "title": "Watch the online video for 15 minutes",
+      "actionButtonCaption": "Go",
+      "ctaBgColor": "#FD5B7C",
+      "reward": 100,
+      "sort_order": 1,
+      "duration_or_file_count" : 1,
+      "launchTargetScreenAction":  "",
+      "task_type" : "WATCH_VIDEO"
+    },
+    {
+      "id": 2,
+      "taskIcon": "https://content.delivery-asset.com/img/default/Notification/59496029-dd9a-44e5-8b74-f00db59b5e7a.png",
+      "taskIconBgColor": "#BEE884",
+      "title": "Hide an image ",
+      "actionButtonCaption": "Go",
+      "ctaBgColor": "#FD5B7C",
+      "reward": 100,
+      "sort_order": 2,
+      "duration_or_file_count" : 1,
+      "launchTargetScreenAction":  "",
+      "task_type" : "IMAGE_FILE_HIDER"
+    },
+    {
+      "id": 3,
+      "taskIcon": "https://content.delivery-asset.com/img/default/Notification/59496029-dd9a-44e5-8b74-f00db59b5e7a.png",
+      "taskIconBgColor": "#BEE884",
+      "title": "Hide your private video",
+      "actionButtonCaption": "Go",
+      "ctaBgColor": "#FD5B7C",
+      "reward": 100,
+      "sort_order": 3,
+      "duration_or_file_count" : 1,
+      "launchTargetScreenAction":  "",
+      "task_type" : "VIDEO_FILE_HIDER"
+    },
+    {
+      "id": 4,
+      "taskIcon": "https://content.delivery-asset.com/img/default/Notification/152b8e8c-c23b-490e-a2bf-b63255368580.png",
+      "taskIconBgColor": "#97EDF8",
+      "title": "Download a file from a built-in downloader",
+      "actionButtonCaption": "Go",
+      "ctaBgColor": "#FD5B7C",
+      "reward": 100,
+      "sort_order": 4,
+      "duration_or_file_count" : 1,
+      "launchTargetScreenAction":  "",
+      "task_type" : "VIDEO_DOWNLOADER"
+    }
+  ]
+}

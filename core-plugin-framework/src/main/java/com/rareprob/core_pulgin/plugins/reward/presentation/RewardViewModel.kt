@@ -74,9 +74,9 @@ class RewardViewModel @Inject constructor(
 
     private val _themeState = MutableStateFlow(ThemeDataState())
     val themeState = _themeState.asStateFlow()
-    fun getThemeData(rcKey: String,context: Context?) {
+    fun getThemeData(context: Context?) {
         viewModelScope.launch(Dispatchers.IO) {
-            themeUseCase.getData(rcKey,context).collect { result ->
+            themeUseCase.getData(context).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _themeState.value =

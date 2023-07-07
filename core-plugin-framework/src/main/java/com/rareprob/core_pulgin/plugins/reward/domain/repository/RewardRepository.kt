@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface RewardRepository {
     fun getRewardItems(context: Context?): Flow<Resource<List<RewardData>>>
 
-    fun getThemesData(rckey: String, context: Context?): Flow<Resource<Map<Long, ThemeData>>>
+    fun getThemesData(context: Context?): Flow<Resource<Map<Long, ThemeData>>>
 
     fun claimRewardCoins(context: Context, rewardData: RewardEntity)
 
@@ -22,7 +22,8 @@ interface RewardRepository {
     fun saveTaskProgressData(
         context: Context,
         taskType: String,
-        watchedDurationOrFileOperatedCount: Long
+        watchedDurationOrFileOperatedCount: Long,
+        isShowDialog:Boolean = false
     )
 
 }

@@ -2,6 +2,7 @@ package com.rareprob.core_pulgin.plugins.reward.presentation.activity
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
+import com.rareprob.core_pulgin.core.utils.AppPreferencesUtils
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardPreferenceManager
 import com.rareprob.core_pulgin.plugins.reward.data.repository.RewardRepositoryImpl
 import com.rareprob.core_pulgin.plugins.reward.domain.repository.RewardRepository
@@ -17,22 +18,20 @@ open class RewardBaseActivity() : AppCompatActivity() {
     @Inject
     lateinit var repository: RewardRepository
 
-
-
-
-
-
     protected fun persistWatchVideoTaskProgressData(
 
         watchStartTime: Long = System.currentTimeMillis()
     ) {
-        val endTime = System.currentTimeMillis()
-        val watchedDuration: Long = endTime - watchStartTime
-        repository.saveTaskProgressData(
-            this,
-            RewardUtils.RewardTaskType.WATCH_VIDEO,
-            watchedDuration
-        )
+        var taskType = AppPreferencesUtils.getString(RewardUtils.NAVIGATION_SOURCE,this)
+        if(taskType == RewardUtils.RewardTaskType.WATCH_VIDEO) {
+            val endTime = System.currentTimeMillis()
+            val watchedDuration: Long = endTime - watchStartTime
+            repository.saveTaskProgressData(
+                this,
+                RewardUtils.RewardTaskType.WATCH_VIDEO,
+                watchedDuration
+            )
+        }
     }
 
 }

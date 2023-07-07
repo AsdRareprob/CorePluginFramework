@@ -12,6 +12,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.rareprob.core_pulgin.R
+import com.rareprob.core_pulgin.core.utils.AppPreferencesUtils
+import com.rareprob.core_pulgin.plugins.reward.utils.RewardUtils
 
 
 class CoinCollectDialog(val activity: Activity, val callbackListener: () -> Unit,
@@ -39,12 +41,13 @@ class CoinCollectDialog(val activity: Activity, val callbackListener: () -> Unit
 
         btnLayout.setOnClickListener{
             if(activity!= null && activity.isFinishing.not()){
+                AppPreferencesUtils.putString(RewardUtils.NAVIGATION_SOURCE,"",activity)
                 dismiss()
                 activity.finish()
             }
         }
 
-        var tvDescription = findViewById<TextView>(R.id.tvDescription)
+        val tvDescription = findViewById<TextView>(R.id.tvDescription)
         tvDescription.text = displayMsg
     }
 

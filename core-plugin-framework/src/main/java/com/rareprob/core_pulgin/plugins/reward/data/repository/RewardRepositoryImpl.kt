@@ -1,5 +1,6 @@
 package com.rareprob.core_pulgin.plugins.reward.data.repository
 
+import android.app.Activity
 import android.content.Context
 import android.text.TextUtils
 import android.util.Log
@@ -17,8 +18,6 @@ import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardData
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
 import com.rareprob.core_pulgin.plugins.reward.domain.repository.RewardRepository
-import com.rareprob.core_pulgin.plugins.reward.presentation.activity.RewardBaseActivity
-import com.rareprob.core_pulgin.plugins.reward.presentation.dialog.CoinCollectDialog
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -31,167 +30,29 @@ class RewardRepositoryImpl(
 
 
     /**
-     * Fetch data from Rc // TODO KP remove this hardcoded json in Prod build
+     * Fetch data from Rc
      */
     override fun getRewardItems(
         context: Context?
     ): Flow<Resource<List<RewardData>>> = flow {
         emit(Resource.Loading())
-
-        var rcJson = FirebaseRemoteConfigUtils.getRcRewardItemsJson(remoteConfigInstance)
-
-        if(TextUtils.isEmpty(rcJson)) {
-
-            var defaultLocalJson = """
-            {
-              "rewardName": "Daily Task",
-              "data": [
-                {
-                  "id": 1,
-                  "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "taskIconBgColor": "#FFA8A8",
-                  "title": "Watch the online video for 15 minutes",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#FD5B7C",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 100,
-                   "sort_order": 1,
-                   "duration_or_file_count" : 0,
-                   "launchTargetScreenAction":  "",
-                   "task_type" : "WATCH_VIDEO"
-                },
-                {
-                  "id": 2,
-                  "taskIcon": "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI",
-                  "taskIconBgColor": "#BEE884",
-                  "title": "Hide an image ",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#FD5B7C",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 100,
-                   "sort_order": 2,
-                  "duration_or_file_count" : 1,
-                   "launchTargetScreenAction":  "",
-                    "task_type" : "IMAGE_FILE_HIDER"
-                },
-                  {
-                  "id": 3,
-                  "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "taskIconBgColor": "#BEE884",
-                  "title": "Hide your private video",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#FD5B7C",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 100,
-                   "sort_order": 3,
-                   "duration_or_file_count" : 1,
-                   "launchTargetScreenAction":  "",
-                   "task_type" : "VIDEO_FILE_HIDER"
-                },
-                    {
-                  "id": 4,
-                  "taskIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "taskIconBgColor": "#97EDF8",
-                  "title": "Download a file from a built-in downloader",
-                  "actionButtonCaption": "Go",
-                  "ctaBgColor": "#FD5B7C",
-                  "rewardIcon": "https://fastly.picsum.photos/id/256/200/200.jpg?hmac=MX3r8Dktr5b26lQqb5JB6sgLnCxSgt1KRm0F1eNDHCk",
-                  "reward": 100,
-                   "sort_order": 4,
-                   "duration_or_file_count" : 1,
-                   "launchTargetScreenAction":  "",
-                   "task_type" : "VIDEO_DOWNLOADER"
-                }
-              ]
-            }
-        """.trimIndent()
-
+        var rcJson =  FirebaseRemoteConfigUtils.getRcRewardItemsJson(context,remoteConfigInstance)
+        if (TextUtils.isEmpty(rcJson)) {
+            var defaultLocalJson = RewardUtils.getRewardDefaultJson(context)
             rcJson = defaultLocalJson
         }
         var rewardDataList = RewardParser(rewardDao).parseRewardItemsJson(json = rcJson, context)
-
         emit(Resource.Success(rewardDataList))
     }
 
 
     override fun getThemesData(
-        rckey: String,
         context: Context?
     ): Flow<Resource<Map<Long, ThemeData>>> = flow {
         emit(Resource.Loading())
-
-        var rcJson = FirebaseRemoteConfigUtils.getRcThemesDataJson(remoteConfigInstance)
-        if(TextUtils.isEmpty(rcJson)) {
-            var defaultLocalJson = """
-            {
-              "data": [
-                {
-                  "tag": 0,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 1,
-                   "rewardCoins": 500
-                },
-                {
-                "tag": 2,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 3,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 4,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 5,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 6,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 7,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 7,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 9,
-                  "rewardCoins": 500
-                },
-                {
-                  "tag": 10,
-                  "rewardCoins": 500
-                },
-                 {
-                  "tag": 11,
-                  "rewardCoins": 500
-                }
-                ,
-                 {
-                  "tag": 12,
-                  "rewardCoins": 500
-                }
-                ,
-                 {
-                  "tag": 13,
-                  "rewardCoins": 1500
-                }
-                ,
-                 {
-                  "tag": 14,
-                  "rewardCoins": 2500
-                }
-              ]
-            }
-        """.trimIndent()
-
+        var rcJson = FirebaseRemoteConfigUtils.getRcThemesDataJson(context,remoteConfigInstance)
+        if (TextUtils.isEmpty(rcJson)) {
+            var defaultLocalJson = RewardUtils.getDefaultJson(context,"DefaultRewardThemeVideoPlayerJsonData")
             rcJson = defaultLocalJson
         }
         var themeDataMap = RewardParser(rewardDao).parseThemesJson(rcJson)
@@ -201,11 +62,14 @@ class RewardRepositoryImpl(
     override fun saveTaskProgressData(
         context: Context,
         taskType: String,
-        watchedDurationOrFileOperatedCount: Long
+        watchedDurationOrFileOperatedCount: Long,
+        isShowDialog: Boolean
+
     ) {
         GlobalScope.launch(Dispatchers.IO) {
+            AppPreferencesUtils.putString(RewardUtils.NAVIGATION_SOURCE, "", context)
             var rewardData = rewardDao.getReward(taskType)
-            rewardData.let {
+            if(rewardData != null) {
                 rewardData.watchedDurationOrFilesOperatedCount += watchedDurationOrFileOperatedCount
 
                 var isTaskCompleted = getTaskCompletionStatus(rewardData, context)
@@ -218,40 +82,30 @@ class RewardRepositoryImpl(
                      * On the basis of this time we will sort list
                      */
                     rewardData.taskCompletionTime = System.currentTimeMillis()
+                    rewardDao.insertOrUpdate(rewardData)
 
-                    var displayMsg = "You have earned \n  ${rewardData.rewardCoins} coins"
-                    AppPreferencesUtils.putString("Video_REWARD_Task_COMPLETION_STATUS",displayMsg,context)
                     withContext(Dispatchers.Main) {
-//                        showCoinCollectDialog(displayMsg,context) //TODO KP
-                        Toast.makeText(
-                            context,
-                            "You got ${rewardData.earnedCoins} coins",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        try {
+                            Toast.makeText(
+                                context,
+                                "You have earned ${rewardData.rewardCoins} coins",
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                        }catch (ex : java.lang.Exception){
+                        }
                     }
                 }
-                //TODO : Do this operation on UI Thread
-                rewardDao.insertOrUpdate(rewardData)
-                val rewardDataUpdated = rewardDao.getRewards()
-                Log.d("rewardDataUpdated", "$rewardDataUpdated")
+//                val rewardDataUpdated = rewardDao.getRewards()
+//                Log.d("rewardDataUpdated", "$rewardDataUpdated")
             }
 
         }
     }
 
-//    private lateinit var coinCollectDialog: CoinCollectDialog
-//
-//    fun showCoinCollectDialog(displayMsg:String, context: Context) {
-//        if (!this::coinCollectDialog.isInitialized) {
-//            coinCollectDialog = CoinCollectDialog(context, ::onSetResult,displayMsg)
-//        }
-//        coinCollectDialog.show()
-//    }
-
-//    private fun onSetResult() {
-//    }
-
-
+    /**
+     * This function returns whether a task is completed or not
+     */
     private fun getTaskCompletionStatus(
         rewardData: RewardEntity,
         context: Context
@@ -261,7 +115,11 @@ class RewardRepositoryImpl(
             RewardUtils.RewardTaskType.WATCH_VIDEO -> {
                 isTaskCompleted = getVideoTaskCompletionStatus(rewardData)
             }
-            //  Handle other cases here //TODO KP
+            RewardUtils.RewardTaskType.VIDEO_DOWNLOADER,
+            RewardUtils.RewardTaskType.IMAGE_FILE_HIDER,
+            RewardUtils.RewardTaskType.VIDEO_FILE_HIDER -> {
+                isTaskCompleted = getTaskCompletionStatus(rewardData)
+            }
             else -> {
 
             }
@@ -269,9 +127,6 @@ class RewardRepositoryImpl(
 
         if (isTaskCompleted) {
             rewardData.earnedCoins += rewardData.rewardCoins
-//        var totalCoins = RewardUtils.getSavedCoins(context)
-//        var updatedTotalCoins = totalCoins + rewardData.earnedCoins
-//        RewardUtils.saveCoins(context, updatedTotalCoins)
         }
         return isTaskCompleted
     }
@@ -283,8 +138,14 @@ class RewardRepositoryImpl(
             TimeUnit.MILLISECONDS.toMinutes(rewardData.watchedDurationOrFilesOperatedCount)
         return minutes >= rewardData.taskDurationOrFileCount
     }
-//}
 
+    /**
+     * This function determines how many files you have operated on
+     * e.g image files hidden , video file downloaded
+     */
+    private fun getTaskCompletionStatus(
+        rewardData: RewardEntity
+    ) = rewardData.watchedDurationOrFilesOperatedCount >= rewardData.taskDurationOrFileCount
 
     /** When User clicks on claim button
      * Post earned coins to Firebase real time database only once
@@ -301,19 +162,8 @@ class RewardRepositoryImpl(
 
             databaseReference.keepSynced(true)
             // databaseReference.child("Reward").child(androidId).setValue(syncData)
-
             databaseReference.child(androidId).setValue(syncData).addOnSuccessListener {
-
-
                 onSuccessPostData(context, rewardData)
-
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(
-//                        context,
-//                        "Coins Claimed",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
             }
         }
     }
