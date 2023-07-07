@@ -1,0 +1,67 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.rareprob.core_pulgin" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="21"
+6-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml
+7        android:targetSdkVersion="31" />
+7-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml
+8
+9    <uses-permission android:name="android.permission.INTERNET" />
+9-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:5:5-67
+9-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:5:22-64
+10    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+10-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:6:5-79
+10-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:6:22-76
+11    <uses-permission android:name="android.permission.WAKE_LOCK" />
+11-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:7:5-68
+11-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:7:22-65
+12
+13    <!-- Required only if your app needs to access in app products (IAP) -->
+14    <uses-permission android:name="com.android.vending.BILLING" />
+14-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:10:5-67
+14-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:10:22-64
+15
+16    <!-- <application android:name=".core.base.BaseApplication"> -->
+17    <application>
+17-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:13:5-40:19
+18
+19        <!-- In app Billing components registration begins -->
+20        <activity
+20-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:16:9-21:15
+21            android:name="com.rareprob.core_pulgin.plugins.payment.in_app_purchase.presentation.IapBillingActivity"
+21-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:17:13-92
+22            android:label="IAP_Purchase"
+22-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:18:13-41
+23            android:screenOrientation="portrait"
+23-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:19:13-49
+24            android:theme="@style/Theme.AppFramework.Xml.Based" />
+24-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:20:13-64
+25        <activity
+25-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:23:9-28:15
+26            android:name="com.rareprob.core_pulgin.plugins.payment.in_app_purchase.presentation.IapBillingPurchaseRestoreActivity"
+26-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:24:13-107
+27            android:label="IAP_Restore"
+27-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:25:13-40
+28            android:screenOrientation="portrait"
+28-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:26:13-49
+29            android:theme="@style/Theme.AppFramework.Xml.Based" />
+29-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:27:13-64
+30        <!-- In app Billing components registration ends -->
+31
+32
+33        <!-- Reward feature components registration begins -->
+34        <activity
+34-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:32:9-37:15
+35            android:name="com.rareprob.core_pulgin.plugins.reward.presentation.activity.RewardActivity"
+35-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:33:13-80
+36            android:label="Reward Screen"
+36-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:34:13-42
+37            android:screenOrientation="portrait"
+37-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:35:13-49
+38            android:theme="@style/Theme.AppFramework.Xml.Based" />
+38-->/Users/kuwarpalsingh/Desktop/Apps/videoplayer/CorePluginFramework/core-plugin-framework/src/main/AndroidManifest.xml:36:13-64
+39    </application>
+40
+41</manifest>
