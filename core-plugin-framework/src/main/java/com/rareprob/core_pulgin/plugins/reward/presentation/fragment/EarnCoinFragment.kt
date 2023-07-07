@@ -96,7 +96,8 @@ class EarnCoinFragment : RewardBaseFragment() {
         }
     }
 
-    val dataList = ArrayList<AppData>()
+    private var taskName = ""
+    private val dataList = ArrayList<AppData>()
     private fun setupDataList(referralItems: List<RewardData> = emptyList()) {
         hideProgressbar(mBinding.loadingProgressbar)
 
@@ -107,6 +108,7 @@ class EarnCoinFragment : RewardBaseFragment() {
         rewardNameData.data = referralData.rewardName
         dataList.add((rewardNameData))
 
+        taskName = referralData.rewardName
         var rewardItems = referralData.rewardItems
         rewardItems.map {
             it.viewType = EarnCoinViewType.ITEM
@@ -213,35 +215,25 @@ class EarnCoinFragment : RewardBaseFragment() {
         var appContext = activity?.applicationContext
         appContext?.let {
             lifecycleScope.launch(Dispatchers.IO) {
-                var completedTaskMap = viewModel.getCompletedTasks()
-                if (completedTaskMap.isNotEmpty())
-                    updateDataList(completedTaskMap, this)
-            }
-        }
-    }
+                var sortedRewardTaskList = viewModel.getSortedRewardTaskByCompletionStatus()
+                if (sortedRewardTaskList.isNotEmpty()) {
+                    var rewardNameData = AppData(EarnCoinViewType.TASK_LABEL)
+                    rewardNameData.data = taskName
+                    if (dataList.isNotEmpty()) {
+                        dataList.clear()
+                    }
 
-    private fun updateDataList(
-        completedTaskMap: Map<String, RewardEntity>,
-        coroutineScope: CoroutineScope
-    ) {
-        var listIterator = dataList.iterator()
-        while (listIterator.hasNext()) {
-            var dataListItem = listIterator.next()
-            if (dataListItem.viewType == EarnCoinViewType.ITEM) {
-                var rewardDataItem = dataListItem as RewardItem
-                var rewardMapItem = completedTaskMap[rewardDataItem.taskType]
-                if (rewardMapItem != null) {
-                    rewardDataItem.taskCompletionStatus = rewardMapItem.taskCompletionStatus
+                    dataList.add((rewardNameData))
+
+                    sortedRewardTaskList.map {
+                        it.viewType = EarnCoinViewType.ITEM
+                    }
+                    dataList.addAll(sortedRewardTaskList)
+                    withContext(Dispatchers.Main) {
+                        notifyAdapter(dataList)
+                    }
                 }
             }
         }
-
-        coroutineScope.launch(Dispatchers.Main) {
-            if (completedTaskMap.isNotEmpty()) {
-                notifyAdapter(dataList)
-            }
-        }
-
     }
-
 }

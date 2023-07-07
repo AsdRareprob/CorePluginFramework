@@ -17,6 +17,9 @@ interface RewardDao  {
     @Query("SELECT * FROM RewardEntity where taskCompletionStatus = :taskCompletionStatus")
     fun getCompletedRewardTask(taskCompletionStatus: Boolean = true): List<RewardEntity>
 
+    @Query("SELECT * FROM RewardEntity ORDER BY taskCompletionStatus DESC")
+    fun getSortedRewardTaskByCompletionStatus(): List<RewardEntity>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
      fun insertAll(rewards: List<RewardEntity>)
 

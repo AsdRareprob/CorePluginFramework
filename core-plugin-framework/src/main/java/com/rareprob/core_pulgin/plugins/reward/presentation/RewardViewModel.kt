@@ -8,6 +8,7 @@ import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDao
 import com.rareprob.core_pulgin.plugins.reward.data.local.entity.RewardEntity
 import com.rareprob.core_pulgin.plugins.reward.data.local.RewardDatabase
 import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardData
+import com.rareprob.core_pulgin.plugins.reward.domain.model.RewardItem
 import com.rareprob.core_pulgin.plugins.reward.domain.model.ThemeData
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.RewardUseCase
 import com.rareprob.core_pulgin.plugins.reward.domain.use_case.ThemeUseCase
@@ -149,6 +150,13 @@ class RewardViewModel @Inject constructor(
             it.rewardType
         }
         return completedTaskMap
+    }
+
+    fun getSortedRewardTaskByCompletionStatus(): List<RewardItem> {
+        var rewardDao: RewardDao =
+            db.rewardDao
+        var rewardDataList = rewardDao.getSortedRewardTaskByCompletionStatus()
+        return rewardDataList.map { it.toRewardItem() }
     }
 
     sealed class UIEvent {
