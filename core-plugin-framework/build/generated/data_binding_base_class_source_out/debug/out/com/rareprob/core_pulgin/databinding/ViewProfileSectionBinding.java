@@ -39,6 +39,9 @@ public abstract class ViewProfileSectionBinding extends ViewDataBinding {
   public final CardView myCardView;
 
   @NonNull
+  public final ImageView premium;
+
+  @NonNull
   public final TextView tvCoinCount;
 
   @NonNull
@@ -49,7 +52,7 @@ public abstract class ViewProfileSectionBinding extends ViewDataBinding {
 
   protected ViewProfileSectionBinding(Object _bindingComponent, View _root, int _localFieldCount,
       LinearLayout btnLayout, ImageView ivBackIcon, ImageView ivCoinIcon, ImageView ivPlusIcon,
-      ImageView ivUserProfile, LinearLayout llProfileInfo, CardView myCardView,
+      ImageView ivUserProfile, LinearLayout llProfileInfo, CardView myCardView, ImageView premium,
       TextView tvCoinCount, TextView tvRewardCountMsg, TextView tvUserName) {
     super(_bindingComponent, _root, _localFieldCount);
     this.btnLayout = btnLayout;
@@ -59,6 +62,7 @@ public abstract class ViewProfileSectionBinding extends ViewDataBinding {
     this.ivUserProfile = ivUserProfile;
     this.llProfileInfo = llProfileInfo;
     this.myCardView = myCardView;
+    this.premium = premium;
     this.tvCoinCount = tvCoinCount;
     this.tvRewardCountMsg = tvRewardCountMsg;
     this.tvUserName = tvUserName;

@@ -1,9 +1,11 @@
 R_DEF: Internal format may change without notice
 local
 color black
+color endcolor
 color purple_200
 color purple_500
 color purple_700
+color startcolor
 color teal_200
 color teal_700
 color transparent_white
@@ -83,11 +85,13 @@ dimen dimen_7_sp
 dimen dimen_8_dp
 dimen dimen_90_dp
 dimen dimen_9_dp
+drawable bottom_sheet_top_bar
 drawable coin
 drawable iap_listing_bg
 drawable ic_arrow_back
 drawable ic_cancel
 drawable ic_cancel_black
+drawable ic_clear_white_24dp
 drawable ic_coin
 drawable ic_confirm_to_unlock
 drawable ic_crop
@@ -113,6 +117,7 @@ drawable play_icon_test
 drawable premium_card_bg
 drawable premium_crown
 drawable premium_unselected_bg
+drawable primary_button_rectangele
 drawable radio_selected
 drawable radio_unselected
 drawable rectangle_bg
@@ -147,6 +152,7 @@ drawable tab_bg
 drawable video_mdia_icon
 id backgroundll
 id bottomView
+id bs_cancel
 id btnDone
 id btnGoPremium
 id btnLayout
@@ -211,8 +217,11 @@ id loadingProgressbar
 id lottieError
 id lottieLoading
 id lottieSuccessful
+id message
 id myCardView
+id ok
 id pack_recyclerview
+id premium
 id progressBarCyclic
 id radioButton
 id rcvCoinExchange
@@ -260,6 +269,7 @@ id tvUserName
 id tvValidity
 id tv_earn
 id tv_exchange
+id txtHeading
 id verticalGuideline
 id verticalGuidelineEnd
 id verticalGuidelineStart
@@ -288,6 +298,7 @@ layout view_item_reward_coin_exchange_premium_theme_card
 layout view_item_reward_music_lyrics_card
 layout view_item_reward_music_theme_card
 layout view_item_reward_palltone_theme_card
+layout view_layout_bs_offlinestatus
 layout view_profile_section
 layout view_reward_earn_coin_bottom_sheet
 raw animation_done_right_tick

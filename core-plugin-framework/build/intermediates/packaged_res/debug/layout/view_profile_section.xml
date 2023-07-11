@@ -47,6 +47,21 @@
         </androidx.cardview.widget.CardView>
 
 
+        <ImageView
+            android:id="@+id/premium"
+            android:layout_width="@dimen/dimen_56_dp"
+            android:layout_height="@dimen/dimen_56_dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="@dimen/dimen_4_dp"
+            android:src="@drawable/premium_crown"
+            app:layout_constraintBottom_toBottomOf="@+id/myCardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/myCardView"
+
+            />
+
+
         <LinearLayout
             android:id="@+id/llProfileInfo"
             android:layout_width="0dp"

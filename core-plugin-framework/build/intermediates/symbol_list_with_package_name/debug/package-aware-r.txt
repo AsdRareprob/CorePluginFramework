@@ -1326,6 +1326,7 @@ color dim_foreground_disabled_material_dark
 color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
 color dim_foreground_material_light
+color endcolor
 color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
@@ -1825,6 +1826,7 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color startcolor
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2596,6 +2598,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable bottom_sheet_top_bar
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -2635,6 +2638,7 @@ drawable iap_listing_bg
 drawable ic_arrow_back
 drawable ic_cancel
 drawable ic_cancel_black
+drawable ic_clear_white_24dp
 drawable ic_clock_black_24dp
 drawable ic_coin
 drawable ic_confirm_to_unlock
@@ -2710,6 +2714,7 @@ drawable play_icon_test
 drawable premium_card_bg
 drawable premium_crown
 drawable premium_unselected_bg
+drawable primary_button_rectangele
 drawable radio_selected
 drawable radio_unselected
 drawable rectangle_bg
@@ -2836,6 +2841,7 @@ id blocking
 id bottom
 id bottomView
 id bounce
+id bs_cancel
 id btnDone
 id btnGoPremium
 id btnLayout
@@ -3106,6 +3112,7 @@ id notification_background
 id notification_main_column
 id notification_main_column_container
 id off
+id ok
 id on
 id onAttachStateChangeListener
 id onDateChanged
@@ -3126,6 +3133,7 @@ id percent
 id pin
 id position
 id postLayout
+id premium
 id progressBarCyclic
 id progress_circular
 id progress_horizontal
@@ -3283,6 +3291,7 @@ id tvUserName
 id tvValidity
 id tv_earn
 id tv_exchange
+id txtHeading
 id unchecked
 id uniform
 id unlabeled
@@ -3516,6 +3525,7 @@ layout view_item_reward_coin_exchange_premium_theme_card
 layout view_item_reward_music_lyrics_card
 layout view_item_reward_music_theme_card
 layout view_item_reward_palltone_theme_card
+layout view_layout_bs_offlinestatus
 layout view_profile_section
 layout view_reward_earn_coin_bottom_sheet
 menu example_menu

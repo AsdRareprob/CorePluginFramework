@@ -1325,6 +1325,7 @@ int color dim_foreground_disabled_material_dark 0x0
 int color dim_foreground_disabled_material_light 0x0
 int color dim_foreground_material_dark 0x0
 int color dim_foreground_material_light 0x0
+int color endcolor 0x0
 int color error_color_material_dark 0x0
 int color error_color_material_light 0x0
 int color foreground_material_dark 0x0
@@ -1824,6 +1825,7 @@ int color secondary_text_default_material_dark 0x0
 int color secondary_text_default_material_light 0x0
 int color secondary_text_disabled_material_dark 0x0
 int color secondary_text_disabled_material_light 0x0
+int color startcolor 0x0
 int color switch_thumb_disabled_material_dark 0x0
 int color switch_thumb_disabled_material_light 0x0
 int color switch_thumb_material_dark 0x0
@@ -2595,6 +2597,7 @@ int drawable abc_textfield_search_material 0x0
 int drawable abc_vector_test 0x0
 int drawable avd_hide_password 0x0
 int drawable avd_show_password 0x0
+int drawable bottom_sheet_top_bar 0x0
 int drawable btn_checkbox_checked_mtrl 0x0
 int drawable btn_checkbox_checked_to_unchecked_mtrl_animation 0x0
 int drawable btn_checkbox_unchecked_mtrl 0x0
@@ -2634,6 +2637,7 @@ int drawable iap_listing_bg 0x0
 int drawable ic_arrow_back 0x0
 int drawable ic_cancel 0x0
 int drawable ic_cancel_black 0x0
+int drawable ic_clear_white_24dp 0x0
 int drawable ic_clock_black_24dp 0x0
 int drawable ic_coin 0x0
 int drawable ic_confirm_to_unlock 0x0
@@ -2709,6 +2713,7 @@ int drawable play_icon_test 0x0
 int drawable premium_card_bg 0x0
 int drawable premium_crown 0x0
 int drawable premium_unselected_bg 0x0
+int drawable primary_button_rectangele 0x0
 int drawable radio_selected 0x0
 int drawable radio_unselected 0x0
 int drawable rectangle_bg 0x0
@@ -2835,6 +2840,7 @@ int id blocking 0x0
 int id bottom 0x0
 int id bottomView 0x0
 int id bounce 0x0
+int id bs_cancel 0x0
 int id btnDone 0x0
 int id btnGoPremium 0x0
 int id btnLayout 0x0
@@ -3105,6 +3111,7 @@ int id notification_background 0x0
 int id notification_main_column 0x0
 int id notification_main_column_container 0x0
 int id off 0x0
+int id ok 0x0
 int id on 0x0
 int id onAttachStateChangeListener 0x0
 int id onDateChanged 0x0
@@ -3125,6 +3132,7 @@ int id percent 0x0
 int id pin 0x0
 int id position 0x0
 int id postLayout 0x0
+int id premium 0x0
 int id progressBarCyclic 0x0
 int id progress_circular 0x0
 int id progress_horizontal 0x0
@@ -3282,6 +3290,7 @@ int id tvUserName 0x0
 int id tvValidity 0x0
 int id tv_earn 0x0
 int id tv_exchange 0x0
+int id txtHeading 0x0
 int id unchecked 0x0
 int id uniform 0x0
 int id unlabeled 0x0
@@ -3515,6 +3524,7 @@ int layout view_item_reward_coin_exchange_premium_theme_card 0x0
 int layout view_item_reward_music_lyrics_card 0x0
 int layout view_item_reward_music_theme_card 0x0
 int layout view_item_reward_palltone_theme_card 0x0
+int layout view_layout_bs_offlinestatus 0x0
 int layout view_profile_section 0x0
 int layout view_reward_earn_coin_bottom_sheet 0x0
 int menu example_menu 0x0
